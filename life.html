@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<head>
+    <title>Life game</title>
+    <link rel="icon" href="tube.png" type="image/x-icon"/>
+    <script src="lib/jquery-3.3.1.min.js"></script>
+    <script src="js/world.js"></script>
+    <script src="js/render.js"></script>
+</head>
+
+<script type="text/javascript">
+    var global_world = [];
+</script>
+
+<body>
+    <canvas id="canvas" width="350" height="350"></canvas>
+    <script type="text/javascript">
+        if ( $('#canvas').width() !=  $('#canvas').height()) alert("matrix width should equal its height");
+        initGame(global_world, $('#canvas').width());
+        renderCanvas($('#canvas')[0], global_world);
+    </script>
+</body>
