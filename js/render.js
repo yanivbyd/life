@@ -6,7 +6,7 @@ function initVegColors(veg_colors)
 
     var start_color = [255,255,255];
     var end_color = [38,255,0];
-    var max_veg = 10;
+    var max_veg = maxVegetation();
 
     for (var i=0;i<=max_veg;i++) veg_colors[i] = [];
     var incArr = [];
