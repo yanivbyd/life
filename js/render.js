@@ -18,6 +18,20 @@ function initVegColors(veg_colors)
     }
 }
 
+function renderVegetation(data, i, vegetation)
+{
+    var vegColor = global_veg_colors[vegetation];
+    for (var j=0;j<3;j++) data[i+j] = vegColor[j]; // r,g,b
+}
+
+function renderCreature(data, i, vegetation)
+{
+    var vegColor = global_veg_colors[vegetation];
+    data[i] = 255;
+    data[i+1] = 0;
+    data[i+2] = 0;
+}
+
 function renderCanvas(canvas, world)
 {
     initVegColors(global_veg_colors);
@@ -30,11 +44,13 @@ function renderCanvas(canvas, world)
     for (var i = 0; i < data.length; i += 4) {
         var row = Math.floor((i/4) / width);
         var col = Math.floor((i/4) % width);
-        var vegetation = world.matrix[row][col].vegetation;
-        var vegColor = global_veg_colors[vegetation];
-
-        for (var j=0;j<3;j++) data[i+j] = vegColor[j]; // r,g,b
+        var cell = world.matrix[row][col];
         data[i+3] = 255; // alpha
+        if (cell.creature) {
+            renderCreature(data, i, cell.creature);
+        } else {
+            renderVegetation(data, i, cell.vegetation);
+        }
     }
     ctx.putImageData(imageData, 0, 0);
 }

@@ -4,6 +4,8 @@
     <link rel="icon" href="tube.png" type="image/x-icon"/>
     <script src="lib/jquery-3.3.1.min.js"></script>
     <script src="js/vegetation.js"></script>
+    <script src="js/creatures.js"></script>
+    <script src="js/creature_logic.js"></script>
     <script src="js/world.js"></script>
     <script src="js/render.js"></script>
 </head>
@@ -18,6 +20,9 @@
         function cycle() {
             cycleWorld(global_world);
         }
+        function addCreatures() {
+            addCreaturesToWorld(global_world);
+        }
         function render() {
             renderCanvas($('#canvas')[0], global_world);
         }
@@ -28,4 +33,5 @@
         render();
     </script>
     <button onclick="cycle(); render()">Cycle</button>
+    <button onclick="addCreatures(); render()">Add Creatures</button>
 </body>
