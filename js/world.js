@@ -20,26 +20,25 @@ function initGame(world, size)
     for(var i=0; i<size; i++) {
         world.matrix[i] = [];
         for(var j=0; j<size; j++) {
-            world.matrix[i][j] = new Cell(randomInt(maxVegetation()+1));
+            world.matrix[i][j] = new Cell(randomInt(global_world_params.veg.maxAmount+1));
         }
     }
 }
 
 function addCreaturesToWorld(world)
 {
-    var creatureAmount = 100;
-    var initialHealth = 10;
+    var creatureAmount = global_world_params.addCreatures.amount;
     var maxTries = creatureAmount * 10, try_count = 0;
     var creatureLogic = new CreateLogicDefault({
         eatVeg: {
-            amount: 3
+            amount: global_world_params.defaultCreature.eatVegAmount
         }
     });
 
     while (creatureAmount>0 && try_count < maxTries) {
         var cell = world.matrix[randomInt(world.size)][randomInt(world.size)];
         if (!cell.creature) {
-            cell.creature = new Creature(initialHealth, creatureLogic);
+            cell.creature = new Creature(global_world_params.addCreatures.initialHealth, creatureLogic);
             creatureAmount--;
         }
         try_count++;

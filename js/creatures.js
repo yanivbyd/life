@@ -9,8 +9,7 @@ function cycleCreature(cell, ctx)
     if (!cell.creature) return;
     var creature = cell.creature;
     creature.logic.cycle(creature, ctx);
-    var breathingPenalty = 2;
-    creature.health -= breathingPenalty;
+    creature.health -= global_world_params.penalties.breathing;
     if (creature.health <= 0) {
         if (lifeCbs) lifeCbs.creatureDied();
         cell.creature = null;

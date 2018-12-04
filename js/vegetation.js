@@ -1,10 +1,6 @@
 function cycleVegetation(cell)
 {
-    cell.vegetation++;  // rain
-    cell.vegetation = Math.min(cell.vegetation, maxVegetation());
+    cell.vegetation += global_world_params.veg.rain;
+    cell.vegetation = Math.min(cell.vegetation, global_world_params.veg.maxAmount);
 }
 
-function maxVegetation()
-{
-    return 10;
-}
