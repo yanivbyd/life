@@ -6,10 +6,11 @@ function Creature(health, creatureLogic)
 
 function cycleCreature(cell, ctx)
 {
-    if (!cell.creature) return;
+    if (!cell.creature || cell.creature.lastCycle == ctx.world.cycles) return;
     var creature = cell.creature;
     creature.logic.cycle(creature, ctx);
     creature.health -= global_world_params.penalties.breathing;
+    creature.lastCycle = ctx.world.cycles;
     if (creature.health <= 0) {
         if (lifeCbs) lifeCbs.creatureDied();
         cell.creature = null;
