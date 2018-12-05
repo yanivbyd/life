@@ -42,3 +42,33 @@ CreateCycleContext.prototype.eatVegetation = function(vegAmount)
     this.creature.health += actualAmount;
     cell.vegetation -= actualAmount;
 }
+
+CreateCycleContext.prototype.getCurrentVegetation = function()
+{
+    return this.cell.vegetation;
+}
+
+CreateCycleContext.prototype.findEmptyCellWithMostVeg = function()
+{
+    var maxCell = null;
+    var cells = this.world.nearCells(this.row, this.col);
+
+    for (var i=0;i<cells.length;i++) {
+        if (!maxCell) {
+            maxCell = cells[i];
+            continue;
+        }
+        if (!cells[i].creature && cells[i].vegetation >= maxCell.vegetation) {
+            if (cells[i].vegetation == maxCell.vegetation && randomPercentage(50)) continue;
+            maxCell = cells[i];
+        }
+    }
+    return maxCell;
+}
+
+CreateCycleContext.prototype.move = function(toCell)
+{
+    if (toCell.creature) { console.error("Cant move to a non empty cell"); return; }
+    toCell.creature = this.cell.creature;
+    this.cell.creature = null;
+}

@@ -21,6 +21,19 @@ World.prototype.init = function(size)
     }
 }
 
+World.prototype.nearCells = function(row, col)
+{
+    var cells = [];
+    var size = this.size;
+    for (var dx=-1;dx<=1;dx++)
+        for (var dy=-1;dy<=1;dy++) {
+            var row1 = (row+dy+size) % size;
+            var col1 = (col+dx+size) % size;
+            if (dx != 0 || dy != 0) cells.push(this.matrix[row1][col1]);
+        }
+    return cells;
+}
+
 World.prototype.addCreatures = function()
 {
     var creatureAmount = global_world_params.addCreatures.amount;
