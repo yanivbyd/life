@@ -12,17 +12,17 @@
 </head>
 
 <script type="text/javascript">
-    var global_world = [];
+    var global_world = new World();
 </script>
 
 <body>
     <canvas id="canvas" width="350" height="350"></canvas>
     <script type="text/javascript">
         function cycle() {
-            cycleWorld(global_world);
+            global_world.cycle();
         }
         function addCreatures() {
-            addCreaturesToWorld(global_world);
+            global_world.addCreatures();
         }
         function render() {
             renderCanvas($('#canvas')[0], global_world);
@@ -30,7 +30,7 @@
     </script>
     <script type="text/javascript">
         if ( $('#canvas').width() !=  $('#canvas').height()) alert("matrix width should equal its height");
-        initGame(global_world, $('#canvas').width());
+        global_world.init($('#canvas').width());
         render();
     </script>
     <button onclick="cycle(); render()">Cycle</button>
