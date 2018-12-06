@@ -75,4 +75,5 @@ CreateCycleContext.prototype.move = function(toCell)
     assert(!toCell.creature);
     toCell.creature = this.cell.creature;
     this.cell.creature = null;
+    toCell.creature.health -= global_world_params.penalties.moving;
 }

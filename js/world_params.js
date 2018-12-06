@@ -11,6 +11,7 @@ var global_world_params = {
         eatVegAmount: 3
     },
     penalties: {
-        breathing: 2
+        breathing: 2,
+        moving: 2
     }
 }
