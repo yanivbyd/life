@@ -13,7 +13,8 @@ function cycleCreature(cell, ctx)
     creature.lastCycle = ctx.world.cycles;
     if (creature.health <= 0) {
         if (lifeCbs) lifeCbs.creatureDied();
-        cell.creature = null;
+        assertSamePointer(ctx.cell.creature, creature);
+        ctx.cell.creature = null;
     }
 }
 
@@ -75,5 +76,9 @@ CreateCycleContext.prototype.move = function(toCell)
     assert(!toCell.creature);
     toCell.creature = this.cell.creature;
     this.cell.creature = null;
-    toCell.creature.health -= global_world_params.penalties.moving;
+    var newPos = this.world.findPosFromNearby(this.row, this.col, toCell);
+    this.row = newPos.row;
+    this.col = newPos.col;
+    this.cell = toCell;
+    this.creature.health -= global_world_params.penalties.moving;
 }

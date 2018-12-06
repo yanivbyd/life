@@ -33,6 +33,17 @@ World.prototype.nearCells = function(row, col)
     return cells;
 }
 
+World.prototype.findPosFromNearby = function(row, col, cell)
+{
+    var deltas = get_nearby_deltas();
+    for (var i=0;i<deltas.length;i++) {
+        var row1 = (row+deltas[i].dy+this.size) % this.size;
+        var col1 = (col+deltas[i].dx+this.size) % this.size;
+        if (this.matrix[row1][col1] === cell) return { row: row1, col: col1 };
+    }
+    panic("Cell not nearby " + row + "," + col);
+}
+
 World.prototype.addCreatures = function()
 {
     var creatureAmount = global_world_params.addCreatures.amount;
