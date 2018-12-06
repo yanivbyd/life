@@ -23,14 +23,13 @@ World.prototype.init = function(size)
 
 World.prototype.nearCells = function(row, col)
 {
+    var deltas = get_nearby_deltas();
     var cells = [];
-    var size = this.size;
-    for (var dx=-1;dx<=1;dx++)
-        for (var dy=-1;dy<=1;dy++) {
-            var row1 = (row+dy+size) % size;
-            var col1 = (col+dx+size) % size;
-            if (dx != 0 || dy != 0) cells.push(this.matrix[row1][col1]);
-        }
+    for (var i=0;i<deltas.length;i++) {
+        var row1 = (row+deltas[i].dy+this.size) % this.size;
+        var col1 = (col+deltas[i].dx+this.size) % this.size;
+        cells.push(this.matrix[row1][col1]);
+    }
     return cells;
 }
 
