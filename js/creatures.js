@@ -55,12 +55,14 @@ CreateCycleContext.prototype.findEmptyCellWithMostVeg = function()
     var cells = this.world.nearCells(this.row, this.col);
 
     for (var i=0;i<cells.length;i++) {
+        if (cells[i].vegetation == 0 || cells[i].creature) continue;
         if (!maxCell) {
             maxCell = cells[i];
             continue;
         }
-        if (!cells[i].creature && cells[i].vegetation >= maxCell.vegetation) {
-            if (cells[i].vegetation == maxCell.vegetation && randomPercentage(50)) continue;
+        if (cells[i].vegetation > maxCell.vegetation) {
+            maxCell = cells[i];
+        } else if (cells[i].vegetation == maxCell.vegetation && randomPercentage(50)) {
             maxCell = cells[i];
         }
     }
