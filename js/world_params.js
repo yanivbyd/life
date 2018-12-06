@@ -1,6 +1,6 @@
 var global_world_params = {
     veg: {
-        maxAmount: 10,
+        maxAmount: 20,
         rain: 1
     },
     addCreatures: {
@@ -8,10 +8,10 @@ var global_world_params = {
         amount: 100
     },
     defaultCreature: {
-        eatVegAmount: 3
+        eatVegAmount: 4
     },
     penalties: {
         breathing: 2,
-        moving: 2
+        moving: 1
     }
 }
