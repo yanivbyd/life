@@ -8,10 +8,15 @@ var global_world_params = {
         amount: 100
     },
     defaultCreature: {
-        eatVegAmount: 4
+        eatVeg: {
+            amount: 4,
+        },
+        move: {
+            cellVegAmountToMove: 6
+        }
     },
     penalties: {
         breathing: 2,
-        moving: 1
+        moving: 3
     }
 }

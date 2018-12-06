@@ -48,11 +48,7 @@ World.prototype.addCreatures = function()
 {
     var creatureAmount = global_world_params.addCreatures.amount;
     var maxTries = creatureAmount * 10, try_count = 0;
-    var creatureLogic = new CreateLogicDefault({
-        eatVeg: {
-            amount: global_world_params.defaultCreature.eatVegAmount
-        }
-    });
+    var creatureLogic = new CreateLogicDefault(global_world_params.defaultCreature);
 
     while (creatureAmount>0 && try_count < maxTries) {
         var cell = this.matrix[randomInt(this.size)][randomInt(this.size)];
