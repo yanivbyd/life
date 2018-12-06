@@ -51,22 +51,23 @@ CreateCycleContext.prototype.getCurrentVegetation = function()
 
 CreateCycleContext.prototype.findEmptyCellWithMostVeg = function()
 {
-    var maxCell = null;
+    var maxCells = [];
     var cells = this.world.nearCells(this.row, this.col);
 
     for (var i=0;i<cells.length;i++) {
         if (cells[i].vegetation == 0 || cells[i].creature) continue;
-        if (!maxCell) {
-            maxCell = cells[i];
+        if (maxCells.length == 0) {
+            maxCells.push(cells[i]);
             continue;
         }
-        if (cells[i].vegetation > maxCell.vegetation) {
-            maxCell = cells[i];
-        } else if (cells[i].vegetation == maxCell.vegetation && randomPercentage(50)) {
-            maxCell = cells[i];
+        if (cells[i].vegetation == maxCells[0].vegetation) {
+            maxCells.push(cells[i]);
+        } else if (cells[i].vegetation > maxCells[0].vegetation) {
+            maxCells.length = 0; // Emptying the array
+            maxCells.push(cells[i]);
         }
     }
-    return maxCell;
+    return randomArrayItem(maxCells);
 }
 
 CreateCycleContext.prototype.move = function(toCell)
