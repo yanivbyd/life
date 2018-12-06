@@ -71,7 +71,7 @@ CreateCycleContext.prototype.findEmptyCellWithMostVeg = function()
 
 CreateCycleContext.prototype.move = function(toCell)
 {
-    if (toCell.creature) { console.error("Cant move to a non empty cell"); return; }
+    assert(!toCell.creature);
     toCell.creature = this.cell.creature;
     this.cell.creature = null;
 }
