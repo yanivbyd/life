@@ -29,8 +29,10 @@ function get_nearby_deltas()
         global_nearby_deltas.push({ dx: 1,  dy: 0 });
         global_nearby_deltas.push({ dx: 1,  dy: 1 });
     }
-    if (global_nearby_deltas_counter++ % 100 == 0)
+    if (++global_nearby_deltas_counter % 100 == 0) {
         shuffle_array(global_nearby_deltas);
+        global_nearby_deltas_counter = 0;
+    }
 
     return global_nearby_deltas;
 }
