@@ -53,7 +53,7 @@ World.prototype.addCreatures = function()
     while (creatureAmount>0 && try_count < maxTries) {
         var cell = this.matrix[randomInt(this.size)][randomInt(this.size)];
         if (!cell.creature) {
-            cell.creature = new Creature(global_world_params.addCreatures.initialHealth, creatureLogic);
+            cell.creature = new Creature(global_world_params.creature.initialHealth, creatureLogic);
             creatureAmount--;
         }
         try_count++;

@@ -4,6 +4,11 @@ function Creature(health, creatureLogic)
     this.logic = creatureLogic;
 }
 
+Creature.prototype.fixMaxHealth = function()
+{
+    this.health = Math.min(this.health, global_world_params.creature.maxHealth);
+}
+
 function cycleCreature(cell, ctx)
 {
     if (!cell.creature || cell.creature.lastCycle == ctx.world.cycles) return;
@@ -42,6 +47,7 @@ CreateCycleContext.prototype.eatVegetation = function(vegAmount)
     var cell = this.cell;
     var actualAmount = Math.min(vegAmount, cell.vegetation);
     this.creature.health += actualAmount;
+    this.creature.fixMaxHealth();
     cell.vegetation -= actualAmount;
 }
 

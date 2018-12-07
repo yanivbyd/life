@@ -3,8 +3,11 @@ var global_world_params = {
         maxAmount: 20,
         rain: 1
     },
-    addCreatures: {
+    creature: {
         initialHealth: 10,
+        maxHealth: 20
+    },
+    addCreatures: {
         amount: 100
     },
     defaultCreature: {
