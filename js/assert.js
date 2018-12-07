@@ -8,6 +8,11 @@ function assertSamePointer(p1, p2, text)
     if (p1 !== p2) panic(text);
 }
 
+function assertEquals(p1, p2, text)
+{
+    if (p1 != p2) panic(text);
+}
+
 function panic(text)
 {
     debugger;

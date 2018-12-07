@@ -9,14 +9,9 @@ function CreateLogicDefault(logicParams)
             this.actions.push(new ActionEatVegetation(logicAction));
         else if (logicAction.t == 'move')
             this.actions.push(new ActionMove(logicAction));
+        else if (logicAction.t == 'breed')
+            this.actions.push(new ActionBreed(logicAction));
     }
-}
-
-function checkPercentage(p)
-{
-    if (p == 0) return false;
-    if (p == 100) return true;
-    return randomInt(100) > p;
 }
 
 CreateLogicDefault.prototype.cycle = function(creature, ctx)
@@ -33,7 +28,6 @@ function ActionEatVegetation(logicParams)
 {
     this.params = logicParams;
 }
-
 ActionEatVegetation.prototype.cycle = function(creature, ctx)
 {
     ctx.eatVegetation(this.params.amount);
@@ -43,13 +37,28 @@ function ActionMove(logicParams)
 {
     this.params = logicParams;
 }
-
 ActionMove.prototype.cycle = function(creature, ctx)
 {
     if (ctx.getCurrentVegetation() <= this.params.cellVegAmountToMove) {
         var nextCell = ctx.findEmptyCellWithMostVeg();
         if (nextCell && nextCell.vegetation > ctx.getCurrentVegetation()) {
             ctx.move(nextCell);
+        }
+    }
+}
+
+function ActionBreed(logicParams)
+{
+    this.params = logicParams;
+}
+ActionBreed.prototype.cycle = function(creature, ctx)
+{
+    if (creature.health < this.params.minHealth) return;
+    var mateCell = ctx.findBreedMate();
+    if (mateCell) {
+        var emptyCell = ctx.findEmptyCellWithMostVeg();
+        if (emptyCell) {
+            ctx.breed(mateCell, emptyCell);
         }
     }
 }

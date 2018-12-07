@@ -8,11 +8,13 @@ var global_world_params = {
         maxHealth: 20
     },
     addCreatures: {
-        amount: 100
+        amount: 5000
     },
     penalties: {
         breathing: 2,
-        moving: 3
+        moving: 3,
+        breed: 2,
+        babyPenalty: 2
     },
     rendering: {
         creatures: [
@@ -31,11 +33,20 @@ var global_world_params = {
                     amount: 4
                 },
                 {
+                    t: 'breed',
+                    p: 50,
+                    minHealth: 16
+                },
+                {
                     t: 'move',
                     p: 100,
                     cellVegAmountToMove: 6
                 }
-            ]
+            ],
+            acceptBreed: {
+                p: 100,
+                minHealth: 15
+            }
         },
         {
             name: "creature 2",
@@ -46,11 +57,20 @@ var global_world_params = {
                     amount: 4
                 },
                 {
+                    t: 'breed',
+                    p: 50,
+                    minHealth: 16
+                },
+                {
                     t: 'move',
                     p: 50,
                     cellVegAmountToMove: 6
-                }
-            ]
+                },
+            ],
+            acceptBreed: {
+                p: 100,
+                minHealth: 15
+            }
         },
     ],
 

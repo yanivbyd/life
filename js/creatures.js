@@ -89,3 +89,37 @@ CreateCycleContext.prototype.move = function(toCell)
     this.cell = toCell;
     this.creature.health -= global_world_params.penalties.moving;
 }
+
+CreateCycleContext.prototype.findBreedMate = function()
+{
+    var cells = this.world.nearCells(this.row, this.col);
+    for (var i=0;i<cells.length;i++) {
+        if (cells[i].creature && cells[i].creature.type == this.creature.type) {
+            var acceptBreedLogic = global_world_params.creatures[this.creature.type].acceptBreed;
+            if (checkPercentage(acceptBreedLogic.p) &&
+                cells[i].creature.health > acceptBreedLogic.minHealth)
+            {
+                return cells[i];
+            }
+
+        }
+    }
+    return null;
+}
+
+CreateCycleContext.prototype.breed = function(mateCell, emptyCell)
+{
+    assertEquals(this.creature.type, mateCell.creature.type);
+    // TODO: Assert mateCell and emptyCell are near this.cell
+    var babyHealth1 = this.creature.health / 2;
+    var babyHealth2 = mateCell.creature.health / 2;
+    var babyHealth = babyHealth1 + babyHealth2 - global_world_params.penalties.babyPenalty;
+    if (babyHealth <= 0) return;
+
+    emptyCell.creature = new Creature(babyHealth, this.creature.type, this.creature.logic);
+
+    this.creature.health -= (babyHealth1 + global_world_params.penalties.breed);
+    mateCell.creature.health -= (babyHealth2 + global_world_params.penalties.breed);
+
+    assert(mateCell.creature.health > 0, "mate health below 0");
+}

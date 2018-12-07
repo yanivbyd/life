@@ -26,3 +26,10 @@ function shortNumber(num)
     if (num>10*1000) return Math.floor(num/1000) + "k";
     return num;
 }
+
+function checkPercentage(p)
+{
+    if (p == 0) return false;
+    if (p == 100) return true;
+    return randomInt(100) > p;
+}
