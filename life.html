@@ -2,6 +2,7 @@
 <head>
     <title>Life game</title>
     <link rel="icon" href="tube.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="life.css">
     <script src="lib/jquery-3.3.1.min.js"></script>
     <script src="js/assert.js"></script>
     <script src="js/utils.js"></script>
@@ -12,6 +13,7 @@
     <script src="js/creature_logic.js"></script>
     <script src="js/world.js"></script>
     <script src="js/render.js"></script>
+    <script src="js/render_summaries.js"></script>
 </head>
 
 <script type="text/javascript">
@@ -29,6 +31,7 @@
         }
         function render() {
             renderCanvas($('#canvas')[0], global_world);
+            renderSummary($('#summary')[0], global_world);
         }
     </script>
     <script type="text/javascript">
@@ -38,4 +41,5 @@
     </script>
     <button onclick="cycle(); render()">Cycle</button>
     <button onclick="addCreatures(); render()">Add Creatures</button>
+    <textarea id="summary"></textarea>
 </body>
