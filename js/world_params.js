@@ -10,24 +10,6 @@ var global_world_params = {
     addCreatures: {
         amount: 100
     },
-    creatures: [
-        {
-            eatVeg: {
-                amount: 4,
-            },
-            move: {
-                cellVegAmountToMove: 6
-            }
-        },
-        {
-            eatVeg: {
-                amount: 4,
-            },
-            move: {
-                cellVegAmountToMove: 4
-            }
-        },
-    ],
     penalties: {
         breathing: 2,
         moving: 3
@@ -37,5 +19,39 @@ var global_world_params = {
             [255,0,0],
             [0,0,255]
         ]
-    }
+    },
+
+    creatures: [
+        {
+            name: "creature 1",
+            actions: [
+                {
+                    t: 'eatVegetation',
+                    p: 100,
+                    amount: 4
+                },
+                {
+                    t: 'move',
+                    p: 100,
+                    cellVegAmountToMove: 6
+                }
+            ]
+        },
+        {
+            name: "creature 2",
+            actions: [
+                {
+                    t: 'eatVegetation',
+                    p: 100,
+                    amount: 4
+                },
+                {
+                    t: 'move',
+                    p: 50,
+                    cellVegAmountToMove: 6
+                }
+            ]
+        },
+    ],
+
 }
