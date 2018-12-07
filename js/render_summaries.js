@@ -43,5 +43,6 @@ function renderSummary(textbox, world)
         text += global_world_params.creatures[i].name + ": "+ creatures[i].toString()+"\n";
     }
     text += "vegetation: " + vegetation.toString() + "\n";
+    text += "cycle:" + numberWithCommas(world.cycles);
     $(textbox).text(text);
 }
