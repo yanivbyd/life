@@ -18,11 +18,13 @@
 
 <script type="text/javascript">
     var global_world = new World();
+    var global_playing = false;
 </script>
 
 <body>
     <canvas id="canvas" width="350" height="350"></canvas>
     <button onclick="cycle(); render()">Cycle</button>
+    <button id="play_stop" onclick="playOrStop();">Play</button>
     <button onclick="addCreatures(); render()">Add Creatures</button>
     <textarea id="summary"></textarea>
 
@@ -36,6 +38,17 @@
         function render() {
             renderCanvas($('#canvas')[0], global_world);
             renderSummary($('#summary')[0], global_world);
+        }
+        function continuePlaying() {
+            if (!global_playing) return;
+            cycle();
+            render();
+            setTimeout(continuePlaying, 20);
+        }
+        function playOrStop() {
+            global_playing = !global_playing;
+            $('#play_stop').text(global_playing ? "Stop" : "Play");
+            continuePlaying();
         }
     </script>
     <script type="text/javascript">
