@@ -22,6 +22,10 @@
 
 <body>
     <canvas id="canvas" width="350" height="350"></canvas>
+    <button onclick="cycle(); render()">Cycle</button>
+    <button onclick="addCreatures(); render()">Add Creatures</button>
+    <textarea id="summary"></textarea>
+
     <script type="text/javascript">
         function cycle() {
             global_world.cycle();
@@ -39,7 +43,4 @@
         global_world.init($('#canvas').width());
         render();
     </script>
-    <button onclick="cycle(); render()">Cycle</button>
-    <button onclick="addCreatures(); render()">Add Creatures</button>
-    <textarea id="summary"></textarea>
 </body>

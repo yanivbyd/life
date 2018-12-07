@@ -4,3 +4,7 @@
     font-size: 12px;
     margin-left: 20px;
 }
+
+#canvas {
+    border: 1px solid #f1ecec;
+}
