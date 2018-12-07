@@ -17,8 +17,7 @@ function CreateLogicDefault(logicParams)
 CreateLogicDefault.prototype.cycle = function(creature, ctx)
 {
     for (var i=0;i<this.actions.length;i++) {
-        if (checkPercentage(this.actions[i].params.p))  // TODO: Ugly, don't force the actions to have 'params' member
-            this.actions[i].cycle(creature, ctx);
+        this.actions[i].cycle(creature, ctx);
     }
 }
 
@@ -30,7 +29,8 @@ function ActionEatVegetation(logicParams)
 }
 ActionEatVegetation.prototype.cycle = function(creature, ctx)
 {
-    ctx.eatVegetation(this.params.amount);
+    if (checkPercentage(this.params.p))
+        ctx.eatVegetation(this.params.amount);
 }
 
 function ActionMove(logicParams)
@@ -41,7 +41,9 @@ ActionMove.prototype.cycle = function(creature, ctx)
 {
     if (ctx.getCurrentVegetation() <= this.params.cellVegAmountToMove) {
         var nextCell = ctx.findEmptyCellWithMostVeg();
-        if (nextCell && nextCell.vegetation > ctx.getCurrentVegetation()) {
+        if (nextCell && nextCell.vegetation > ctx.getCurrentVegetation() &&
+            checkPercentage(this.params.p))
+        {
             ctx.move(nextCell);
         }
     }
@@ -57,7 +59,7 @@ ActionBreed.prototype.cycle = function(creature, ctx)
     var mateCell = ctx.findBreedMate();
     if (mateCell) {
         var emptyCell = ctx.findEmptyCellWithMostVeg();
-        if (emptyCell) {
+        if (emptyCell && checkPercentage(this.params.p)) {
             ctx.breed(mateCell, emptyCell);
         }
     }
