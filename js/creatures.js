@@ -1,7 +1,8 @@
-function Creature(health, creatureLogic)
+function Creature(health, type, creatureLogic)
 {
     this.health = health;
     this.logic = creatureLogic;
+    this.type = type;
 }
 
 Creature.prototype.fixMaxHealth = function()

@@ -24,12 +24,12 @@ function renderVegetation(data, i, vegetation)
     for (var j=0;j<3;j++) data[i+j] = vegColor[j]; // r,g,b
 }
 
-function renderCreature(data, i, vegetation)
+function renderCreature(data, i, creature)
 {
-    var vegColor = global_veg_colors[vegetation];
-    data[i] = 255;
-    data[i+1] = 0;
-    data[i+2] = 0;
+    var color = global_world_params.rendering.creatures[creature.type];
+    data[i] = color[0];
+    data[i+1] = color[1];
+    data[i+2] = color[2];
 }
 
 function renderCanvas(canvas, world)
