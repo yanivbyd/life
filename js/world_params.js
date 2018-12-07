@@ -18,8 +18,9 @@ var global_world_params = {
     },
     rendering: {
         creatures: [
-            [255,0,0],
-            [0,0,255]
+            [255, 0, 0],
+            [0, 0, 255],
+            [224, 165, 29]
         ]
     },
 
@@ -64,6 +65,30 @@ var global_world_params = {
                 {
                     t: 'move',
                     p: 50,
+                    cellVegAmountToMove: 6
+                },
+            ],
+            acceptBreed: {
+                p: 100,
+                minHealth: 15
+            }
+        },
+        {
+            name: "orange",
+            actions: [
+                {
+                    t: 'eatVegetation',
+                    p: 100,
+                    amount: 4
+                },
+                {
+                    t: 'breed',
+                    p: 50,
+                    minHealth: 16
+                },
+                {
+                    t: 'move',
+                    p: 30,
                     cellVegAmountToMove: 6
                 },
             ],
