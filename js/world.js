@@ -6,8 +6,8 @@ function World()
 World.prototype.init = function(size)
 {
     window.lifeCbs = {
-        creatureDied: function() {
-            console.log("creature died");
+        creatureDied: function(creature) {
+            console.log("creature died (" + (creature.type+1)+ ")");
         }
     }
     this.size = size;

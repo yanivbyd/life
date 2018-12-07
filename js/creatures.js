@@ -18,7 +18,7 @@ function cycleCreature(cell, ctx)
     creature.health -= global_world_params.penalties.breathing;
     creature.lastCycle = ctx.world.cycles;
     if (creature.health <= 0) {
-        if (lifeCbs) lifeCbs.creatureDied();
+        if (lifeCbs) lifeCbs.creatureDied(creature);
         assertSamePointer(ctx.cell.creature, creature);
         ctx.cell.creature = null;
     }
