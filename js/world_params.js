@@ -25,7 +25,7 @@ var global_world_params = {
 
     creatures: [
         {
-            name: "creature 1",
+            name: "red",
             actions: [
                 {
                     t: 'eatVegetation',
@@ -49,7 +49,7 @@ var global_world_params = {
             }
         },
         {
-            name: "creature 2",
+            name: "blue",
             actions: [
                 {
                     t: 'eatVegetation',
