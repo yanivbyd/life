@@ -29,98 +29,38 @@ var global_world_params = {
         {
             name: "red",
             actions: [
-                {
-                    t: 'eat',
-                    p: 100,
-                    amount: 10
-                },
-                {
-                    t: 'breed',
-                    p: 33,
-                    minHealth: 5
-                },
-                {
-                    t: 'move',
-                    p: 50,
-                    cellVegAmountToMove: 6
-                }
+                { t: 'eat', p: 100, amount: 10 },
+                { t: 'breed', p: 33, minHealth: 5 },
+                { t: 'move', p: 50, cellVegAmountToMove: 6 }
             ],
-            acceptBreed: {
-                p: 100,
-                minHealth: 5
-            }
+            acceptBreed: { p: 100, minHealth: 5 }
         },
         {
             name: "blue",
             actions: [
-                {
-                    t: 'eat',
-                    p: 100,
-                    amount: 4
-                },
-                {
-                    t: 'breed',
-                    p: 50,
-                    minHealth: 16
-                },
-                {
-                    t: 'move',
-                    p: 50,
-                    cellVegAmountToMove: 6
-                },
+                { t: 'eat', p: 100, amount: 4 },
+                { t: 'breed', p: 50, minHealth: 16 },
+                { t: 'move', p: 50, cellVegAmountToMove: 6 },
             ],
-            acceptBreed: {
-                p: 100,
-                minHealth: 15
-            }
+            acceptBreed: { p: 100, minHealth: 15 }
         },
         {
             name: "orange",
             actions: [
-                {
-                    t: 'eat',
-                    p: 100,
-                    amount: 5
-                },
-                {
-                    t: 'move',
-                    p: 100,
-                    cellVegAmountToMove: 4
-                },
-                {
-                    t: 'breed',
-                    p: 100,
-                    minHealth: 16
-                },
+                { t: 'eat', p: 100, amount: 5 },
+                { t: 'move', p: 100, cellVegAmountToMove: 4 },
+                { t: 'breed', p: 100, minHealth: 16 },
             ],
-            acceptBreed: {
-                p: 100,
-                minHealth: 16
-            }
+            acceptBreed: { p: 100, minHealth: 16 }
         },
         {
             name: "purple",
             actions: [
-                {
-                    t: 'eat',
-                    p: 100,
-                    amount: 4
-                },
-                {
-                    t: 'breed',
-                    p: 50,
-                    minHealth: 16
-                },
-                {
-                    t: 'move',
-                    p: 100,
-                    cellVegAmountToMove: 10
-                },
+                { t: 'eat', p: 100, amount: 4 },
+                { t: 'breed', p: 50, minHealth: 16 },
+                { t: 'move', p: 100, cellVegAmountToMove: 10 },
             ],
-            acceptBreed: {
-                p: 100,
-                minHealth: 15
-            }
+            acceptBreed: { p: 100, minHealth: 15 }
         }
     ],
 
