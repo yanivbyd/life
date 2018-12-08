@@ -43,7 +43,7 @@ CreateCycleContext.prototype.nextCell = function(row, col)
     this.creature = this.cell.creature;
 }
 
-CreateCycleContext.prototype.eatVegetation = function(vegAmount)
+CreateCycleContext.prototype.eat = function(vegAmount)
 {
     var cell = this.cell;
     var actualAmount = Math.min(vegAmount, cell.vegetation);

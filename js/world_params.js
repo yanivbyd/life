@@ -30,7 +30,7 @@ var global_world_params = {
             name: "red",
             actions: [
                 {
-                    t: 'eatVegetation',
+                    t: 'eat',
                     p: 100,
                     amount: 10
                 },
@@ -54,7 +54,7 @@ var global_world_params = {
             name: "blue",
             actions: [
                 {
-                    t: 'eatVegetation',
+                    t: 'eat',
                     p: 100,
                     amount: 4
                 },
@@ -78,7 +78,7 @@ var global_world_params = {
             name: "orange",
             actions: [
                 {
-                    t: 'eatVegetation',
+                    t: 'eat',
                     p: 100,
                     amount: 5
                 },
@@ -102,7 +102,7 @@ var global_world_params = {
             name: "purple",
             actions: [
                 {
-                    t: 'eatVegetation',
+                    t: 'eat',
                     p: 100,
                     amount: 4
                 },
