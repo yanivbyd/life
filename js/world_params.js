@@ -20,7 +20,8 @@ var global_world_params = {
         creatures: [
             [255, 0, 0],
             [0, 0, 255],
-            [224, 165, 29]
+            [224, 165, 29],
+            [87, 13, 11]
         ]
     },
 
@@ -31,22 +32,22 @@ var global_world_params = {
                 {
                     t: 'eatVegetation',
                     p: 100,
-                    amount: 4
+                    amount: 10
                 },
                 {
                     t: 'breed',
-                    p: 50,
-                    minHealth: 16
+                    p: 33,
+                    minHealth: 5
                 },
                 {
                     t: 'move',
-                    p: 100,
+                    p: 50,
                     cellVegAmountToMove: 6
                 }
             ],
             acceptBreed: {
                 p: 100,
-                minHealth: 15
+                minHealth: 5
             }
         },
         {
@@ -79,6 +80,30 @@ var global_world_params = {
                 {
                     t: 'eatVegetation',
                     p: 100,
+                    amount: 5
+                },
+                {
+                    t: 'move',
+                    p: 100,
+                    cellVegAmountToMove: 4
+                },
+                {
+                    t: 'breed',
+                    p: 100,
+                    minHealth: 16
+                },
+            ],
+            acceptBreed: {
+                p: 100,
+                minHealth: 16
+            }
+        },
+        {
+            name: "purple",
+            actions: [
+                {
+                    t: 'eatVegetation',
+                    p: 100,
                     amount: 4
                 },
                 {
@@ -88,15 +113,15 @@ var global_world_params = {
                 },
                 {
                     t: 'move',
-                    p: 30,
-                    cellVegAmountToMove: 6
+                    p: 100,
+                    cellVegAmountToMove: 10
                 },
             ],
             acceptBreed: {
                 p: 100,
                 minHealth: 15
             }
-        },
+        }
     ],
 
 }
