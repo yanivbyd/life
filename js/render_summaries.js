@@ -28,7 +28,7 @@ function renderSummary(textbox, world)
     var vegetation = new SamplingGroup(global_world_params.veg.maxAmount);
     var creatures = [];
     for (var i=0;i<global_world_params.creatures.length;i++) {
-        creatures.push(new SamplingGroup(global_world_params.creature.maxHealth));
+        creatures.push(new SamplingGroup(global_world_params.creature["l"].maxHealth));
     }
 
     for (var row=0;row<world.size;row++)

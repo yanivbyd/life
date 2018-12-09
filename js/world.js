@@ -55,11 +55,12 @@ World.prototype.addCreaturesOfType = function(type)
     var creatureAmount = global_world_params.addCreatures.amount;
     var maxTries = creatureAmount * 10, try_count = 0;
     var creatureLogic = new CreateLogicDefault(global_world_params.creatures[type]);
+    var size = creatureLogic.params.size;
 
     while (creatureAmount>0 && try_count < maxTries) {
         var cell = this.matrix[randomInt(this.size)][randomInt(this.size)];
         if (!cell.creature) {
-            cell.creature = new Creature(global_world_params.creature.initialHealth, type, creatureLogic);
+            cell.creature = new Creature(global_world_params.creature[size].initialHealth, type, creatureLogic);
             creatureAmount--;
         }
         try_count++;

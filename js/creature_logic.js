@@ -26,7 +26,7 @@ CreateLogicDefault.prototype.cycle = function(creature, ctx)
 function ActionEat(logicParams, size)
 {
     this.params = logicParams;
-    this.amount = global_world_params.eatingBySize[size];
+    this.amount = global_world_params.eating[size];
 }
 ActionEat.prototype.cycle = function(creature, ctx)
 {

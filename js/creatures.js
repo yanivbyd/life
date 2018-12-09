@@ -8,7 +8,7 @@ function Creature(health, type, creatureLogic)
 
 Creature.prototype.fixMaxHealth = function()
 {
-    this.health = Math.min(this.health, global_world_params.creature.maxHealth);
+    this.health = Math.min(this.health, global_world_params.creature[this.size].maxHealth);
 }
 
 function cycleCreature(cell, ctx)
@@ -16,7 +16,7 @@ function cycleCreature(cell, ctx)
     if (!cell.creature || cell.creature.lastCycle == ctx.world.cycles) return;
     var creature = cell.creature;
     creature.logic.cycle(creature, ctx);
-    creature.health -= global_world_params.penalties.breathingBySize[creature.size];
+    creature.health -= global_world_params.penalties.breathing[creature.size];
     creature.lastCycle = ctx.world.cycles;
     if (creature.health <= 0) {
         if (lifeCbs) lifeCbs.creatureDied(creature);

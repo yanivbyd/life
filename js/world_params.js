@@ -4,22 +4,23 @@ var global_world_params = {
         rain: 1
     },
     creature: {
-        initialHealth: 10,
-        maxHealth: 20
+        "s": { initialHealth: 10, maxHealth: 20 },
+        "m": { initialHealth: 20, maxHealth: 40 },
+        "l": { initialHealth: 30, maxHealth: 60 },
     },
     addCreatures: {
         amount: 5000
     },
-    eatingBySize: {
+    eating: {
         "s": 4,
         "m": 6,
-        "l": 8,
+        "l": 7,
     },
     penalties: {
-        breathingBySize: {
+        breathing: {
             "s": 2,
-            "m": 3,
-            "l": 3.5,
+            "m": 4,
+            "l": 5,
         },
         moving: 3,
         breed: 2,
