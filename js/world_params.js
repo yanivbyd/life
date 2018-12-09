@@ -9,7 +9,7 @@ var global_world_params = {
         "l": { initialHealth: 30, maxHealth: 60 },
     },
     addCreatures: {
-        amount: 5000
+        amount: 1000
     },
     eating: { "s": 4, "m": 6, "l": 7 },
     penalties: {
