@@ -46,11 +46,14 @@ CreateCycleContext.prototype.nextCell = function(row, col)
 
 CreateCycleContext.prototype.eat = function(vegAmount)
 {
-    var cell = this.cell;
-    var actualAmount = Math.min(vegAmount, cell.vegetation);
+    var maxHealth = global_world_params.creature[this.creature.size].maxHealth;
+    var leftForCreature = maxHealth - this.creature.health;
+    var actualAmount = Math.min(vegAmount, this.cell.vegetation, leftForCreature);
     this.creature.health += actualAmount;
-    this.creature.fixMaxHealth();
-    cell.vegetation -= actualAmount;
+    assert(this.creature.health <= maxHealth);
+    this.creature.fixMaxHealth(); // no need for it because of the assert
+    this.cell.vegetation -= actualAmount;
+    assert(this.cell.vegetation>=0);
 }
 
 CreateCycleContext.prototype.getCurrentVegetation = function()
