@@ -10,8 +10,17 @@ var global_world_params = {
     addCreatures: {
         amount: 5000
     },
+    eatingBySize: {
+        "s": 4,
+        "m": 6,
+        "l": 8,
+    },
     penalties: {
-        breathing: 2,
+        breathingBySize: {
+            "s": 2,
+            "m": 3,
+            "l": 3.5,
+        },
         moving: 3,
         breed: 2,
         babyPenalty: 2
@@ -28,8 +37,9 @@ var global_world_params = {
     creatures: [
         {
             name: "red",
+            size: "s",
             actions: [
-                { t: 'eat', p: 100, amount: 10 },
+                { t: 'eat', p: 100 },
                 { t: 'breed', p: 33, minHealth: 5 },
                 { t: 'move', p: 50, cellVegAmountToMove: 6 }
             ],
@@ -37,8 +47,9 @@ var global_world_params = {
         },
         {
             name: "blue",
+            size: "s",
             actions: [
-                { t: 'eat', p: 100, amount: 4 },
+                { t: 'eat', p: 100 },
                 { t: 'breed', p: 50, minHealth: 16 },
                 { t: 'move', p: 50, cellVegAmountToMove: 6 },
             ],
@@ -46,8 +57,9 @@ var global_world_params = {
         },
         {
             name: "orange",
+            size: "s",
             actions: [
-                { t: 'eat', p: 100, amount: 5 },
+                { t: 'eat', p: 100 },
                 { t: 'move', p: 100, cellVegAmountToMove: 4 },
                 { t: 'breed', p: 100, minHealth: 16 },
             ],
@@ -55,8 +67,9 @@ var global_world_params = {
         },
         {
             name: "purple",
+            size: "s",
             actions: [
-                { t: 'eat', p: 100, amount: 4 },
+                { t: 'eat', p: 100 },
                 { t: 'breed', p: 50, minHealth: 16 },
                 { t: 'move', p: 100, cellVegAmountToMove: 10 },
             ],

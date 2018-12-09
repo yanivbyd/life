@@ -3,6 +3,7 @@ function Creature(health, type, creatureLogic)
     this.health = health;
     this.logic = creatureLogic;
     this.type = type;
+    this.size = creatureLogic.params.size;
 }
 
 Creature.prototype.fixMaxHealth = function()
@@ -15,7 +16,7 @@ function cycleCreature(cell, ctx)
     if (!cell.creature || cell.creature.lastCycle == ctx.world.cycles) return;
     var creature = cell.creature;
     creature.logic.cycle(creature, ctx);
-    creature.health -= global_world_params.penalties.breathing;
+    creature.health -= global_world_params.penalties.breathingBySize[creature.size];
     creature.lastCycle = ctx.world.cycles;
     if (creature.health <= 0) {
         if (lifeCbs) lifeCbs.creatureDied(creature);

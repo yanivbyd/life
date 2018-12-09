@@ -6,7 +6,7 @@ function CreateLogicDefault(logicParams)
     for (var i=0;i<logicParams.actions.length;i++) {
         var logicAction = logicParams.actions[i];
         if (logicAction.t == 'eat')
-            this.actions.push(new ActionEat(logicAction));
+            this.actions.push(new ActionEat(logicAction, this.params.size));
         else if (logicAction.t == 'move')
             this.actions.push(new ActionMove(logicAction));
         else if (logicAction.t == 'breed')
@@ -23,14 +23,15 @@ CreateLogicDefault.prototype.cycle = function(creature, ctx)
 
 // Action types
 
-function ActionEat(logicParams)
+function ActionEat(logicParams, size)
 {
     this.params = logicParams;
+    this.amount = global_world_params.eatingBySize[size];
 }
 ActionEat.prototype.cycle = function(creature, ctx)
 {
     if (checkPercentage(this.params.p))
-        ctx.eat(this.params.amount);
+        ctx.eat(this.amount);
 }
 
 function ActionMove(logicParams)
