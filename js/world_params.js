@@ -11,17 +11,9 @@ var global_world_params = {
     addCreatures: {
         amount: 5000
     },
-    eating: {
-        "s": 4,
-        "m": 6,
-        "l": 7,
-    },
+    eating: { "s": 4, "m": 6, "l": 7 },
     penalties: {
-        breathing: {
-            "s": 2,
-            "m": 4,
-            "l": 5,
-        },
+        breathing: { "s": 2, "m": 4, "l": 5 },
         moving: 3,
         breed: 2,
         babyPenalty: 2
