@@ -1,4 +1,4 @@
-var global_world_params = {
+worldParams = {
     veg: {
         maxAmount: 20,
         rain: 1
@@ -69,5 +69,6 @@ var global_world_params = {
             acceptBreed: { p: 100, minHealth: 15 }
         }
     ],
-
 }
+
+module.exports = worldParams

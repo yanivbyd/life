@@ -1,3 +1,8 @@
+function Cell(vegetation)
+{
+    this.vegetation = vegetation;
+}
+
 function World()
 {
 
@@ -7,7 +12,6 @@ World.prototype.init = function(size)
 {
     window.lifeCbs = {
         creatureDied: function(creature) {
-            console.log("creature died (" + (creature.type+1)+ ")");
         }
     }
     this.size = size;
@@ -16,14 +20,14 @@ World.prototype.init = function(size)
     for(var i=0; i<size; i++) {
         this.matrix[i] = [];
         for(var j=0; j<size; j++) {
-            this.matrix[i][j] = new Cell(randomInt(global_world_params.veg.maxAmount+1));
+            this.matrix[i][j] = new Cell(utils.randomInt(worldParams.veg.maxAmount+1));
         }
     }
 }
 
 World.prototype.nearCells = function(row, col)
 {
-    var deltas = get_nearby_deltas();
+    var deltas = lifeArrays.getNearbyDeltas();
     var cells = [];
     for (var i=0;i<deltas.length;i++) {
         var row1 = (row+deltas[i].dy+this.size) % this.size;
@@ -35,7 +39,7 @@ World.prototype.nearCells = function(row, col)
 
 World.prototype.findPosFromNearby = function(row, col, cell)
 {
-    var deltas = get_nearby_deltas();
+    var deltas = lifeArrays.getNearbyDeltas();
     for (var i=0;i<deltas.length;i++) {
         var row1 = (row+deltas[i].dy+this.size) % this.size;
         var col1 = (col+deltas[i].dx+this.size) % this.size;
@@ -46,21 +50,21 @@ World.prototype.findPosFromNearby = function(row, col, cell)
 
 World.prototype.addCreatures = function()
 {
-    for (var i=0;i<global_world_params.creatures.length;i++)
+    for (var i=0;i<worldParams.creatures.length;i++)
         this.addCreaturesOfType(i);
 }
 
 World.prototype.addCreaturesOfType = function(type)
 {
-    var creatureAmount = global_world_params.addCreatures.amount;
+    var creatureAmount = worldParams.addCreatures.amount;
     var maxTries = creatureAmount * 10, try_count = 0;
-    var creatureLogic = new CreateLogicDefault(global_world_params.creatures[type]);
+    var creatureLogic = new creature.CreatureLogic(worldParams.creatures[type]);
     var size = creatureLogic.params.size;
 
     while (creatureAmount>0 && try_count < maxTries) {
-        var cell = this.matrix[randomInt(this.size)][randomInt(this.size)];
+        var cell = this.matrix[utils.randomInt(this.size)][utils.randomInt(this.size)];
         if (!cell.creature) {
-            cell.creature = new Creature(global_world_params.creature[size].initialHealth, type, creatureLogic);
+            cell.creature = new creature.Creature(worldParams.creature[size].initialHealth, type, creatureLogic);
             creatureAmount--;
         }
         try_count++;
@@ -68,22 +72,27 @@ World.prototype.addCreaturesOfType = function(type)
 
 }
 
+function cycleVegetation(cell)
+{
+    cell.vegetation += worldParams.veg.rain;
+    cell.vegetation = Math.min(cell.vegetation, worldParams.veg.maxAmount);
+}
+
 World.prototype.cycle = function()
 {
-    var cycleCtx = new CreateCycleContext(this);
+    var cycleCtx = new creature.CycleContext(this);
     for(var i=0; i<this.size; i++) {
         for(var j=0; j<this.size; j++) {
             cycleCtx.nextCell(i,j);
             var cell = this.matrix[i][j];
             cycleVegetation(cell);
-            cycleCreature(cell, cycleCtx);
+            if (cell.creature) cell.creature.cycle(cycleCtx);
         }
     }
     this.cycles++;
 }
 
-function Cell(vegetation)
-{
-    this.vegetation = vegetation;
+module.exports = {
+    World: function() { return new World(); },
+    Cell: function() { return new Cell(); }
 }
-

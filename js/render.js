@@ -6,7 +6,7 @@ function initVegColors(veg_colors)
 
     var start_color = [255,255,255];
     var end_color = [38,255,0];
-    var max_veg = global_world_params.veg.maxAmount;
+    var max_veg = worldParams.veg.maxAmount;
 
     for (var i=0;i<=max_veg;i++) veg_colors[i] = [];
     var incArr = [];
@@ -26,7 +26,7 @@ function renderVegetation(data, i, vegetation)
 
 function renderCreature(data, i, creature)
 {
-    var color = global_world_params.rendering.creatures[creature.type];
+    var color = worldParams.rendering.creatures[creature.type];
     data[i] = color[0];
     data[i+1] = color[1];
     data[i+2] = color[2];
