@@ -16,12 +16,15 @@ SamplingGroup.prototype.toString = function()
     var out = [];
     out.push("count=" + shortNumber(this.count));
     if (this.sum) {
-        var avg = this.sum / this.count;
-        out.push("avg="+avg.toFixed(2));
+        out.push("avg="+this.avg());
     }
     return out.join(", ");
 }
 
+SamplingGroup.prototype.avg = function()
+{
+    return (this.sum) ? (this.sum / this.count).toFixed(2) : '';
+}
 
 function renderSummary(textbox, world)
 {
@@ -40,9 +43,10 @@ function renderSummary(textbox, world)
 
     var text = "";
     for (var i=0;i<global_world_params.creatures.length;i++) {
-        text += global_world_params.creatures[i].name + ": "+ creatures[i].toString()+"\n";
+        text += global_world_params.creatures[i].name + ": "+ numberWithCommas(creatures[i].count)
+                + ', health: '+ creatures[i].avg() +"\n";
     }
-    text += "vegetation: " + vegetation.toString() + "\n";
+    text += "vegetation: " + vegetation.avg() + "\n";
     text += "cycle:" + numberWithCommas(world.cycles);
     $(textbox).text(text);
 }
