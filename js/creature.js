@@ -126,48 +126,25 @@ CycleContext.prototype.breed = function(mateCell, emptyCell)
     assert(mateCell.creature.health > 0, "mate health below 0");
 }
 
-
-// Logic
-CreatureLogic = function (logicParams)
-{
-    this.params = logicParams;
-    this.actions = [];
-    for (var i=0;i<logicParams.actions.length;i++) {
-        var logicAction = logicParams.actions[i];
-        if (logicAction.t == 'eat')
-            this.actions.push(new ActionEat(logicAction, this.params.size));
-        else if (logicAction.t == 'move')
-            this.actions.push(new ActionMove(logicAction));
-        else if (logicAction.t == 'breed')
-            this.actions.push(new ActionBreed(logicAction));
-    }
-}
-
-CreatureLogic.prototype.cycle = function(creature, ctx)
-{
-    for (var i=0;i<this.actions.length;i++) {
-        this.actions[i].cycle(creature, ctx);
-    }
-}
-
 // Action types
+action = {};
 
-function ActionEat(logicParams, size)
+action.Eat = function(logicParams, size)
 {
     this.params = logicParams;
     this.amount = worldParams.eating[size];
 }
-ActionEat.prototype.cycle = function(creature, ctx)
+action.Eat.prototype.cycle = function(creature, ctx)
 {
     if (utils.checkPercentage(this.params.p))
         ctx.eat(this.amount);
 }
 
-function ActionMove(logicParams)
+action.Move = function(logicParams)
 {
     this.params = logicParams;
 }
-ActionMove.prototype.cycle = function(creature, ctx)
+action.Move.prototype.cycle = function(creature, ctx)
 {
     if (ctx.getCurrentVegetation() <= this.params.cellVegAmountToMove) {
         var nextCell = ctx.findEmptyCellWithMostVeg();
@@ -179,11 +156,11 @@ ActionMove.prototype.cycle = function(creature, ctx)
     }
 }
 
-function ActionBreed(logicParams)
+action.Breed = function(logicParams)
 {
     this.params = logicParams;
 }
-ActionBreed.prototype.cycle = function(creature, ctx)
+action.Breed.prototype.cycle = function(creature, ctx)
 {
     if (creature.health < this.params.minHealth) return;
     var mateCell = ctx.findBreedMate();
@@ -192,6 +169,28 @@ ActionBreed.prototype.cycle = function(creature, ctx)
         if (emptyCell && utils.checkPercentage(this.params.p)) {
             ctx.breed(mateCell, emptyCell);
         }
+    }
+}
+
+CreatureLogic = function (logicParams)
+{
+    this.params = logicParams;
+    this.actions = [];
+    for (var i=0;i<logicParams.actions.length;i++) {
+        var logicAction = logicParams.actions[i];
+        if (logicAction.t == 'eat')
+            this.actions.push(new action.Eat(logicAction, this.params.size));
+        else if (logicAction.t == 'move')
+            this.actions.push(new action.Move(logicAction));
+        else if (logicAction.t == 'breed')
+            this.actions.push(new action.Breed(logicAction));
+    }
+}
+
+CreatureLogic.prototype.cycle = function(creature, ctx)
+{
+    for (var i=0;i<this.actions.length;i++) {
+        this.actions[i].cycle(creature, ctx);
     }
 }
 
