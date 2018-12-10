@@ -1,8 +1,4 @@
 window = {};
-lifeCbs = {
-    creatureDied: function(creature) {
-    }
-}
 var assert = require('../js/assert');
 var utils = require('../js/utils');
 var lifeArrays = require('../js/lifeArrays');

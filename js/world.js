@@ -10,10 +10,6 @@ function World()
 
 World.prototype.init = function(size)
 {
-    window.lifeCbs = {
-        creatureDied: function(creature) {
-        }
-    }
     this.size = size;
     this.cycles = 0;
     this.matrix = [];

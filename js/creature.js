@@ -18,7 +18,6 @@ Creature.prototype.cycle = function(ctx)
     this.health -= worldParams.penalties.breathing[this.size];
     this.lastCycle = ctx.world.cycles;
     if (this.health <= 0) {
-        if (lifeCbs) lifeCbs.creatureDied(this);
         assert.strictEqual(ctx.cell.creature, this);
         ctx.cell.creature = null;
     }
