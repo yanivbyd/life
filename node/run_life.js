@@ -15,13 +15,15 @@ function initOutputFiles()
     var cyclesFile = 'output/cycles.csv';
     if (!fs.existsSync(dir)) fs.mkdirSync(dir);
     if (fs.existsSync(cyclesFile)) fs.unlinkSync(cyclesFile);
-    fs.appendFileSync(cyclesFile, 'cycle,avg\n');
+    fs.appendFileSync(cyclesFile, 'cycle,veg\n');
 }
 
-function writeCycleToOutputFiles(w)
+function writeCycleToOutputFiles(myworld)
 {
     var cyclesFile = 'output/cycles.csv';
-//    fs.appendFileSync(cyclesFile, w.cycles + ', ' + '5' + '\n');
+    var statsObj = stats.calcStats(myworld);
+    fs.appendFileSync(cyclesFile, myworld.cycles + ', '
+        + statsObj.vegetation.avg() + '\n');
 }
 
 function main() {
