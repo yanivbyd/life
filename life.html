@@ -13,7 +13,7 @@
     <script src="js/creature.js"></script>
     <script src="js/world.js"></script>
     <script src="js/render.js"></script>
-    <script src="js/renderSummary.js"></script>
+    <script src="js/stats.js"></script>
 </head>
 
 <script type="text/javascript">
@@ -37,7 +37,7 @@
         }
         function render() {
             renderCanvas($('#canvas')[0], global_world);
-            $('#summary').text(renderSummary(global_world));
+            $('#summary').text(stats.statsToText(global_world, stats.calcStats(global_world)));
         }
         function continuePlaying() {
             if (!global_playing) return;
