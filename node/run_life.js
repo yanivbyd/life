@@ -42,7 +42,7 @@ function main() {
     initOutputFiles();
 
     var myworld = new world.World();
-    myworld.init(100);
+    myworld.init(350);
     myworld.cycle();
     myworld.addCreatures();
     var numOfCycles = 5000;
