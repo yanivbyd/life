@@ -28,7 +28,7 @@ SamplingGroup.prototype.avg = function()
 
 stats = {
     calcStats: function(world) {
-        var statsObj = {};
+        var statsObj = { cycle: world.currentCycle | 0 };
 
         statsObj.vegetation = new SamplingGroup(worldParams.veg.maxAmount);
         statsObj.creatures = [];
@@ -46,14 +46,14 @@ stats = {
 
         return statsObj;
     },
-    statsToText: function(world, statsObj) {
+    statsToText: function(statsObj) {
         var text = "";
         for (var i=0;i<worldParams.creatures.length;i++) {
             text += worldParams.creatures[i].name + ": "+ utils.numberWithCommas(statsObj.creatures[i].count)
                     + ', health: '+ statsObj.creatures[i].avg() +"\n";
         }
         text += "vegetation: " + statsObj.vegetation.avg() + "\n";
-        text += "cycle: " + utils.numberWithCommas(world.cycles);
+        text += "cycle: " + utils.numberWithCommas(statsObj.cycle);
         return text;
     }
 }

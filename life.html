@@ -37,7 +37,7 @@
         }
         function render() {
             renderCanvas($('#canvas')[0], global_world);
-            $('#summary').text(stats.statsToText(global_world, stats.calcStats(global_world)));
+            $('#summary').text(stats.statsToText(stats.calcStats(global_world)));
         }
         function continuePlaying() {
             if (!global_playing) return;

@@ -29,9 +29,9 @@ function writeCycleToOutputFiles(myworld)
 {
     var vegFile = 'output/veg.csv', creaturesFile = 'output/creatures.csv';
     var statsObj = stats.calcStats(myworld);
-    fs.appendFileSync(vegFile, [myworld.cycles, statsObj.vegetation.avg()].join(',')+'\n');
+    fs.appendFileSync(vegFile, [statsObj.cycle, statsObj.vegetation.avg()].join(',')+'\n');
 
-    var creaturesRow = [myworld.cycles];
+    var creaturesRow = [statsObj.cycle];
     for (var i=0;i<worldParams.creatures.length;i++) {
         creaturesRow.push(statsObj.creatures[i].count);
     }
@@ -43,7 +43,6 @@ function main() {
 
     var myworld = new world.World();
     myworld.init(350);
-    myworld.cycle();
     myworld.addCreatures();
     var numOfCycles = 5000;
     for (var i=0;i<numOfCycles;i++) {
@@ -52,7 +51,7 @@ function main() {
         writeCycleToOutputFiles(myworld);
     }
     process.stdout.write('\r                                        \n');
-    console.log(stats.statsToText(myworld, stats.calcStats(myworld)));
+    console.log(stats.statsToText(stats.calcStats(myworld)));
 }
 
 main();

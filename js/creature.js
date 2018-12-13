@@ -13,10 +13,10 @@ Creature.prototype.fixMaxHealth = function()
 
 Creature.prototype.cycle = function(ctx)
 {
-    if (this.lastCycle == ctx.world.cycles) return;
+    if (this.playedCycle == ctx.world.currentCycle) return;
     this.logic.cycle(this, ctx);
     this.health -= worldParams.penalties.breathing[this.size];
-    this.lastCycle = ctx.world.cycles;
+    this.playedCycle = ctx.world.currentCycle;
     if (this.health <= 0) {
         assert.strictEqual(ctx.cell.creature, this);
         ctx.cell.creature = null;
