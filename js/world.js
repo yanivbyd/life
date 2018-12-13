@@ -64,7 +64,16 @@ World.prototype.addCreaturesOfType = function(type)
         }
         try_count++;
     }
+}
 
+World.prototype.findCreature = function()
+{
+    for(var i=0; i<this.size; i++) {
+        for(var j=0; j<this.size; j++) {
+            if (this.matrix[i][j].creature)
+                return this.matrix[i][j].creature;
+        }
+    }
 }
 
 function cycleVegetation(cell)

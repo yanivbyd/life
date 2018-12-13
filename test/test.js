@@ -13,18 +13,25 @@ describe('Life', function() {
     myworld.addCreatures();
     var statStr = stats.statsToText(stats.calcStats(myworld));
     it('stat checking, cycle 0', function() {
-        massert.notEqual(statStr.indexOf('red'), -1);
-        massert.notEqual(statStr.indexOf('health'), -1);
-        massert.notEqual(statStr.indexOf('vegetation'), -1);
-        massert.notEqual(statStr.indexOf('cycle: 0'), -1);
+        massert(statStr.indexOf('red') > -1);
+        massert(statStr.indexOf('health') > -1);
+        massert(statStr.indexOf('vegetation') > -1);
+        massert(statStr.indexOf('cycle: 0') > -1);
     });
+
+
     myworld.cycle();
     var statStr2 = stats.statsToText(stats.calcStats(myworld));
     it('stat checking, cycle 1', function() {
-        massert.notEqual(statStr2.indexOf('red'), -1);
-        massert.notEqual(statStr2.indexOf('health'), -1);
-        massert.notEqual(statStr2.indexOf('vegetation'), -1);
-        massert.notEqual(statStr2.indexOf('cycle: 1'), -1);
+        massert(statStr2.indexOf('red') > -1);
+        massert(statStr2.indexOf('health') > -1);
+        massert(statStr2.indexOf('vegetation') > -1);
+        massert(statStr2.indexOf('cycle: 1') > -1);
+    });
+
+    var creature = myworld.findCreature();
+    it('creature params', function() {
+        massert(creature.health > 0);
     });
 });
 
