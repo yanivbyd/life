@@ -32,6 +32,9 @@ describe('Life', function() {
     var creature = myworld.findCreature();
     it('creature params', function() {
         massert(creature.health > 0);
+        massert(!!creature.logic.params.actions.length);
+        massert(!!creature.logic.params.name);
+        massert(!!creature.logic.params.size);
     });
 });
 
