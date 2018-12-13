@@ -12,18 +12,30 @@ var stats = require('../js/stats');
 function initOutputFiles()
 {
     var dir = 'output';
-    var cyclesFile = 'output/cycles.csv';
+    var vegFile = 'output/veg.csv', creaturesFile = 'output/creatures.csv';
     if (!fs.existsSync(dir)) fs.mkdirSync(dir);
-    if (fs.existsSync(cyclesFile)) fs.unlinkSync(cyclesFile);
-    fs.appendFileSync(cyclesFile, 'cycle,veg\n');
+    if (fs.existsSync(vegFile)) fs.unlinkSync(vegFile);
+    if (fs.existsSync(creaturesFile)) fs.unlinkSync(creaturesFile);
+
+    fs.appendFileSync(vegFile, ['cycle','veg'].join(',')+'\n');
+
+    var names = ['cycle'];
+    for (var i=0;i<worldParams.creatures.length;i++)
+        names.push(worldParams.creatures[i].name);
+    fs.appendFileSync(creaturesFile, names.join(',')+'\n');
 }
 
 function writeCycleToOutputFiles(myworld)
 {
-    var cyclesFile = 'output/cycles.csv';
+    var vegFile = 'output/veg.csv', creaturesFile = 'output/creatures.csv';
     var statsObj = stats.calcStats(myworld);
-    fs.appendFileSync(cyclesFile, myworld.cycles + ', '
-        + statsObj.vegetation.avg() + '\n');
+    fs.appendFileSync(vegFile, [myworld.cycles, statsObj.vegetation.avg()].join(',')+'\n');
+
+    var creaturesRow = [myworld.cycles];
+    for (var i=0;i<worldParams.creatures.length;i++) {
+        creaturesRow.push(statsObj.creatures[i].count);
+    }
+    fs.appendFileSync(creaturesFile, creaturesRow.join(',')+'\n');
 }
 
 function main() {
@@ -33,7 +45,7 @@ function main() {
     myworld.init(100);
     myworld.cycle();
     myworld.addCreatures();
-    var numOfCycles = 1000;
+    var numOfCycles = 5000;
     for (var i=0;i<numOfCycles;i++) {
         if (i%100 == 0) process.stdout.write('running cycle ' + i + ' out of ' + numOfCycles + '\r');
         myworld.cycle();

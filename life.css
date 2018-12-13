@@ -8,3 +8,10 @@
 #canvas {
     border: 1px solid #f1ecec;
 }
+
+.lifegraph .dygraph-axis-label { font-size: 8px; }
+.lifegraph .dygraph-label { font-size: 8px; }
+.lifegraph .dygraph-legend { font-size: 8px; }
+
+#graphdiv_veg { width: 300px; height: 250px; left: 20px; top: 20px; position: absolute; }
+#graphdiv_creatures { width: 500px; height: 250px; right: 20px; top: 20px; position: absolute; }

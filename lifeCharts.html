@@ -4,20 +4,31 @@
     <link rel="icon" href="graph.png" type="image/x-icon"/>
     <script src="lib/dygraph.min.js"></script>
     <link rel="stylesheet" href="lib/dygraph.min.css" />
+    <link rel="stylesheet" href="life.css" />
 </head>
 
 <body>
-<div id="graphdiv"/>
+<div id="graphdiv_veg" class="lifegraph"></div>
+<div id="graphdiv_creatures" class="lifegraph"></div>
 
 <script type="text/javascript">
-  g = new Dygraph(
-    document.getElementById("graphdiv"), "node/output/cycles.csv?" + new Date().getTime(),
+  g1 = new Dygraph(
+    document.getElementById("graphdiv_veg"), "node/output/veg.csv?" + new Date().getTime(),
     {
-        title: 'Vegetation by cycle',
+        title: 'Vegetation',
         xlabel: 'Cycle',
-        ylabel: 'Avg. Vegatation'
-    }
-  );
+        ylabel: 'Avg. Vegatation',
+        colors: ['green'],
+    });
+
+  g2 = new Dygraph(
+    document.getElementById("graphdiv_creatures"), "node/output/creatures.csv?" + new Date().getTime(),
+    {
+        title: 'Creatures',
+        xlabel: 'Cycle',
+        ylabel: '',
+        colors: ['red','blue','orange','purple'],
+    });
 </script>
 
 </body>
