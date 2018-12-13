@@ -13,7 +13,7 @@
 
 <script type="text/javascript">
   g1 = new Dygraph(
-    document.getElementById("graphdiv_veg"), "node/output/veg.csv?" + new Date().getTime(),
+    document.getElementById("graphdiv_veg"), "output/veg.csv?" + new Date().getTime(),
     {
         title: 'Vegetation',
         xlabel: 'Cycle',
@@ -22,7 +22,7 @@
     });
 
   g2 = new Dygraph(
-    document.getElementById("graphdiv_creatures"), "node/output/creatures.csv?" + new Date().getTime(),
+    document.getElementById("graphdiv_creatures"), "output/creatures.csv?" + new Date().getTime(),
     {
         title: 'Creatures',
         xlabel: 'Cycle',

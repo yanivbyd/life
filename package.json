@@ -1,0 +1,10 @@
+{
+    "name": "life_game",
+    "version": "1.0.0",
+    "description": "A life game simulator",
+    "main": "node/run_life.js",
+    "scripts": {
+       "start": "node main.js",
+       "test": "mocha"
+    }
+}

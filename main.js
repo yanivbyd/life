@@ -1,13 +1,13 @@
 window = {};
 
 var fs = require('fs');
-var assert = require('../js/assert');
-var utils = require('../js/utils');
-var lifeArrays = require('../js/lifeArrays');
-var creature = require('../js/creature');
-var worldParams = require('../js/worldParams');
-var world = require('../js/world');
-var stats = require('../js/stats');
+var assert = require('./js/assert');
+var utils = require('./js/utils');
+var lifeArrays = require('./js/lifeArrays');
+var creature = require('./js/creature');
+var worldParams = require('./js/worldParams');
+var world = require('./js/world');
+var stats = require('./js/stats');
 
 function initOutputFiles()
 {
@@ -44,7 +44,7 @@ function main() {
     var myworld = new world.World();
     myworld.init(350);
     myworld.addCreatures();
-    var numOfCycles = 5000;
+    var numOfCycles = 500;
     for (var i=0;i<numOfCycles;i++) {
         if (i%100 == 0) process.stdout.write('running cycle ' + i + ' out of ' + numOfCycles + '\r');
         myworld.cycle();
