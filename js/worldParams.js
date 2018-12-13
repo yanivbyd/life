@@ -44,7 +44,7 @@ worldParams = {
             actions: [
                 { t: 'eat', p: 100 },
                 { t: 'breed', p: 50, minHealth: 16 },
-                { t: 'move', p: 50, cellVegAmountToMove: 6 },
+                { t: 'move', p: 20, cellVegAmountToMove: 3 },
             ],
             acceptBreed: { p: 100, minHealth: 15 }
         },
@@ -64,7 +64,7 @@ worldParams = {
             actions: [
                 { t: 'eat', p: 100 },
                 { t: 'breed', p: 50, minHealth: 16 },
-                { t: 'move', p: 100, cellVegAmountToMove: 10 },
+                { t: 'move', p: 30, cellVegAmountToMove: 4 },
             ],
             acceptBreed: { p: 100, minHealth: 15 }
         }
