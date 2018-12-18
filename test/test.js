@@ -8,6 +8,34 @@ var stats = require('../js/stats');
 var dna = require('../js/dna');
 
 var massert = require('assert');
+
+
+function creature1Params()
+{
+    return {
+        size: "s",
+        actions: [
+            { t: 'eat', p: 100 },
+            { t: 'breed', p: 33, minHealth: 5 },
+            { t: 'move', p: 50, cellVegAmountToMove: 6 }
+        ],
+        acceptBreed: { p: 100, minHealth: 5 }
+    }
+}
+
+function creature2Params()
+{
+    return {
+        size: "m",
+        actions: [
+            { t: 'breed', p: 12, minHealth: 5 },
+            { t: 'eat', p: 80 },
+            { t: 'move', p: 50, cellVegAmountToMove: 6 }
+        ],
+        acceptBreed: { p: 12, minHealth: 5 }
+    }
+}
+
 describe('Life', function() {
     var myworld = new world.World();
     myworld.init(50);
@@ -48,6 +76,17 @@ describe('Life', function() {
         massert.equal(params.actions.size, params2.actions.size);
         for (var i=0;i<params.actions.size;i++)
             massert.equal(params.actions[i].t, params2.actions[i].t);
+    });
+
+    // breed 2 creatures
+    var babyParams = dna.creatureParamsForBaby(creature1Params(), creature2Params(), false);
+    var babyParamsMut = dna.creatureParamsForBaby(creature1Params(), creature2Params(), true);
+
+    it('breeding creatures', function() {
+        massert(babyParams.acceptBreed.p !== undefined);
+        massert(babyParamsMut.acceptBreed.p !== undefined);
+        massert(babyParams.actions.length > 0);
+        massert(babyParamsMut.actions.length > 0);
     });
 });
 

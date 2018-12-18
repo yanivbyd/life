@@ -18,6 +18,7 @@ worldParams = {
         breed: 2,
         babyPenalty: 2
     },
+    mutationChance: 1,
     rendering: {
         creatures: [
             [255, 0, 0],

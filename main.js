@@ -7,6 +7,7 @@ var lifeArrays = require('./js/lifeArrays');
 var creature = require('./js/creature');
 var worldParams = require('./js/worldParams');
 var world = require('./js/world');
+var dna = require('./js/dna');
 var stats = require('./js/stats');
 
 function initOutputFiles()

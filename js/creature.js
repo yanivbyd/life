@@ -118,7 +118,10 @@ CycleContext.prototype.breed = function(mateCell, emptyCell)
     var babyHealth = babyHealth1 + babyHealth2 - worldParams.penalties.babyPenalty;
     if (babyHealth <= 0) return;
 
-    emptyCell.creature = new Creature(babyHealth, this.creature.type, this.creature.logic);
+    var babyLogicParams = dna.creatureParamsForBaby(this.creature.logic.params,
+        mateCell.creature.logic.params, worldParams.mutationChance);
+    emptyCell.creature = new Creature(babyHealth, this.creature.type,
+        new CreatureLogic(babyLogicParams));    // TODO: Add cache for creature logic
 
     this.creature.health -= (babyHealth1 + worldParams.penalties.breed);
     mateCell.creature.health -= (babyHealth2 + worldParams.penalties.breed);

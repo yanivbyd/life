@@ -1,4 +1,5 @@
-function WriteContext(buffer) {
+function WriteContext(buffer)
+{
     this.buffer = buffer;
     this.pos = 0;
     this.view = new Uint8Array(this.buffer);
@@ -59,6 +60,17 @@ dna.DNA.prototype.toCreatureParams = function()
     return params;
 }
 
+dna.DNA.prototype.equal = function(dna2)
+{
+    if (this.buffer.byteLength != dna2.buffer.byteLength) return false;
+    var view = new Uint8Array(this.buffer);
+    var view2 = new Uint8Array(dna2.buffer);
+    for (var i=0;i<this.buffer.byteLength;i++) {
+        if (view[i] != view2[i]) return false;
+    }
+    return true;
+}
+
 function creatureSizeToByte(size)
 {
     switch (size) {
@@ -116,6 +128,7 @@ function switchPositions(actions, pos1, pos2)
 function orderNumToOrderStr(orderNum)
 {
     if (!dna.orderCache) initOrderCache();
+    orderNum = orderNum % dna.orderCount;
     for (var orderStr in dna.orderCache) {
         if (dna.orderCache[orderStr] == orderNum) return orderStr;
     }
@@ -143,11 +156,46 @@ function initOrderCache()
     dna.orderCache["move,breed,eat"] = (counter++);
     dna.orderCache["breed,move,eat"] = (counter++);
     dna.orderCache["breed,eat,move"] = (counter++);
+    dna.orderCount = counter;
 }
 
 function getPercentage(p)
 {
     return p % 101;
+}
+
+dna.DNA.prototype.fromParents = function(dna1, dna2, hasMutation)
+{
+    // First simple approach, either use dna1 or dna2
+    var baseDna = utils.randomBool() ? dna1 : dna2;
+
+    this.buffer = new ArrayBuffer(baseDna.buffer.byteLength);
+    var mutationIndex = hasMutation ? utils.randomInt(this.buffer.byteLength) : -1;
+    var view1 = new Uint8Array(baseDna.buffer);
+    var view = new Uint8Array(this.buffer);
+
+    for (var i=0;i<this.buffer.byteLength;i++) {
+        view[i] = view1[i];
+        if (mutationIndex == i) {
+            var toAdd = utils.randomBool() ? 1 : 255;
+            view[i] = (view[i] + toAdd) % 256;
+        }
+    }
+}
+
+dna.creatureParamsForBaby = function(parent1Params, parent2Params, mutationChance)
+{
+    var dna1 = new dna.DNA(); dna1.fromCreatureParams(parent1Params);
+    var dna2 = new dna.DNA(); dna2.fromCreatureParams(parent2Params);
+
+    var mutation = utils.checkPercentage(mutationChance);
+    var dnasEqual = dna1.equal(dna2);
+    if (dnasEqual && !mutation) return parent1Params;
+
+    var dna3 = new dna.DNA();
+    dna3.fromParents(dna1, dna2, mutationChance);
+
+    return dna3.toCreatureParams();
 }
 
 module.exports = dna;

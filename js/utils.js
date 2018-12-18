@@ -4,6 +4,11 @@ utils = {
         return Math.floor(Math.random() * Math.floor(max));
     },
 
+    randomBool: function(max)
+    {
+        return Math.random() > 0.5;
+    },
+
     randomPercentage: function(perc)
     {
         return utils.randomInt(100) < perc;
