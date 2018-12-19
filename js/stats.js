@@ -66,6 +66,9 @@ stats = {
         statsObj.sizes = new SamplingEnum();
         statsObj.movePerc = new SamplingEnum();
         statsObj.moveMaxVeg = new SamplingEnum();
+        statsObj.eatPerc = new SamplingEnum();
+        statsObj.breedPerc = new SamplingEnum();
+        statsObj.breedminHealth = new SamplingEnum();
         statsObj.creatures = [];
         for (var i=0;i<worldParams.creatures.length;i++) {
             statsObj.creatures.push(new SamplingGroup(worldParams.creature["l"].maxHealth));
@@ -80,6 +83,9 @@ stats = {
                     statsObj.sizes.sample(cell.creature.size);
                     statsObj.movePerc.sample(cell.creature.logic.moveParams.p);
                     statsObj.moveMaxVeg.sample(cell.creature.logic.moveParams.cellVegAmountToMove);
+                    statsObj.eatPerc.sample(cell.creature.logic.eatParams.p);
+                    statsObj.breedPerc.sample(cell.creature.logic.breedParams.p);
+                    statsObj.breedminHealth.sample(cell.creature.logic.breedParams.minHealth);
                 }
             }
         }
@@ -98,6 +104,9 @@ stats = {
         arr.push("size: " + statsObj.sizes.toString());
         arr.push("move percent: " + statsObj.movePerc.toString());
         arr.push("move max veg: " + statsObj.moveMaxVeg.toString());
+        arr.push("eat percent: " + statsObj.eatPerc.toString());
+        arr.push("breed percent: " + statsObj.breedPerc.toString());
+        arr.push("breed min health: " + statsObj.breedminHealth.toString());
         return arr.join('\n');
     }
 }

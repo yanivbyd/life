@@ -181,14 +181,18 @@ CreatureLogic = function (logicParams)
     this.actions = [];
     for (var i=0;i<logicParams.actions.length;i++) {
         var logicAction = logicParams.actions[i];
-        if (logicAction.t == 'eat')
+        if (logicAction.t == 'eat') {
             this.actions.push(new action.Eat(logicAction, this.params.size));
+            this.eatParams = logicAction;
+        }
         else if (logicAction.t == 'move') {
             this.actions.push(new action.Move(logicAction));
             this.moveParams = logicAction;
         }
-        else if (logicAction.t == 'breed')
+        else if (logicAction.t == 'breed') {
             this.actions.push(new action.Breed(logicAction));
+            this.breedParams = logicAction;
+        }
     }
 }
 
