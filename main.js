@@ -34,7 +34,7 @@ function writeCycleToOutputFiles(myworld)
 
     var creaturesRow = [statsObj.cycle];
     for (var i=0;i<worldParams.creatures.length;i++) {
-        creaturesRow.push(statsObj.creatures[i].count);
+        creaturesRow.push(statsObj.creatures.getFreq(i));
     }
     fs.appendFileSync(creaturesFile, creaturesRow.join(',')+'\n');
 }

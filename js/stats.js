@@ -26,10 +26,15 @@ SamplingGroup.prototype.avg = function()
     return (this.sum) ? (this.sum / this.count).toFixed(2) : '';
 }
 
-function SamplingEnum()
+function SamplingEnum(idToText)
 {
     this.vals = {};
     this.count = 0;
+    if (idToText !== undefined) this.idToText = idToText;
+}
+SamplingEnum.prototype.getFreq = function(val)
+{
+    return this.vals[val] | 0;
 }
 SamplingEnum.prototype.sample = function(val)
 {
@@ -50,12 +55,27 @@ function percentage(count, total)
 {
     return Math.floor(count * 100 / total);
 }
+SamplingEnum.prototype.display = function(val)
+{
+    if (this.idToText) return this.idToText[val] || val;
+    return val;
+}
 SamplingEnum.prototype.toString = function(numResults)
 {
     numResults = numResults | 3;
-    var count = this.count;
-    return this.valsByFreq().map(x => x.val + ' (' + percentage(x.freq, count) + '%)')
+    var sampler = this;
+    return this.valsByFreq().map(x => sampler.display(x.val) + ' ('
+        + percentage(x.freq, sampler.count) + '%)')
         .slice(0, numResults).join(', ');
+}
+
+function creatureIdToText()
+{
+    var idToText = {};
+    for (var i=0;i<worldParams.creatures.length;i++) {
+        idToText[i] = worldParams.creatures[i].name;
+    }
+    return idToText;
 }
 
 stats = {
@@ -69,17 +89,14 @@ stats = {
         statsObj.eatPerc = new SamplingEnum();
         statsObj.breedPerc = new SamplingEnum();
         statsObj.breedminHealth = new SamplingEnum();
-        statsObj.creatures = [];
-        for (var i=0;i<worldParams.creatures.length;i++) {
-            statsObj.creatures.push(new SamplingGroup(worldParams.creature["l"].maxHealth));
-        }
+        statsObj.creatures = new SamplingEnum(creatureIdToText());
 
         for (var row=0;row<world.size;row++) {
             for (var col=0;col<world.size;col++) {
                 var cell = world.matrix[row][col];
                 statsObj.vegetation.sample(cell.vegetation);
                 if (cell.creature) {
-                    statsObj.creatures[cell.creature.type].sample(cell.creature.health);
+                    statsObj.creatures.sample(cell.creature.type);
                     statsObj.sizes.sample(cell.creature.size);
                     statsObj.movePerc.sample(cell.creature.logic.moveParams.p);
                     statsObj.moveMaxVeg.sample(cell.creature.logic.moveParams.cellVegAmountToMove);
@@ -95,10 +112,8 @@ stats = {
     statsToText: function(statsObj) {
         var arr = [];
         arr.push("cycle: " + utils.numberWithCommas(statsObj.cycle));
-        for (var i=0;i<worldParams.creatures.length;i++) {
-            arr.push(worldParams.creatures[i].name + ": "+ utils.numberWithCommas(statsObj.creatures[i].count)
-                    + ', health: '+ statsObj.creatures[i].avg());
-        }
+        arr.push("total creatures: " + utils.numberWithCommas(statsObj.creatures.count));
+        arr.push("creature: " + statsObj.creatures.toString(5));
         arr.push("vegetation: " + statsObj.vegetation.avg());
         arr.push("genes:");
         arr.push("size: " + statsObj.sizes.toString());
