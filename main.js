@@ -39,20 +39,27 @@ function writeCycleToOutputFiles(myworld)
     fs.appendFileSync(creaturesFile, creaturesRow.join(',')+'\n');
 }
 
-function main() {
+function printStats(myworld)
+{
+    console.log(stats.statsToText(stats.calcStats(myworld)));
+    console.log(''); // new line
+}
+
+function main()
+{
     initOutputFiles();
 
     var myworld = new world.World();
     myworld.init(350);
     myworld.addCreatures();
     var numOfCycles = 500;
+    console.log("Running %d cycles\n", numOfCycles);
     for (var i=0;i<numOfCycles;i++) {
-        if (i%100 == 0) process.stdout.write('running cycle ' + i + ' out of ' + numOfCycles + '\r');
         myworld.cycle();
         writeCycleToOutputFiles(myworld);
+        if (i%100 == 99 && i + 50 < numOfCycles) printStats(myworld);
     }
-    process.stdout.write('\r                                        \n');
-    console.log(stats.statsToText(stats.calcStats(myworld)));
+    printStats(myworld);
 }
 
 main();

@@ -76,15 +76,15 @@ stats = {
         return statsObj;
     },
     statsToText: function(statsObj) {
-        var text = "";
+        var arr = [];
+        arr.push("cycle: " + utils.numberWithCommas(statsObj.cycle));
         for (var i=0;i<worldParams.creatures.length;i++) {
-            text += worldParams.creatures[i].name + ": "+ utils.numberWithCommas(statsObj.creatures[i].count)
-                    + ', health: '+ statsObj.creatures[i].avg() +"\n";
+            arr.push(worldParams.creatures[i].name + ": "+ utils.numberWithCommas(statsObj.creatures[i].count)
+                    + ', health: '+ statsObj.creatures[i].avg());
         }
-        text += "vegetation: " + statsObj.vegetation.avg() + "\n";
-        text += "sizes: " + statsObj.sizes.toString() + "\n";
-        text += "cycle: " + utils.numberWithCommas(statsObj.cycle);
-        return text;
+        arr.push("vegetation: " + statsObj.vegetation.avg());
+        arr.push("sizes: " + statsObj.sizes.toString());
+        return arr.join('\n');
     }
 }
 module.exports = stats
