@@ -46,9 +46,16 @@ SamplingEnum.prototype.valsByFreq = function()
     vals.sort(function(a,b) { return b.freq-a.freq });
     return vals;
 }
-SamplingEnum.prototype.toString = function()
+function percentage(count, total)
 {
-    return this.valsByFreq().map(x => x.val + ': ' + x.freq).join(', ');
+    return Math.floor(count * 100 / total);
+}
+SamplingEnum.prototype.toString = function(numResults)
+{
+    numResults = numResults | 3;
+    var count = this.count;
+    return this.valsByFreq().map(x => x.val + ' (' + percentage(x.freq, count) + '%)')
+        .slice(0, numResults).join(', ');
 }
 
 stats = {
@@ -57,6 +64,8 @@ stats = {
 
         statsObj.vegetation = new SamplingGroup(worldParams.veg.maxAmount);
         statsObj.sizes = new SamplingEnum();
+        statsObj.movePerc = new SamplingEnum();
+        statsObj.moveMaxVeg = new SamplingEnum();
         statsObj.creatures = [];
         for (var i=0;i<worldParams.creatures.length;i++) {
             statsObj.creatures.push(new SamplingGroup(worldParams.creature["l"].maxHealth));
@@ -69,6 +78,8 @@ stats = {
                 if (cell.creature) {
                     statsObj.creatures[cell.creature.type].sample(cell.creature.health);
                     statsObj.sizes.sample(cell.creature.size);
+                    statsObj.movePerc.sample(cell.creature.logic.moveParams.p);
+                    statsObj.moveMaxVeg.sample(cell.creature.logic.moveParams.cellVegAmountToMove);
                 }
             }
         }
@@ -83,7 +94,10 @@ stats = {
                     + ', health: '+ statsObj.creatures[i].avg());
         }
         arr.push("vegetation: " + statsObj.vegetation.avg());
-        arr.push("sizes: " + statsObj.sizes.toString());
+        arr.push("genes:");
+        arr.push("size: " + statsObj.sizes.toString());
+        arr.push("move percent: " + statsObj.movePerc.toString());
+        arr.push("move max veg: " + statsObj.moveMaxVeg.toString());
         return arr.join('\n');
     }
 }

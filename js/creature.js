@@ -183,8 +183,10 @@ CreatureLogic = function (logicParams)
         var logicAction = logicParams.actions[i];
         if (logicAction.t == 'eat')
             this.actions.push(new action.Eat(logicAction, this.params.size));
-        else if (logicAction.t == 'move')
+        else if (logicAction.t == 'move') {
             this.actions.push(new action.Move(logicAction));
+            this.moveParams = logicAction;
+        }
         else if (logicAction.t == 'breed')
             this.actions.push(new action.Breed(logicAction));
     }
