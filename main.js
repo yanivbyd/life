@@ -1,3 +1,11 @@
+var program = require('commander');
+
+program
+    .version('1.0')
+    .option('-c, --cycles [count]', 'Number of cycles')
+    .parse(process.argv);
+
+
 window = {};
 
 var fs = require('fs');
@@ -52,7 +60,7 @@ function main()
     var myworld = new world.World();
     myworld.init(350);
     myworld.addCreatures();
-    var numOfCycles = 500;
+    var numOfCycles = program.cycles || 500;
     console.log("Running %d cycles\n", numOfCycles);
     for (var i=0;i<numOfCycles;i++) {
         myworld.cycle();

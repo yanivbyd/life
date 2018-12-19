@@ -4,7 +4,10 @@
     "description": "A life game simulator",
     "main": "node/run_life.js",
     "scripts": {
-       "start": "node main.js",
-       "test": "mocha"
+        "start": "node main.js",
+        "test": "mocha"
+    },
+    "dependencies": {
+        "commander": "2.19.0"
     }
 }
