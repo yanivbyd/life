@@ -97,13 +97,10 @@ CycleContext.prototype.findBreedMate = function()
     var cells = this.world.nearCells(this.row, this.col);
     for (var i=0;i<cells.length;i++) {
         if (cells[i].creature && cells[i].creature.type == this.creature.type) {
-            var acceptBreedLogic = worldParams.creatures[this.creature.type].acceptBreed;
-            if (utils.checkPercentage(acceptBreedLogic.p) &&
-                cells[i].creature.health > acceptBreedLogic.minHealth)
-            {
+            var mateMinHealth = Math.max(worldParams.penalties.breed * 2, // * 2 because of health given to baby
+                    cells[i].creature.logic.breedParams.minHealth);
+            if (cells[i].creature.health > mateMinHealth)
                 return cells[i];
-            }
-
         }
     }
     return null;
@@ -126,6 +123,7 @@ CycleContext.prototype.breed = function(mateCell, emptyCell)
     this.creature.health -= (babyHealth1 + worldParams.penalties.breed);
     mateCell.creature.health -= (babyHealth2 + worldParams.penalties.breed);
 
+    assert(this.creature.health > 0, "health below 0");
     assert(mateCell.creature.health > 0, "mate health below 0");
 }
 

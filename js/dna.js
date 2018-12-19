@@ -23,12 +23,10 @@ dna.DNA = function() {
 
 dna.DNA.prototype.fromCreatureParams = function(params)
 {
-    var size = 9; // Fixed for now
+    var size = 7; // Fixed for now
     this.buffer = new ArrayBuffer(size);
     var ctx = new WriteContext(this.buffer);
     ctx.write(creatureSizeToByte(params.size));
-    ctx.write(params.acceptBreed.p);
-    ctx.write(params.acceptBreed.minHealth);
     var eatAction = getAction(params, 'eat');
     ctx.write(eatAction.p);
     var moveAction = getAction(params, 'move');
@@ -46,17 +44,13 @@ dna.DNA.prototype.toCreatureParams = function()
     var view = new Uint8Array(this.buffer);
     var params = {
         size: creatureSizeFromByte(view[0]),
-        acceptBreed: {
-            p: getPercentage(view[1]),
-            minHealth: getPercentage(view[2])
-        },
         actions: [
-            { t: 'eat', p: getPercentage(view[3]) },
-            { t: 'move', p: getPercentage(view[4]), cellVegAmountToMove: view[5] },
-            { t: 'breed', p: getPercentage(view[6]), minHealth: view[7] },
+            { t: 'eat', p: getPercentage(view[1]) },
+            { t: 'move', p: getPercentage(view[2]), cellVegAmountToMove: view[3] },
+            { t: 'breed', p: getPercentage(view[4]), minHealth: view[5] },
         ]
     };
-    reorderActions(params, view[8]);
+    reorderActions(params, view[6]);
     return params;
 }
 

@@ -36,8 +36,7 @@ worldParams = {
                 { t: 'eat', p: 100 },
                 { t: 'breed', p: 33, minHealth: 5 },
                 { t: 'move', p: 50, cellVegAmountToMove: 6 }
-            ],
-            acceptBreed: { p: 100, minHealth: 5 }
+            ]
         },
         {
             name: "blue",
@@ -46,8 +45,7 @@ worldParams = {
                 { t: 'eat', p: 100 },
                 { t: 'breed', p: 50, minHealth: 16 },
                 { t: 'move', p: 20, cellVegAmountToMove: 3 },
-            ],
-            acceptBreed: { p: 100, minHealth: 15 }
+            ]
         },
         {
             name: "orange",
@@ -56,8 +54,7 @@ worldParams = {
                 { t: 'eat', p: 100 },
                 { t: 'move', p: 100, cellVegAmountToMove: 4 },
                 { t: 'breed', p: 100, minHealth: 16 },
-            ],
-            acceptBreed: { p: 100, minHealth: 16 }
+            ]
         },
         {
             name: "purple",
@@ -66,8 +63,7 @@ worldParams = {
                 { t: 'eat', p: 100 },
                 { t: 'breed', p: 50, minHealth: 16 },
                 { t: 'move', p: 30, cellVegAmountToMove: 4 },
-            ],
-            acceptBreed: { p: 100, minHealth: 15 }
+            ]
         }
     ],
 }

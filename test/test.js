@@ -18,8 +18,7 @@ function creature1Params()
             { t: 'eat', p: 100 },
             { t: 'breed', p: 33, minHealth: 5 },
             { t: 'move', p: 50, cellVegAmountToMove: 6 }
-        ],
-        acceptBreed: { p: 100, minHealth: 5 }
+        ]
     }
 }
 
@@ -31,8 +30,7 @@ function creature2Params()
             { t: 'breed', p: 12, minHealth: 5 },
             { t: 'eat', p: 80 },
             { t: 'move', p: 50, cellVegAmountToMove: 6 }
-        ],
-        acceptBreed: { p: 12, minHealth: 5 }
+        ]
     }
 }
 
@@ -72,7 +70,7 @@ describe('Life', function() {
     var params2 = mydna.toCreatureParams();
 
     it('creature dna serialization-desrialization', function() {
-        massert.equal(mydna.buffer.byteLength, 9);
+        massert.equal(mydna.buffer.byteLength, 7);
         massert.equal(params.actions.size, params2.actions.size);
         for (var i=0;i<params.actions.size;i++)
             massert.equal(params.actions[i].t, params2.actions[i].t);
@@ -83,10 +81,10 @@ describe('Life', function() {
     var babyParamsMut = dna.creatureParamsForBaby(creature1Params(), creature2Params(), true);
 
     it('breeding creatures', function() {
-        massert(babyParams.acceptBreed.p !== undefined);
-        massert(babyParamsMut.acceptBreed.p !== undefined);
         massert(babyParams.actions.length > 0);
         massert(babyParamsMut.actions.length > 0);
+        massert(babyParams.actions[0].p !== undefined);
+        massert(babyParamsMut.actions[0].p !== undefined);
     });
 });
 
