@@ -164,6 +164,7 @@ action.Breed = function(logicParams)
 action.Breed.prototype.cycle = function(creature, ctx)
 {
     if (creature.health < this.params.minHealth) return;
+    if (creature.health <= 2 * worldParams.penalties.breed) return; // so as not to die
     var mateCell = ctx.findBreedMate();
     if (mateCell) {
         var emptyCell = ctx.findEmptyCellWithMostVeg();
