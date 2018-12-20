@@ -12,7 +12,7 @@
 .lifegraph .dygraph-axis-label { font-size: 8px; color: #c5c8d4; }
 .lifegraph .dygraph-label { font-size: 8px; color: #c5c8d4; }
 .lifegraph .dygraph-legend { font-size: 8px; color: #c5c8d4; }
-.lifegraph .dygraph-title {font-size: 12px;color: #c5c8d4;font-weight: normal;}
+.lifegraph .dygraph-title {font-size: 11px;color: #c5c8d4;font-weight: normal;}
 
 .lifegraph {width: 250px;height: 200px;float: left;margin-bottom: 20px;}
 #graphdiv_genes {clear: both;margin-bottom: 20px;margin-left: 30px;padding-top: 14px;color: #c5c8d4;}
