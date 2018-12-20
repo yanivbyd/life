@@ -9,10 +9,13 @@
     border: 1px solid #f1ecec;
 }
 
-.lifegraph .dygraph-axis-label { font-size: 8px; }
-.lifegraph .dygraph-label { font-size: 8px; }
-.lifegraph .dygraph-legend { font-size: 8px; }
-.lifegraph .dygraph-title { font-size: 12px; }
+.lifegraph .dygraph-axis-label { font-size: 8px; color: #c5c8d4; }
+.lifegraph .dygraph-label { font-size: 8px; color: #c5c8d4; }
+.lifegraph .dygraph-legend { font-size: 8px; color: #c5c8d4; }
+.lifegraph .dygraph-title {font-size: 12px;color: #c5c8d4;font-weight: normal;}
 
-#graphdiv_veg { width: 300px; height: 250px; left: 20px; top: 20px; position: absolute; }
-#graphdiv_creatures { width: 500px; height: 250px; right: 20px; top: 20px; position: absolute; }
+.lifegraph {width: 250px;height: 200px;float: left;margin-bottom: 20px;}
+#graphdiv_genes {clear: both;margin-bottom: 20px;margin-left: 30px;padding-top: 14px;color: #c5c8d4;}
+
+body.life_charts { background: #1d1e22; }
+#graphdiv_container { color: #c5c8d4 }

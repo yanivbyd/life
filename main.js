@@ -26,10 +26,11 @@ var stats = require('./js/stats');
 function initOutputFiles()
 {
     var dir = 'output';
-    var vegFile = 'output/veg.csv', creaturesFile = 'output/creatures.csv';
+    var vegFile = 'output/veg.csv', creaturesFile = 'output/creatures.csv', genesFile = 'output/genes.csv';
     if (!fs.existsSync(dir)) fs.mkdirSync(dir);
     if (fs.existsSync(vegFile)) fs.unlinkSync(vegFile);
     if (fs.existsSync(creaturesFile)) fs.unlinkSync(creaturesFile);
+    if (fs.existsSync(genesFile)) fs.unlinkSync(genesFile);
 
     fs.appendFileSync(vegFile, ['cycle','veg'].join(',')+'\n');
 
@@ -37,11 +38,13 @@ function initOutputFiles()
     for (var i=0;i<worldParams.creatures.length;i++)
         names.push(worldParams.creatures[i].name);
     fs.appendFileSync(creaturesFile, names.join(',')+'\n');
+
+    fs.appendFileSync(genesFile, "cycle,size,move percent,move max veg,eat percent,breed percent,breed min health\n");
 }
 
 function writeCycleToOutputFiles(myworld)
 {
-    var vegFile = 'output/veg.csv', creaturesFile = 'output/creatures.csv';
+    var vegFile = 'output/veg.csv', creaturesFile = 'output/creatures.csv', genesFile = 'output/genes.csv';
     var statsObj = stats.calcStats(myworld);
     fs.appendFileSync(vegFile, [statsObj.cycle, statsObj.vegetation.avg()].join(',')+'\n');
 
@@ -50,6 +53,17 @@ function writeCycleToOutputFiles(myworld)
         creaturesRow.push(statsObj.creatures.getFreq(i));
     }
     fs.appendFileSync(creaturesFile, creaturesRow.join(',')+'\n');
+
+    var genesRow = [
+        statsObj.cycle,
+        statsObj.size.avg(),
+        statsObj.movePerc.avg(),
+        statsObj.moveMaxVeg.avg(),
+        statsObj.eatPerc.avg(),
+        statsObj.breedPerc.avg(),
+        statsObj.breedminHealth.avg(),
+    ];
+    fs.appendFileSync(genesFile, genesRow.join(',')+'\n');
 }
 
 function printStats(myworld)

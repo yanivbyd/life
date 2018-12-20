@@ -7,27 +7,90 @@
     <link rel="stylesheet" href="life.css" />
 </head>
 
-<body>
-<div id="graphdiv_veg" class="lifegraph"></div>
-<div id="graphdiv_creatures" class="lifegraph"></div>
+<body class="life_charts">
+<div id="graphdiv_container">
+    <div id="graphdiv_creatures" class="lifegraph"></div>
+    <div id="graphdiv_veg" class="lifegraph"></div>
+    <div id="graphdiv_genes">Genes</div>
+    <div id="graphdiv_size" class="lifegraph"></div>
+    <div id="graphdiv_move_perc" class="lifegraph"></div>
+    <div id="graphdiv_move_max_veg" class="lifegraph"></div>
+    <div id="graphdiv_eat_perc" class="lifegraph"></div>
+    <div id="graphdiv_breed_perc" class="lifegraph"></div>
+    <div id="graphdiv_breed_min_health" class="lifegraph"></div>
+</div>
 
 <script type="text/javascript">
-  g1 = new Dygraph(
+  new Dygraph(
     document.getElementById("graphdiv_veg"), "output/veg.csv?" + new Date().getTime(),
     {
         title: 'Vegetation',
-        xlabel: 'Cycle',
-        ylabel: 'Avg. Vegatation',
+        xlabel: '',
+        ylabel: '',
         colors: ['green'],
     });
 
-  g2 = new Dygraph(
+  new Dygraph(
     document.getElementById("graphdiv_creatures"), "output/creatures.csv?" + new Date().getTime(),
     {
         title: 'Creatures',
-        xlabel: 'Cycle',
-        ylabel: 'Count',
+        xlabel: '',
+        ylabel: '',
         colors: ['red','blue','orange','purple'],
+    });
+
+  new Dygraph(
+    document.getElementById("graphdiv_size"), "output/genes.csv?" + new Date().getTime(),
+    {
+        title: 'Size',
+        xlabel: '',
+        ylabel: '',
+        visibility: [true, false, false, false, false, false]
+    });
+
+  new Dygraph(
+    document.getElementById("graphdiv_move_perc"), "output/genes.csv?" + new Date().getTime(),
+    {
+        title: 'Move Percent',
+        xlabel: '',
+        ylabel: '',
+        visibility: [false, true, false, false, false, false]
+    });
+
+  new Dygraph(
+    document.getElementById("graphdiv_move_max_veg"), "output/genes.csv?" + new Date().getTime(),
+    {
+        title: 'Move Max Veg.',
+        xlabel: '',
+        ylabel: '',
+        visibility: [false, false, true, false, false, false]
+    });
+
+  new Dygraph(
+    document.getElementById("graphdiv_eat_perc"), "output/genes.csv?" + new Date().getTime(),
+    {
+        title: 'Eat Percent',
+        xlabel: '',
+        ylabel: '',
+        visibility: [false, false, false, true, false, false]
+    });
+
+  new Dygraph(
+    document.getElementById("graphdiv_breed_perc"), "output/genes.csv?" + new Date().getTime(),
+    {
+        title: 'Breed Percent',
+        xlabel: '',
+        ylabel: '',
+        visibility: [false, false, false, false, true, false]
+    });
+
+  new Dygraph(
+    document.getElementById("graphdiv_breed_min_health"), "output/genes.csv?" + new Date().getTime(),
+    {
+        title: 'Breed Min. Health',
+        xlabel: '',
+        ylabel: '',
+        visibility: [false, false, false, false, false, true]
     });
 </script>
 
