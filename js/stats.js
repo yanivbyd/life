@@ -30,15 +30,22 @@ function SamplingEnum(idToText)
 {
     this.vals = {};
     this.count = 0;
+    this.sum = 0;
     if (idToText !== undefined) this.idToText = idToText;
 }
 SamplingEnum.prototype.getFreq = function(val)
 {
     return this.vals[val] | 0;
 }
+SamplingEnum.prototype.avg = function(val)
+{
+    return (this.sum && this.count) ? this.sum / this.count : 0;
+}
 SamplingEnum.prototype.sample = function(val)
 {
     this.count++;
+    if (!isNaN(val)) this.sum += val;
+
     if (!this.vals[val]) this.vals[val] = 1;
     else this.vals[val]++;
 }
@@ -82,7 +89,7 @@ stats = {
     calcStats: function(world) {
         var statsObj = { cycle: world.currentCycle | 0 };
 
-        statsObj.vegetation = new SamplingGroup(worldParams.veg.maxAmount);
+        statsObj.vegetation = new SamplingEnum();
         statsObj.sizes = new SamplingEnum();
         statsObj.movePerc = new SamplingEnum();
         statsObj.moveMaxVeg = new SamplingEnum();
@@ -114,7 +121,7 @@ stats = {
         arr.push("cycle: " + utils.numberWithCommas(statsObj.cycle));
         arr.push("total creatures: " + utils.numberWithCommas(statsObj.creatures.count));
         arr.push("creature: " + statsObj.creatures.toString(5));
-        arr.push("vegetation: " + statsObj.vegetation.avg());
+        arr.push("vegetation: " + statsObj.vegetation.avg().toFixed(1));
         arr.push("genes:");
         arr.push("size: " + statsObj.sizes.toString());
         arr.push("move percent: " + statsObj.movePerc.toString());
