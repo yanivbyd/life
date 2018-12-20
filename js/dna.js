@@ -155,6 +155,7 @@ function initOrderCache()
 
 function getPercentage(p)
 {
+    if (p >= 100 && p <= 200) return 200-p;
     return p % 101;
 }
 
