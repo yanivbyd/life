@@ -1,26 +1,28 @@
 worldParams = {
     veg: {
-        maxAmount: 20,
-        rain: 1
+        maxAmount: 20,      /* max amount of vegetation per cell */
+        rain: 1             /* rain increases vegetation count per cell */
     },
     creature: {
+        /* initialHealth - health to be given to a creature when the game starts, can't excceed maxHealth */
+        /* maxHealth - maximum health points a creature can have. When a creature reaches 0 or negative health it dies */
         "s": { initialHealth: 10, maxHealth: 20 },
         "m": { initialHealth: 20, maxHealth: 40 },
         "l": { initialHealth: 30, maxHealth: 60 },
     },
     addCreatures: {
-        amount: 1000
+        amount: 1000        /* Amount of creatures by types added when the game starts */
     },
-    eating: { "s": 4, "m": 6, "l": 7 },
+    eating: { "s": 4, "m": 6, "l": 7 },   /* Amount of vegetation eaten from a cell per turn. The actual amount eaten will not exceed creature's maxHealth nor the vegetation amount in the cell */
     penalties: {
-        breathing: { "s": 2, "m": 2.7, "l": 3.5 },
-        moving: 3,
-        breed: 2,
-        babyPenalty: 2
+        breathing: { "s": 2, "m": 2.7, "l": 3.5 },  /* Fixed creature penalty on each turn, regardless of what it does */
+        moving: 3,  /* Penalty for moving to another empty cell */
+        breed: 2,   /* Penalty of a parent for breeding. Breeding is done by 2 parents */
+        babyPenalty: 2  /* Penalty of a baby for being bord. The health of the baby is taken from its parents */
     },
-    mutationChance: 1,
+    mutationChance: 1,  /* 0-100 chance for gene single change on birth */
     rendering: {
-        creatures: [
+        creatures: [    /* colors of creatures */
             [255, 0, 0],
             [0, 0, 255],
             [224, 165, 29],
@@ -28,6 +30,31 @@ worldParams = {
         ]
     },
 
+    /*
+        Creature params consist of:
+        * size - The size of the creature (s/m/l).
+        *        An increases size increses # vegetations eaten per turn as well as the creatures max health,
+        *        but increases the creature's penalties a well
+        * actions - a list of actions a creature takes each turn. The order is important
+        * eat action
+        *     - eating vegetation in the amount of rules.eating. Amount cannot exceed creature's maxHealth or the
+        *       amount of vegetation in the cell
+        *     - p: chance of actually eating in this turn
+        * breed action
+        *      - A creature can seek for another creatures of the same type as its nearest neighbour and together they breed
+        *        The baby will be places in an empty cell neighbouring the initiating creature. If no such cell is found the breeding does not take place
+        *        Each parent gives half its health for the baby, and three of the suffer penalty for breeding or being born
+        *        The params of the baby is a random mix of its parents params + a possible mutation
+        *      - minHealth: minimun creature health to initiate or accept breeding
+        *                   breeding will not happen if a creature should die because of breeding
+        *      - p: chance of breeding after all prerequisites are met
+        * move action
+        *      - A creature can move to a neighbouring cell with max vegetation. The neightbouring cell must have more vegetation
+        *        than the current cell
+        *      - cellVegAmountToMove: the maximum amount of vegetation in a cell for migrating. If the cell vegetation is higher
+        *                             no move will happen
+        *      - p: chance of moving after all prerequisites are met
+    */
     creatures: [
         {
             name: "red",
