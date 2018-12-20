@@ -15,7 +15,7 @@ World.prototype.init = function(size)
     for(var i=0; i<size; i++) {
         this.matrix[i] = [];
         for(var j=0; j<size; j++) {
-            this.matrix[i][j] = new Cell(utils.randomInt(worldParams.veg.maxAmount+1));
+            this.matrix[i][j] = new Cell(utils.randomInt(worldParams.rules.veg.maxAmount+1));
         }
     }
 }
@@ -53,7 +53,7 @@ World.prototype.addCreatures = function(singleType)
 
 World.prototype.addCreaturesOfType = function(type)
 {
-    var creatureAmount = worldParams.addCreatures.amount;
+    var creatureAmount = worldParams.rules.addCreatures.amount;
     var maxTries = creatureAmount * 10, try_count = 0;
     var creatureLogic = new creature.CreatureLogic(worldParams.creatures[type]);
     var size = creatureLogic.params.size;
@@ -61,7 +61,7 @@ World.prototype.addCreaturesOfType = function(type)
     while (creatureAmount>0 && try_count < maxTries) {
         var cell = this.matrix[utils.randomInt(this.size)][utils.randomInt(this.size)];
         if (!cell.creature) {
-            cell.creature = new creature.Creature(worldParams.creature[size].initialHealth, type, creatureLogic);
+            cell.creature = new creature.Creature(worldParams.rules.creature[size].initialHealth, type, creatureLogic);
             creatureAmount--;
         }
         try_count++;
@@ -80,8 +80,8 @@ World.prototype.findCreature = function()
 
 function cycleVegetation(cell)
 {
-    cell.vegetation += worldParams.veg.rain;
-    cell.vegetation = Math.min(cell.vegetation, worldParams.veg.maxAmount);
+    cell.vegetation += worldParams.rules.veg.rain;
+    cell.vegetation = Math.min(cell.vegetation, worldParams.rules.veg.maxAmount);
 }
 
 World.prototype.cycle = function()

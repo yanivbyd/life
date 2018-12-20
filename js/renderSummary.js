@@ -28,10 +28,10 @@ SamplingGroup.prototype.avg = function()
 
 function renderSummary(world)
 {
-    var vegetation = new SamplingGroup(worldParams.veg.maxAmount);
+    var vegetation = new SamplingGroup(worldParams.rules.veg.maxAmount);
     var creatures = [];
     for (var i=0;i<worldParams.creatures.length;i++) {
-        creatures.push(new SamplingGroup(worldParams.creature["l"].maxHealth));
+        creatures.push(new SamplingGroup(worldParams.rules.creature["l"].maxHealth));
     }
 
     for (var row=0;row<world.size;row++)

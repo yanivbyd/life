@@ -8,14 +8,14 @@ function Creature(health, type, creatureLogic)
 
 Creature.prototype.fixMaxHealth = function()
 {
-    this.health = Math.min(this.health, worldParams.creature[this.size].maxHealth);
+    this.health = Math.min(this.health, worldParams.rules.creature[this.size].maxHealth);
 }
 
 Creature.prototype.cycle = function(ctx)
 {
     if (this.playedCycle == ctx.world.currentCycle) return;
     this.logic.cycle(this, ctx);
-    this.health -= worldParams.penalties.breathing[this.size];
+    this.health -= worldParams.rules.penalties.breathing[this.size];
     this.playedCycle = ctx.world.currentCycle;
     if (this.health <= 0) {
         assert.strictEqual(ctx.cell.creature, this);
@@ -44,7 +44,7 @@ CycleContext.prototype.nextCell = function(row, col)
 
 CycleContext.prototype.eat = function(vegAmount)
 {
-    var maxHealth = worldParams.creature[this.creature.size].maxHealth;
+    var maxHealth = worldParams.rules.creature[this.creature.size].maxHealth;
     var leftForCreature = maxHealth - this.creature.health;
     var actualAmount = Math.min(vegAmount, this.cell.vegetation, leftForCreature);
     this.creature.health += actualAmount;
@@ -89,7 +89,7 @@ CycleContext.prototype.move = function(toCell)
     this.row = newPos.row;
     this.col = newPos.col;
     this.cell = toCell;
-    this.creature.health -= worldParams.penalties.moving;
+    this.creature.health -= worldParams.rules.penalties.moving;
 }
 
 CycleContext.prototype.findBreedMate = function()
@@ -97,7 +97,7 @@ CycleContext.prototype.findBreedMate = function()
     var cells = this.world.nearCells(this.row, this.col);
     for (var i=0;i<cells.length;i++) {
         if (cells[i].creature && cells[i].creature.type == this.creature.type) {
-            var mateMinHealth = Math.max(worldParams.penalties.breed * 2, // * 2 because of health given to baby
+            var mateMinHealth = Math.max(worldParams.rules.penalties.breed * 2, // * 2 because of health given to baby
                     cells[i].creature.logic.breedParams.minHealth);
             if (cells[i].creature.health > mateMinHealth)
                 return cells[i];
@@ -112,16 +112,16 @@ CycleContext.prototype.breed = function(mateCell, emptyCell)
     // TODO: Assert mateCell and emptyCell are near this.cell
     var babyHealth1 = this.creature.health / 2;
     var babyHealth2 = mateCell.creature.health / 2;
-    var babyHealth = babyHealth1 + babyHealth2 - worldParams.penalties.babyPenalty;
+    var babyHealth = babyHealth1 + babyHealth2 - worldParams.rules.penalties.babyPenalty;
     if (babyHealth <= 0) return;
 
     var babyLogicParams = dna.creatureParamsForBaby(this.creature.logic.params,
-        mateCell.creature.logic.params, worldParams.mutationChance);
+        mateCell.creature.logic.params, worldParams.rules.mutationChance);
     emptyCell.creature = new Creature(babyHealth, this.creature.type,
         new CreatureLogic(babyLogicParams));    // TODO: Add cache for creature logic
 
-    this.creature.health -= (babyHealth1 + worldParams.penalties.breed);
-    mateCell.creature.health -= (babyHealth2 + worldParams.penalties.breed);
+    this.creature.health -= (babyHealth1 + worldParams.rules.penalties.breed);
+    mateCell.creature.health -= (babyHealth2 + worldParams.rules.penalties.breed);
 
     assert(this.creature.health > 0, "health below 0");
     assert(mateCell.creature.health > 0, "mate health below 0");
@@ -133,7 +133,7 @@ action = {};
 action.Eat = function(logicParams, size)
 {
     this.params = logicParams;
-    this.amount = worldParams.eating[size];
+    this.amount = worldParams.rules.eating[size];
 }
 action.Eat.prototype.cycle = function(creature, ctx)
 {
@@ -164,7 +164,7 @@ action.Breed = function(logicParams)
 action.Breed.prototype.cycle = function(creature, ctx)
 {
     if (creature.health < this.params.minHealth) return;
-    if (creature.health <= 2 * worldParams.penalties.breed) return; // so as not to die
+    if (creature.health <= 2 * worldParams.rules.penalties.breed) return; // so as not to die
     var mateCell = ctx.findBreedMate();
     if (mateCell) {
         var emptyCell = ctx.findEmptyCellWithMostVeg();

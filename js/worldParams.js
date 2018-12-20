@@ -1,26 +1,29 @@
 worldParams = {
-    veg: {
-        maxAmount: 20,      /* max amount of vegetation per cell */
-        rain: 1             /* rain increases vegetation count per cell */
+    rules: {
+        veg: {
+            maxAmount: 20,      /* max amount of vegetation per cell */
+            rain: 1             /* rain increases vegetation count per cell */
+        },
+        creature: {
+            /* initialHealth - health to be given to a creature when the game starts, can't excceed maxHealth */
+            /* maxHealth - maximum health points a creature can have. When a creature reaches 0 or negative health it dies */
+            "s": { initialHealth: 10, maxHealth: 20 },
+            "m": { initialHealth: 20, maxHealth: 40 },
+            "l": { initialHealth: 30, maxHealth: 60 },
+        },
+        addCreatures: {
+            amount: 1000        /* Amount of creatures by types added when the game starts */
+        },
+        eating: { "s": 4, "m": 6, "l": 7 },   /* Amount of vegetation eaten from a cell per turn. The actual amount eaten will not exceed creature's maxHealth nor the vegetation amount in the cell */
+        penalties: {
+            breathing: { "s": 2, "m": 2.7, "l": 3.5 },  /* Fixed creature penalty on each turn, regardless of what it does */
+            moving: 3,  /* Penalty for moving to another empty cell */
+            breed: 2,   /* Penalty of a parent for breeding. Breeding is done by 2 parents */
+            babyPenalty: 2  /* Penalty of a baby for being bord. The health of the baby is taken from its parents */
+        },
+        mutationChance: 1,  /* 0-100 chance for gene single change on birth */
     },
-    creature: {
-        /* initialHealth - health to be given to a creature when the game starts, can't excceed maxHealth */
-        /* maxHealth - maximum health points a creature can have. When a creature reaches 0 or negative health it dies */
-        "s": { initialHealth: 10, maxHealth: 20 },
-        "m": { initialHealth: 20, maxHealth: 40 },
-        "l": { initialHealth: 30, maxHealth: 60 },
-    },
-    addCreatures: {
-        amount: 1000        /* Amount of creatures by types added when the game starts */
-    },
-    eating: { "s": 4, "m": 6, "l": 7 },   /* Amount of vegetation eaten from a cell per turn. The actual amount eaten will not exceed creature's maxHealth nor the vegetation amount in the cell */
-    penalties: {
-        breathing: { "s": 2, "m": 2.7, "l": 3.5 },  /* Fixed creature penalty on each turn, regardless of what it does */
-        moving: 3,  /* Penalty for moving to another empty cell */
-        breed: 2,   /* Penalty of a parent for breeding. Breeding is done by 2 parents */
-        babyPenalty: 2  /* Penalty of a baby for being bord. The health of the baby is taken from its parents */
-    },
-    mutationChance: 1,  /* 0-100 chance for gene single change on birth */
+
     rendering: {
         creatures: [    /* colors of creatures */
             [255, 0, 0],
