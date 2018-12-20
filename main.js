@@ -2,9 +2,14 @@ var program = require('commander');
 
 program
     .version('1.0')
-    .option('-c, --cycles [count]', 'Number of cycles')
+    .option('-c, --cycles <count>', 'Number of cycles (required)', parseInt)
+    .option('-g, --graph', 'Save output graph file')
     .parse(process.argv);
 
+if (!program.cycles) {
+    program.outputHelp();
+    return;
+}
 
 window = {};
 
@@ -64,7 +69,7 @@ function main()
     console.log("Running %d cycles\n", numOfCycles);
     for (var i=0;i<numOfCycles;i++) {
         myworld.cycle();
-        writeCycleToOutputFiles(myworld);
+        if (program.graph) writeCycleToOutputFiles(myworld);
         if (i%100 == 99 && i + 50 < numOfCycles) printStats(myworld);
     }
     printStats(myworld);
