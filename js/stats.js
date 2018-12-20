@@ -1,19 +1,19 @@
-function SamplingEnum(idToText)
+function Sampler(idToText)
 {
     this.vals = {};
     this.count = 0;
     this.sum = 0;
     if (idToText !== undefined) this.idToText = idToText;
 }
-SamplingEnum.prototype.getFreq = function(val)
+Sampler.prototype.getFreq = function(val)
 {
     return this.vals[val] | 0;
 }
-SamplingEnum.prototype.avg = function(val)
+Sampler.prototype.avg = function(val)
 {
     return (this.sum && this.count) ? this.sum / this.count : 0;
 }
-SamplingEnum.prototype.sample = function(val)
+Sampler.prototype.sample = function(val)
 {
     this.count++;
     if (!isNaN(val)) this.sum += val;
@@ -21,7 +21,7 @@ SamplingEnum.prototype.sample = function(val)
     if (!this.vals[val]) this.vals[val] = 1;
     else this.vals[val]++;
 }
-SamplingEnum.prototype.valsByFreq = function()
+Sampler.prototype.valsByFreq = function()
 {
     var vals = [];
     for (val in this.vals) {
@@ -34,12 +34,12 @@ function percentage(count, total)
 {
     return Math.floor(count * 100 / total);
 }
-SamplingEnum.prototype.display = function(val)
+Sampler.prototype.display = function(val)
 {
     if (this.idToText) return this.idToText[val] || val;
     return val;
 }
-SamplingEnum.prototype.toString = function(numResults)
+Sampler.prototype.toString = function(numResults)
 {
     numResults = numResults | 3;
     var sampler = this;
@@ -61,14 +61,14 @@ stats = {
     calcStats: function(world) {
         var statsObj = { cycle: world.currentCycle | 0 };
 
-        statsObj.vegetation = new SamplingEnum();
-        statsObj.sizes = new SamplingEnum();
-        statsObj.movePerc = new SamplingEnum();
-        statsObj.moveMaxVeg = new SamplingEnum();
-        statsObj.eatPerc = new SamplingEnum();
-        statsObj.breedPerc = new SamplingEnum();
-        statsObj.breedminHealth = new SamplingEnum();
-        statsObj.creatures = new SamplingEnum(creatureIdToText());
+        statsObj.vegetation = new Sampler();
+        statsObj.sizes = new Sampler();
+        statsObj.movePerc = new Sampler();
+        statsObj.moveMaxVeg = new Sampler();
+        statsObj.eatPerc = new Sampler();
+        statsObj.breedPerc = new Sampler();
+        statsObj.breedminHealth = new Sampler();
+        statsObj.creatures = new Sampler(creatureIdToText());
 
         for (var row=0;row<world.size;row++) {
             for (var col=0;col<world.size;col++) {
