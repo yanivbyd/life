@@ -4,6 +4,7 @@ program
     .version('1.0')
     .option('-c, --cycles <count>', 'Number of cycles (required)', parseInt)
     .option('-g, --graph', 'Save output graph file')
+    .option('-s, --single-creature <type>', 'Run with a single creature')
     .parse(process.argv);
 
 if (!program.cycles) {
@@ -78,7 +79,10 @@ function main()
 
     var myworld = new world.World();
     myworld.init(350);
-    myworld.addCreatures();
+    if (program.singleCreature)
+        myworld.addCreatures(program.singleCreature);
+    else
+        myworld.addCreatures();
     var numOfCycles = program.cycles || 500;
     console.log("Running %d cycles\n", numOfCycles);
     for (var i=0;i<numOfCycles;i++) {

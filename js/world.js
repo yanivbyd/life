@@ -43,10 +43,12 @@ World.prototype.findPosFromNearby = function(row, col, cell)
     panic("Cell not nearby " + row + "," + col);
 }
 
-World.prototype.addCreatures = function()
+World.prototype.addCreatures = function(singleType)
 {
-    for (var i=0;i<worldParams.creatures.length;i++)
+    for (var i=0;i<worldParams.creatures.length;i++) {
+        if (singleType && worldParams.creatures[i].name != singleType) continue;
         this.addCreaturesOfType(i);
+    }
 }
 
 World.prototype.addCreaturesOfType = function(type)
