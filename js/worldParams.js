@@ -13,7 +13,7 @@ worldParams = {
     },
     eating: { "s": 4, "m": 6, "l": 7 },
     penalties: {
-        breathing: { "s": 2, "m": 4, "l": 5 },
+        breathing: { "s": 2, "m": 2.7, "l": 3.5 },
         moving: 3,
         breed: 2,
         babyPenalty: 2
