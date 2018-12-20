@@ -1,9 +1,11 @@
-function Sampler(idToText)
+function Sampler(name, idToText, idToNum)
 {
+    this.name = name;
     this.vals = {};
     this.count = 0;
     this.sum = 0;
     if (idToText !== undefined) this.idToText = idToText;
+    if (idToNum !== undefined) this.idToNum = idToNum;
 }
 Sampler.prototype.getFreq = function(val)
 {
@@ -16,7 +18,8 @@ Sampler.prototype.avg = function(val)
 Sampler.prototype.sample = function(val)
 {
     this.count++;
-    if (!isNaN(val)) this.sum += val;
+    var num = (this.idToNum === undefined) ? val : this.idToNum[val];
+    if (!isNaN(num)) this.sum += num;
 
     if (!this.vals[val]) this.vals[val] = 1;
     else this.vals[val]++;
@@ -57,18 +60,26 @@ function creatureIdToText()
     return idToText;
 }
 
+function addSamplerText(arr, sampler, avgFixedSize)
+{
+    if (!sampler.count) return;
+    arr.push(sampler.name + ": "
+        + sampler.avg().toFixed(avgFixedSize | 0) + " (avg) "
+        + "[" + sampler.toString() + "]");
+}
+
 stats = {
     calcStats: function(world) {
         var statsObj = { cycle: world.currentCycle | 0 };
 
-        statsObj.vegetation = new Sampler();
-        statsObj.sizes = new Sampler();
-        statsObj.movePerc = new Sampler();
-        statsObj.moveMaxVeg = new Sampler();
-        statsObj.eatPerc = new Sampler();
-        statsObj.breedPerc = new Sampler();
-        statsObj.breedminHealth = new Sampler();
-        statsObj.creatures = new Sampler(creatureIdToText());
+        statsObj.vegetation = new Sampler("vegetation");
+        statsObj.size = new Sampler("size", {}, { "s" : 1, "m": 2, "l": 3 });
+        statsObj.movePerc = new Sampler("move percent");
+        statsObj.moveMaxVeg = new Sampler("move max veg");
+        statsObj.eatPerc = new Sampler("eat percent");
+        statsObj.breedPerc = new Sampler("breed percent");
+        statsObj.breedminHealth = new Sampler("breed min health");
+        statsObj.creatures = new Sampler("creature", creatureIdToText());
 
         for (var row=0;row<world.size;row++) {
             for (var col=0;col<world.size;col++) {
@@ -76,7 +87,7 @@ stats = {
                 statsObj.vegetation.sample(cell.vegetation);
                 if (cell.creature) {
                     statsObj.creatures.sample(cell.creature.type);
-                    statsObj.sizes.sample(cell.creature.size);
+                    statsObj.size.sample(cell.creature.size);
                     statsObj.movePerc.sample(cell.creature.logic.moveParams.p);
                     statsObj.moveMaxVeg.sample(cell.creature.logic.moveParams.cellVegAmountToMove);
                     statsObj.eatPerc.sample(cell.creature.logic.eatParams.p);
@@ -91,16 +102,19 @@ stats = {
     statsToText: function(statsObj) {
         var arr = [];
         arr.push("cycle: " + utils.numberWithCommas(statsObj.cycle));
-        arr.push("total creatures: " + utils.numberWithCommas(statsObj.creatures.count));
-        arr.push("creature: " + statsObj.creatures.toString(5));
-        arr.push("vegetation: " + statsObj.vegetation.avg().toFixed(1));
-        arr.push("genes:");
-        arr.push("size: " + statsObj.sizes.toString());
-        arr.push("move percent: " + statsObj.movePerc.toString());
-        arr.push("move max veg: " + statsObj.moveMaxVeg.toString());
-        arr.push("eat percent: " + statsObj.eatPerc.toString());
-        arr.push("breed percent: " + statsObj.breedPerc.toString());
-        arr.push("breed min health: " + statsObj.breedminHealth.toString());
+        if (statsObj.creatures.count) {
+            arr.push("creatures: " + utils.numberWithCommas(statsObj.creatures.count));
+            arr.push(statsObj.creatures.name + ": " + statsObj.creatures.toString(5));
+        }
+        arr.push(statsObj.vegetation.name + ": " + statsObj.vegetation.avg().toFixed(1));
+        if (statsObj.creatures.count)
+            arr.push("genes");
+        addSamplerText(arr, statsObj.size, 1);
+        addSamplerText(arr, statsObj.movePerc);
+        addSamplerText(arr, statsObj.moveMaxVeg);
+        addSamplerText(arr, statsObj.eatPerc);
+        addSamplerText(arr, statsObj.breedPerc);
+        addSamplerText(arr, statsObj.breedminHealth);
         return arr.join('\n');
     }
 }
