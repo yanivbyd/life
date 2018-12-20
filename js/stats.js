@@ -1,31 +1,3 @@
-function SamplingGroup(histMax)
-{
-    this.histMax = histMax;
-    this.sum = 0;
-    this.count = 0;
-}
-
-SamplingGroup.prototype.sample = function(val)
-{
-    this.count++;
-    this.sum += val;
-}
-
-SamplingGroup.prototype.toString = function()
-{
-    var out = [];
-    out.push("count=" + utils.shortNumber(this.count));
-    if (this.sum) {
-        out.push("avg="+this.avg());
-    }
-    return out.join(", ");
-}
-
-SamplingGroup.prototype.avg = function()
-{
-    return (this.sum) ? (this.sum / this.count).toFixed(2) : '';
-}
-
 function SamplingEnum(idToText)
 {
     this.vals = {};
