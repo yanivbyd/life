@@ -8,14 +8,14 @@ function Creature(health, type, creatureLogic)
 
 Creature.prototype.fixMaxHealth = function()
 {
-    this.health = Math.min(this.health, worldParams.rules.creature[this.size].maxHealth);
+    this.health = Math.min(this.health, creatureSize.maxHealth(this.size));
 }
 
 Creature.prototype.cycle = function(ctx)
 {
     if (this.playedCycle == ctx.world.currentCycle) return;
     this.logic.cycle(this, ctx);
-    this.health -= worldParams.rules.penalties.breathing[this.size];
+    this.health -= creatureSize.penaltyBreathing(this.size);
     this.playedCycle = ctx.world.currentCycle;
     if (this.health <= 0) {
         assert.strictEqual(ctx.cell.creature, this);
@@ -44,7 +44,7 @@ CycleContext.prototype.nextCell = function(row, col)
 
 CycleContext.prototype.eat = function(vegAmount)
 {
-    var maxHealth = worldParams.rules.creature[this.creature.size].maxHealth;
+    var maxHealth = creatureSize.maxHealth(this.creature.size);
     var leftForCreature = maxHealth - this.creature.health;
     var actualAmount = Math.min(vegAmount, this.cell.vegetation, leftForCreature);
     this.creature.health += actualAmount;
@@ -133,7 +133,7 @@ action = {};
 action.Eat = function(logicParams, size)
 {
     this.params = logicParams;
-    this.amount = worldParams.rules.eating[size];
+    this.amount = creatureSize.eating(size);
 }
 action.Eat.prototype.cycle = function(creature, ctx)
 {

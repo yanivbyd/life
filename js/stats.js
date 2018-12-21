@@ -73,7 +73,7 @@ stats = {
         var statsObj = { cycle: world.currentCycle | 0 };
 
         statsObj.vegetation = new Sampler("vegetation");
-        statsObj.size = new Sampler("size", {}, { "s" : 1, "m": 2, "l": 3 });
+        statsObj.size = new Sampler("size");
         statsObj.movePerc = new Sampler("move percent");
         statsObj.moveMaxVeg = new Sampler("move max veg");
         statsObj.eatPerc = new Sampler("eat percent");

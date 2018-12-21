@@ -3,6 +3,7 @@ var utils = require('../js/utils');
 var lifeArrays = require('../js/lifeArrays');
 var creature = require('../js/creature');
 var worldParams = require('../js/worldParams');
+var creatureSize = require('../js/creatureSize');
 var world = require('../js/world');
 var stats = require('../js/stats');
 var dna = require('../js/dna');

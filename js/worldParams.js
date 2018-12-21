@@ -5,18 +5,15 @@ worldParams = {
             rain: 1             /* rain increases vegetation count per cell */
         },
         creature: {
-            /* initialHealth - health to be given to a creature when the game starts, can't excceed maxHealth */
-            /* maxHealth - maximum health points a creature can have. When a creature reaches 0 or negative health it dies */
-            "s": { initialHealth: 10, maxHealth: 20 },
-            "m": { initialHealth: 20, maxHealth: 40 },
-            "l": { initialHealth: 30, maxHealth: 60 },
+            maxHealth: "18 + size * 2"  /* maximum health points a creature can have. When a creature reaches 0 or negative health it dies */
         },
         addCreatures: {
-            amount: 1000        /* Amount of creatures by types added when the game starts */
+            amount: 1000,       /* Amount of creatures by types added when the game starts */
+            initialHealth: "10 + size * 1.5", /* health to be given to a creature when the game starts, can't excceed maxHealth */
         },
-        eating: { "s": 4, "m": 6, "l": 7 },   /* Amount of vegetation eaten from a cell per turn. The actual amount eaten will not exceed creature's maxHealth nor the vegetation amount in the cell */
+        eating: "3 + size * 1",   /* Amount of vegetation eaten from a cell per turn. The actual amount eaten will not exceed creature's maxHealth nor the vegetation amount in the cell */
         penalties: {
-            breathing: { "s": 2, "m": 2.7, "l": 3.5 },  /* Fixed creature penalty on each turn, regardless of what it does */
+            breathing: "1 + size * 0.8",  /* Fixed creature penalty on each turn, regardless of what it does */
             moving: 3,  /* Penalty for moving to another empty cell */
             breed: 2,   /* Penalty of a parent for breeding. Breeding is done by 2 parents */
             babyPenalty: 2  /* Penalty of a baby for being bord. The health of the baby is taken from its parents */
@@ -35,7 +32,7 @@ worldParams = {
 
     /*
         Creature params consist of:
-        * size - The size of the creature (s/m/l).
+        * size - The size of the creature (1-10).
         *        An increases size increses # vegetations eaten per turn as well as the creatures max health,
         *        but increases the creature's penalties a well
         * actions - a list of actions a creature takes each turn. The order is important
@@ -61,7 +58,7 @@ worldParams = {
     creatures: [
         {
             name: "red",
-            size: "s",
+            size: 1,
             actions: [
                 { t: 'eat', p: 100 },
                 { t: 'breed', p: 33, minHealth: 5 },
@@ -70,7 +67,7 @@ worldParams = {
         },
         {
             name: "blue",
-            size: "s",
+            size: 1,
             actions: [
                 { t: 'eat', p: 100 },
                 { t: 'breed', p: 50, minHealth: 16 },
@@ -79,7 +76,7 @@ worldParams = {
         },
         {
             name: "orange",
-            size: "s",
+            size: 1,
             actions: [
                 { t: 'eat', p: 100 },
                 { t: 'move', p: 100, cellVegAmountToMove: 4 },
@@ -88,7 +85,7 @@ worldParams = {
         },
         {
             name: "purple",
-            size: "s",
+            size: 1,
             actions: [
                 { t: 'eat', p: 100 },
                 { t: 'breed', p: 50, minHealth: 16 },

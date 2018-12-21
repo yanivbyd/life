@@ -26,7 +26,7 @@ dna.DNA.prototype.fromCreatureParams = function(params)
     var size = 7; // Fixed for now
     this.buffer = new ArrayBuffer(size);
     var ctx = new WriteContext(this.buffer);
-    ctx.write(creatureSizeToByte(params.size));
+    ctx.write(params.size);
     var eatAction = getAction(params, 'eat');
     ctx.write(eatAction.p);
     var moveAction = getAction(params, 'move');
@@ -65,23 +65,10 @@ dna.DNA.prototype.equal = function(dna2)
     return true;
 }
 
-function creatureSizeToByte(size)
-{
-    switch (size) {
-    case "s": return 0;
-    case "m": return 1;
-    case "l": return 2;
-    }
-    assert.fail("wrong size " + size);
-}
-
 function creatureSizeFromByte(byte)
 {
-    switch (byte % 3) {
-    case 0: return "s";
-    case 1: return "m";
-    case 2: return "l";
-    }
+    if (byte >= 10 && byte <= 20) return 1+(20-byte);
+    return 1 + (byte % 10);
 }
 
 function getAction(params, actionType)
