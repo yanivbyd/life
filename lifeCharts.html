@@ -21,77 +21,92 @@
 </div>
 
 <script type="text/javascript">
-  new Dygraph(
-    document.getElementById("graphdiv_veg"), "output/veg.csv?" + new Date().getTime(),
-    {
-        title: 'Vegetation',
-        xlabel: '',
-        ylabel: '',
-        colors: ['green'],
-    });
+    var cycleGraphs = [];
 
-  new Dygraph(
-    document.getElementById("graphdiv_creatures"), "output/creatures.csv?" + new Date().getTime(),
+    function zoomCallback(minCycle, maxCycle)
     {
-        title: 'Creatures',
-        xlabel: '',
-        ylabel: '',
-        colors: ['red','blue','orange','purple'],
-    });
+        for (var i=0;i<cycleGraphs.length;i++)
+            cycleGraphs[i].updateOptions({ dateWindow: [minCycle, maxCycle]});
+    }
 
-  new Dygraph(
-    document.getElementById("graphdiv_size"), "output/genes.csv?" + new Date().getTime(),
-    {
-        title: 'Size',
-        xlabel: '',
-        ylabel: '',
-        visibility: [true, false, false, false, false, false]
-    });
+    cycleGraphs.push(new Dygraph(
+        document.getElementById("graphdiv_veg"), "output/veg.csv?" + new Date().getTime(),
+        {
+            title: 'Vegetation',
+            xlabel: '',
+            ylabel: '',
+            colors: ['green'],
+            zoomCallback: zoomCallback
+        }));
 
-  new Dygraph(
-    document.getElementById("graphdiv_move_perc"), "output/genes.csv?" + new Date().getTime(),
-    {
-        title: 'Move Percent',
-        xlabel: '',
-        ylabel: '',
-        visibility: [false, true, false, false, false, false]
-    });
+    cycleGraphs.push(new Dygraph(
+        document.getElementById("graphdiv_creatures"), "output/creatures.csv?" + new Date().getTime(),
+        {
+            title: 'Creatures',
+            xlabel: '',
+            ylabel: '',
+            colors: ['red','blue','orange','purple'],
+            zoomCallback: zoomCallback
+        }));
 
-  new Dygraph(
-    document.getElementById("graphdiv_move_max_veg"), "output/genes.csv?" + new Date().getTime(),
-    {
-        title: 'Move Max Veg.',
-        xlabel: '',
-        ylabel: '',
-        visibility: [false, false, true, false, false, false]
-    });
+    cycleGraphs.push(new Dygraph(
+        document.getElementById("graphdiv_size"), "output/genes.csv?" + new Date().getTime(),
+        {
+            title: 'Size',
+            xlabel: '',
+            ylabel: '',
+            visibility: [true, false, false, false, false, false],
+            zoomCallback: zoomCallback
+        }));
 
-  new Dygraph(
-    document.getElementById("graphdiv_eat_perc"), "output/genes.csv?" + new Date().getTime(),
-    {
-        title: 'Eat Percent',
-        xlabel: '',
-        ylabel: '',
-        visibility: [false, false, false, true, false, false]
-    });
+    cycleGraphs.push(new Dygraph(
+        document.getElementById("graphdiv_move_perc"), "output/genes.csv?" + new Date().getTime(),
+        {
+            title: 'Move Percent',
+            xlabel: '',
+            ylabel: '',
+            visibility: [false, true, false, false, false, false],
+            zoomCallback: zoomCallback
+        }));
 
-  new Dygraph(
-    document.getElementById("graphdiv_breed_perc"), "output/genes.csv?" + new Date().getTime(),
-    {
-        title: 'Breed Percent',
-        xlabel: '',
-        ylabel: '',
-        visibility: [false, false, false, false, true, false]
-    });
+    cycleGraphs.push(new Dygraph(
+        document.getElementById("graphdiv_move_max_veg"), "output/genes.csv?" + new Date().getTime(),
+        {
+            title: 'Move Max Veg.',
+            xlabel: '',
+            ylabel: '',
+            visibility: [false, false, true, false, false, false],
+            zoomCallback: zoomCallback
+        }));
 
-  new Dygraph(
-    document.getElementById("graphdiv_breed_min_health"), "output/genes.csv?" + new Date().getTime(),
-    {
-        title: 'Breed Min. Health',
-        xlabel: '',
-        ylabel: '',
-        visibility: [false, false, false, false, false, true]
-    });
+    cycleGraphs.push(new Dygraph(
+        document.getElementById("graphdiv_eat_perc"), "output/genes.csv?" + new Date().getTime(),
+        {
+            title: 'Eat Percent',
+            xlabel: '',
+            ylabel: '',
+            visibility: [false, false, false, true, false, false],
+            zoomCallback: zoomCallback
+        }));
+
+    cycleGraphs.push(new Dygraph(
+        document.getElementById("graphdiv_breed_perc"), "output/genes.csv?" + new Date().getTime(),
+        {
+            title: 'Breed Percent',
+            xlabel: '',
+            ylabel: '',
+            visibility: [false, false, false, false, true, false],
+            zoomCallback: zoomCallback
+        }));
+
+    cycleGraphs.push(new Dygraph(
+        document.getElementById("graphdiv_breed_min_health"), "output/genes.csv?" + new Date().getTime(),
+        {
+            title: 'Breed Min. Health',
+            xlabel: '',
+            ylabel: '',
+            visibility: [false, false, false, false, false, true],
+            zoomCallback: zoomCallback
+        }));
 </script>
-
 </body>
