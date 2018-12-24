@@ -4,7 +4,7 @@ Life simulation game, simulating creatures eating, moving and breeding. Each cre
 To run:
 1. Clone project and put it under some web server (e.g. node http server).
 2. To run on the browser start life.html (e.g. http://localhost:8080/life.html).
-   Add on 'Add' button to add creatures and 'Play' button to start the simulation.
+   Click on 'Add' button to add creatures and 'Play' button to start the simulation.
    You can edit js/worldParams.js and change creature behaviours and life rules.
 3. To run in node js first run `npm install` and then run: `node main.js -h` for help.
    For example: `node main.js -c 2000 -g`.
