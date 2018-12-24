@@ -146,27 +146,31 @@ function getPercentage(p)
     return p % 101;
 }
 
-dna.DNA.prototype.fromParents = function(dna1, dna2, hasMutation)
+dna.DNA.prototype.fromParents = function(dna1, dna2, hasMutation, switchParentChance)
 {
-    // First simple approach, either use dna1 or dna2
-    var baseDna = utils.randomBool() ? dna1 : dna2;
-
-    this.buffer = new ArrayBuffer(baseDna.buffer.byteLength);
+    this.buffer = new ArrayBuffer(dna1.buffer.byteLength);
     var mutationIndex = hasMutation ? utils.randomInt(this.buffer.byteLength) : -1;
-    var view1 = new Uint8Array(baseDna.buffer);
+    var view1 = new Uint8Array(dna1.buffer);
+    var view2 = new Uint8Array(dna2.buffer);
+    var parentView = utils.randomBool() ? view1 : view2;
     var view = new Uint8Array(this.buffer);
 
     for (var i=0;i<this.buffer.byteLength;i++) {
-        view[i] = view1[i];
+        view[i] = parentView[i];
         if (mutationIndex == i) {
             var toAdd = utils.randomBool() ? 1 : 255;
             view[i] = (view[i] + toAdd) % 256;
         }
+        if (utils.randomInt(switchParentChance)) {
+            parentView = (parentView == view1) ? view2 : view1;
+        }
     }
 }
 
-dna.creatureParamsForBaby = function(parent1Params, parent2Params, mutationChance)
+dna.creatureParamsForBaby = function(parent1Params, parent2Params, mutationChance, switchParentChance)
 {
+    switchParentChance = switchParentChance | 30;
+
     var dna1 = new dna.DNA(); dna1.fromCreatureParams(parent1Params);
     var dna2 = new dna.DNA(); dna2.fromCreatureParams(parent2Params);
 
@@ -175,7 +179,7 @@ dna.creatureParamsForBaby = function(parent1Params, parent2Params, mutationChanc
     if (dnasEqual && !mutation) return parent1Params;
 
     var dna3 = new dna.DNA();
-    dna3.fromParents(dna1, dna2, mutationChance);
+    dna3.fromParents(dna1, dna2, mutationChance, switchParentChance);
 
     return dna3.toCreatureParams();
 }

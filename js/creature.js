@@ -116,7 +116,7 @@ CycleContext.prototype.breed = function(mateCell, emptyCell)
     if (babyHealth <= 0) return;
 
     var babyLogicParams = dna.creatureParamsForBaby(this.creature.logic.params,
-        mateCell.creature.logic.params, worldParams.rules.mutationChance);
+        mateCell.creature.logic.params, worldParams.rules.mutationChance, worldParams.rules.switchGeneChance);
     emptyCell.creature = new Creature(babyHealth, this.creature.type,
         new CreatureLogic(babyLogicParams));    // TODO: Add cache for creature logic
 
