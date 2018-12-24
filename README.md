@@ -9,5 +9,7 @@ To run:
 3. To run in node js run: 'node main.js -h' for help
    A run example is: node main.js -c 2000 -g
    You can see graphs in lifeCharts.html (e.g. http://localhost:8080/lifeCharts.html)
-   
+4. To run automated tests run:
+   mocha
+ 
 Enjoy :-)
