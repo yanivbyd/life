@@ -1,5 +1,5 @@
 # life
-Life simulation game, simulating creatures eating, moving and breeding. Each creature has its own DNA and there's a chance for mutation.
+Life simulation game, simulating creatures eating, moving and breeding. Each creature has its own DNA and there's a chance of mutation.
 
 To run:
 1. Clone project and put it under some web server (e.g. node http server).
