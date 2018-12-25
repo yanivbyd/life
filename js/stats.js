@@ -50,6 +50,13 @@ Sampler.prototype.toString = function(numResults)
         + percentage(x.freq, sampler.count) + '%)')
         .slice(0, numResults).join(', ');
 }
+Sampler.prototype.equals = function(that)
+{
+    if (this.count != that.count || this.sum != that.sum) return false;
+    for (val in this.vals) {
+        if (that.vals[val] === undefined || this.vals[val] != that.vals[val]) return false;
+    }
+}
 
 function creatureIdToText()
 {
@@ -97,7 +104,11 @@ Stats.prototype.calc = function(world)
             }
         }
     }
+
+    this.samplers = [ this.vegetation, this.size, this.movePerc, this.moveMaxVeg,
+                    this.eatPerc, this.breedPerc, this.breedminHealth, this.creatures];
 }
+
 Stats.prototype.toString = function()
 {
     var arr = [];
@@ -116,6 +127,16 @@ Stats.prototype.toString = function()
     addSamplerText(arr, this.breedPerc);
     addSamplerText(arr, this.breedminHealth);
     return arr.join('\n');
+}
+
+Stats.prototype.equals = function(that)
+{
+    if (this.cycle != that.cycle) return false;
+    assert.equal(this.samplers.length, that.samplers.length);
+    for (var i=0;i<this.samplers.length;i++) {
+        if (!this.samplers[i].equals(that.samplers[i])) return false;
+    }
+    return true;
 }
 
 stats = {
