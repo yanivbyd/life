@@ -70,7 +70,7 @@ function writeCycleToOutputFiles(myworld)
 
 function printStats(myworld)
 {
-    console.log(stats.statsToText(stats.calcStats(myworld)));
+    console.log(stats.calcStats(myworld).toString());
     console.log('\n'); // 2 new lines
 }
 

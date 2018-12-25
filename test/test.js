@@ -39,7 +39,7 @@ describe('Life', function() {
     var myworld = new world.World();
     myworld.init(50);
     myworld.addCreatures();
-    var statStr = stats.statsToText(stats.calcStats(myworld));
+    var statStr = stats.calcStats(myworld).toString();
     it('stat checking, cycle 0', function() {
         massert(statStr.indexOf('red') > -1);
         massert(statStr.indexOf('health') > -1);
@@ -49,7 +49,7 @@ describe('Life', function() {
 
 
     myworld.cycle();
-    var statStr2 = stats.statsToText(stats.calcStats(myworld));
+    var statStr2 = stats.calcStats(myworld).toString();
     it('stat checking, cycle 1', function() {
         massert(statStr2.indexOf('red') > -1);
         massert(statStr2.indexOf('health') > -1);

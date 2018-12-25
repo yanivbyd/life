@@ -68,54 +68,61 @@ function addSamplerText(arr, sampler, avgFixedSize)
         + "[" + sampler.toString() + "]");
 }
 
-stats = {
-    calcStats: function(world) {
-        var statsObj = { cycle: world.currentCycle | 0 };
+function Stats() {}
 
-        statsObj.vegetation = new Sampler("vegetation");
-        statsObj.size = new Sampler("size");
-        statsObj.movePerc = new Sampler("move percent");
-        statsObj.moveMaxVeg = new Sampler("move max veg");
-        statsObj.eatPerc = new Sampler("eat percent");
-        statsObj.breedPerc = new Sampler("breed percent");
-        statsObj.breedminHealth = new Sampler("breed min health");
-        statsObj.creatures = new Sampler("creature", creatureIdToText());
+Stats.prototype.calc = function(world)
+{
+    this.cycle = world.currentCycle | 0;
+    this.vegetation = new Sampler("vegetation");
+    this.size = new Sampler("size");
+    this.movePerc = new Sampler("move percent");
+    this.moveMaxVeg = new Sampler("move max veg");
+    this.eatPerc = new Sampler("eat percent");
+    this.breedPerc = new Sampler("breed percent");
+    this.breedminHealth = new Sampler("breed min health");
+    this.creatures = new Sampler("creature", creatureIdToText());
 
-        for (var row=0;row<world.size;row++) {
-            for (var col=0;col<world.size;col++) {
-                var cell = world.matrix[row][col];
-                statsObj.vegetation.sample(cell.vegetation);
-                if (cell.creature) {
-                    statsObj.creatures.sample(cell.creature.type);
-                    statsObj.size.sample(cell.creature.size);
-                    statsObj.movePerc.sample(cell.creature.logic.moveParams.p);
-                    statsObj.moveMaxVeg.sample(cell.creature.logic.moveParams.cellVegAmountToMove);
-                    statsObj.eatPerc.sample(cell.creature.logic.eatParams.p);
-                    statsObj.breedPerc.sample(cell.creature.logic.breedParams.p);
-                    statsObj.breedminHealth.sample(cell.creature.logic.breedParams.minHealth);
-                }
+    for (var row=0;row<world.size;row++) {
+        for (var col=0;col<world.size;col++) {
+            var cell = world.matrix[row][col];
+            this.vegetation.sample(cell.vegetation);
+            if (cell.creature) {
+                this.creatures.sample(cell.creature.type);
+                this.size.sample(cell.creature.size);
+                this.movePerc.sample(cell.creature.logic.moveParams.p);
+                this.moveMaxVeg.sample(cell.creature.logic.moveParams.cellVegAmountToMove);
+                this.eatPerc.sample(cell.creature.logic.eatParams.p);
+                this.breedPerc.sample(cell.creature.logic.breedParams.p);
+                this.breedminHealth.sample(cell.creature.logic.breedParams.minHealth);
             }
         }
+    }
+}
+Stats.prototype.toString = function()
+{
+    var arr = [];
+    arr.push("cycle: " + utils.numberWithCommas(this.cycle));
+    if (this.creatures.count) {
+        arr.push("creatures: " + utils.numberWithCommas(this.creatures.count));
+        arr.push(this.creatures.name + ": " + this.creatures.toString(5));
+    }
+    arr.push(this.vegetation.name + ": " + this.vegetation.avg().toFixed(1));
+    if (this.creatures.count)
+        arr.push("genes");
+    addSamplerText(arr, this.size, 1);
+    addSamplerText(arr, this.movePerc);
+    addSamplerText(arr, this.moveMaxVeg);
+    addSamplerText(arr, this.eatPerc);
+    addSamplerText(arr, this.breedPerc);
+    addSamplerText(arr, this.breedminHealth);
+    return arr.join('\n');
+}
 
+stats = {
+    calcStats: function(world) {
+        var statsObj = new Stats();
+        statsObj.calc(world);
         return statsObj;
-    },
-    statsToText: function(statsObj) {
-        var arr = [];
-        arr.push("cycle: " + utils.numberWithCommas(statsObj.cycle));
-        if (statsObj.creatures.count) {
-            arr.push("creatures: " + utils.numberWithCommas(statsObj.creatures.count));
-            arr.push(statsObj.creatures.name + ": " + statsObj.creatures.toString(5));
-        }
-        arr.push(statsObj.vegetation.name + ": " + statsObj.vegetation.avg().toFixed(1));
-        if (statsObj.creatures.count)
-            arr.push("genes");
-        addSamplerText(arr, statsObj.size, 1);
-        addSamplerText(arr, statsObj.movePerc);
-        addSamplerText(arr, statsObj.moveMaxVeg);
-        addSamplerText(arr, statsObj.eatPerc);
-        addSamplerText(arr, statsObj.breedPerc);
-        addSamplerText(arr, statsObj.breedminHealth);
-        return arr.join('\n');
     }
 }
 module.exports = stats
