@@ -50,7 +50,7 @@ CycleContext.prototype.eat = function(vegAmount)
     this.creature.health += actualAmount;
     assert(this.creature.health <= maxHealth);
     this.creature.fixMaxHealth(); // no need for it because of the assert
-    this.cell.vegetation -= actualAmount;
+    this.cell.vegetation = Math.floor(this.cell.vegetation - actualAmount);
     assert(this.cell.vegetation>=0);
 }
 
