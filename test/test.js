@@ -13,19 +13,21 @@ var massert = require('assert');
 
 function creature1Params()
 {
-    return {
+    var out = {
         size: 0,
         actions: [
             { t: 'eat', p: 100 },
             { t: 'breed', p: 33, minHealth: 5 },
             { t: 'move', p: 50, cellVegAmountToMove: 6 }
         ]
-    }
+    };
+    dna.initDNAForCreatureParams(out);
+    return out;
 }
 
 function creature2Params()
 {
-    return {
+    var out = {
         size: 1,
         actions: [
             { t: 'breed', p: 12, minHealth: 5 },
@@ -33,6 +35,8 @@ function creature2Params()
             { t: 'move', p: 50, cellVegAmountToMove: 6 }
         ]
     }
+    dna.initDNAForCreatureParams(out);
+    return out;
 }
 
 describe('Life', () => {

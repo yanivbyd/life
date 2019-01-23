@@ -65,6 +65,7 @@ World.prototype.addCreaturesOfType = function(type)
 {
     var creatureAmount = worldParams.rules.addCreatures.amount;
     var maxTries = creatureAmount * 10, try_count = 0;
+    dna.initDNAForCreatureParams(worldParams.creatures[type]);
     var creatureLogic = new creature.CreatureLogic(worldParams.creatures[type]);
     var size = creatureLogic.params.size;
 

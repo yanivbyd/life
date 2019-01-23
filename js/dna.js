@@ -43,6 +43,7 @@ dna.DNA.prototype.toCreatureParams = function()
         ]
     };
     reorderActions(params, arr[6]);
+    params._dna = this;
     return params;
 }
 
@@ -163,8 +164,8 @@ dna.creatureParamsForBaby = function(parent1Params, parent2Params, mutationChanc
 {
     switchParentChance = switchParentChance | 30;
 
-    var dna1 = new dna.DNA(); dna1.fromCreatureParams(parent1Params);
-    var dna2 = new dna.DNA(); dna2.fromCreatureParams(parent2Params);
+    var dna1 = parent1Params._dna;
+    var dna2 = parent2Params._dna;
 
     var mutation = utils.checkPercentage(mutationChance);
     var dnasEqual = dna1.equal(dna2);
@@ -176,4 +177,9 @@ dna.creatureParamsForBaby = function(parent1Params, parent2Params, mutationChanc
     return dna3.toCreatureParams();
 }
 
+dna.initDNAForCreatureParams = function(creatureParams)
+{
+    var dna1 = new dna.DNA(); dna1.fromCreatureParams(creatureParams);
+    creatureParams._dna = dna1;
+}
 module.exports = dna;
