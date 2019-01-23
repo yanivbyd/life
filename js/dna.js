@@ -1,66 +1,56 @@
-function WriteContext(buffer)
-{
-    this.buffer = buffer;
-    this.pos = 0;
-    this.view = new Uint8Array(this.buffer);
-}
-
-WriteContext.prototype.write = function(byte)
-{
-    assert(this.pos < this.buffer.byteLength);
-    this.view[this.pos] = byte;
-    this.pos++;
-}
-
-WriteContext.prototype.endWrites = function()
-{
-    assert.equal(this.pos, this.buffer.byteLength);
-}
-
 dna = {};
 dna.DNA = function() {
 }
 
+dna.DNA.prototype._write = function(byte)
+{
+    assert(byte >= 0 && byte <= 255, 'byte out of range ' + byte);
+    this.arr.push(byte);
+}
+
+dna.DNA.prototype._updateStr = function()
+{
+    this.str = this.arr.map(x => String.fromCharCode(x)).join('');
+}
+
 dna.DNA.prototype.fromCreatureParams = function(params)
 {
-    var size = 7; // Fixed for now
-    this.buffer = new ArrayBuffer(size);
-    var ctx = new WriteContext(this.buffer);
-    ctx.write(params.size);
+    this.arr = [];
+    this._write(params.size);
     var eatAction = getAction(params, 'eat');
-    ctx.write(eatAction.p);
+    this._write(eatAction.p);
     var moveAction = getAction(params, 'move');
-    ctx.write(moveAction.p);
-    ctx.write(moveAction.cellVegAmountToMove);
+    this._write(moveAction.p);
+    this._write(moveAction.cellVegAmountToMove);
     var breedAction = getAction(params, 'breed');
-    ctx.write(breedAction.p);
-    ctx.write(breedAction.minHealth);
-    ctx.write(actionsOrderNum(params));
-    ctx.endWrites();
+    this._write(breedAction.p);
+    this._write(breedAction.minHealth);
+    this._write(actionsOrderNum(params));
+
+    this._updateStr();
 }
 
 dna.DNA.prototype.toCreatureParams = function()
 {
-    var view = new Uint8Array(this.buffer);
+    const arr = this.arr;
+
     var params = {
-        size: creatureSizeFromByte(view[0]),
+        size: creatureSizeFromByte(arr[0]),
         actions: [
-            { t: 'eat', p: getPercentage(view[1]) },
-            { t: 'move', p: getPercentage(view[2]), cellVegAmountToMove: view[3] },
-            { t: 'breed', p: getPercentage(view[4]), minHealth: view[5] },
+            { t: 'eat', p: getPercentage(arr[1]) },
+            { t: 'move', p: getPercentage(arr[2]), cellVegAmountToMove: arr[3] },
+            { t: 'breed', p: getPercentage(arr[4]), minHealth: arr[5] },
         ]
     };
-    reorderActions(params, view[6]);
+    reorderActions(params, arr[6]);
     return params;
 }
 
 dna.DNA.prototype.equal = function(dna2)
 {
-    if (this.buffer.byteLength != dna2.buffer.byteLength) return false;
-    var view = new Uint8Array(this.buffer);
-    var view2 = new Uint8Array(dna2.buffer);
-    for (var i=0;i<this.buffer.byteLength;i++) {
-        if (view[i] != view2[i]) return false;
+    if (this.arr.length != dna2.arr.length) return false;
+    for (var i=0;i<this.arr.length;i++) {
+        if (this.arr[i] != dna2.arr[i]) return false;
     }
     return true;
 }
@@ -148,23 +138,25 @@ function getPercentage(p)
 
 dna.DNA.prototype.fromParents = function(dna1, dna2, hasMutation, switchParentChance)
 {
-    this.buffer = new ArrayBuffer(dna1.buffer.byteLength);
-    var mutationIndex = hasMutation ? utils.randomInt(this.buffer.byteLength) : -1;
-    var view1 = new Uint8Array(dna1.buffer);
-    var view2 = new Uint8Array(dna2.buffer);
-    var parentView = utils.randomBool() ? view1 : view2;
-    var view = new Uint8Array(this.buffer);
+    this.arr = [];
+    var arr = this.arr;
 
-    for (var i=0;i<this.buffer.byteLength;i++) {
-        view[i] = parentView[i];
+    var mutationIndex = hasMutation ? utils.randomInt(dna1.arr.length) : -1;
+    var arr1 = dna1.arr, arr2 = dna2.arr;
+    var parent = utils.randomBool() ? arr1 : arr2;
+
+    for (var i=0;i<dna1.arr.length;i++) {
+        arr.push(parent[i]);
         if (mutationIndex == i) {
             var toAdd = utils.randomBool() ? 1 : 255;
-            view[i] = (view[i] + toAdd) % 256;
+            arr[i] = (arr[i] + toAdd) % 256;
         }
         if (utils.randomInt(switchParentChance)) {
-            parentView = (parentView == view1) ? view2 : view1;
+            parent = (parent == arr1) ? arr2 : arr1;
         }
     }
+
+    this._updateStr();
 }
 
 dna.creatureParamsForBaby = function(parent1Params, parent2Params, mutationChance, switchParentChance)
