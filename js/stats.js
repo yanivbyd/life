@@ -1,11 +1,12 @@
-function Sampler(name, idToText, idToNum)
+function Sampler(name, options)
 {
     this.name = name;
     this.vals = {};
     this.count = 0;
     this.sum = 0;
-    if (idToText !== undefined) this.idToText = idToText;
-    if (idToNum !== undefined) this.idToNum = idToNum;
+    if (options && options.idToText) this.idToText = options.idToText;
+    if (options && options.idToNum) this.idToNum = options.idToNum;
+    if (options && options.sumOnly) this.sumOnly = true;
 }
 Sampler.prototype.getFreq = function(val)
 {
@@ -21,8 +22,10 @@ Sampler.prototype.sample = function(val)
     var num = (this.idToNum === undefined) ? val : this.idToNum[val];
     if (!isNaN(num)) this.sum += num;
 
-    if (!this.vals[val]) this.vals[val] = 1;
-    else this.vals[val]++;
+    if (!this.sumOnly) {
+        if (!this.vals[val]) this.vals[val] = 1;
+        else this.vals[val]++;
+    }
 }
 Sampler.prototype.valsByFreq = function()
 {
@@ -54,8 +57,11 @@ Sampler.prototype.equals = function(that)
 {
     if (this.count != that.count || this.sum != that.sum) return false;
     for (val in this.vals) {
-        if (that.vals[val] === undefined || this.vals[val] != that.vals[val]) return false;
+        if (that.vals[val] === undefined || this.vals[val] != that.vals[val]) {
+            return false;
+        }
     }
+    return true;
 }
 
 function creatureIdToText()
@@ -80,14 +86,14 @@ function Stats() {}
 Stats.prototype.calc = function(world)
 {
     this.cycle = world.currentCycle | 0;
-    this.vegetation = new Sampler("vegetation");
+    this.vegetation = new Sampler("vegetation", { sumOnly: true });
     this.size = new Sampler("size");
     this.movePerc = new Sampler("move percent");
     this.moveMaxVeg = new Sampler("move max veg");
     this.eatPerc = new Sampler("eat percent");
     this.breedPerc = new Sampler("breed percent");
     this.breedminHealth = new Sampler("breed min health");
-    this.creatures = new Sampler("creature", creatureIdToText());
+    this.creatures = new Sampler("creature", { idToText: creatureIdToText() });
 
     for (var row=0;row<world.size;row++) {
         for (var col=0;col<world.size;col++) {
@@ -134,7 +140,9 @@ Stats.prototype.equals = function(that)
     if (this.cycle != that.cycle) return false;
     assert.equal(this.samplers.length, that.samplers.length);
     for (var i=0;i<this.samplers.length;i++) {
-        if (!this.samplers[i].equals(that.samplers[i])) return false;
+        if (!this.samplers[i].equals(that.samplers[i])) {
+            return false;
+        }
     }
     return true;
 }
