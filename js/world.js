@@ -9,13 +9,23 @@ function World()
 
 World.prototype.init = function(size)
 {
+    this.initEmpty(size);
+    for(var i=0; i<size; i++) {
+        for(var j=0; j<size; j++) {
+            this.matrix[i][j] = new Cell(utils.randomInt(worldParams.rules.veg.maxAmount+1));
+        }
+    }
+}
+
+World.prototype.initEmpty = function(size)
+{
     this.size = size;
     this.nextCycle = 1;
     this.matrix = [];
     for(var i=0; i<size; i++) {
         this.matrix[i] = [];
         for(var j=0; j<size; j++) {
-            this.matrix[i][j] = new Cell(utils.randomInt(worldParams.rules.veg.maxAmount+1));
+            this.matrix[i][j] = new Cell(0);
         }
     }
 }
