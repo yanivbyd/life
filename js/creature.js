@@ -23,12 +23,6 @@ Creature.prototype.cycle = function(ctx)
     }
 }
 
-Creature.prototype.init = function(cell, health, type, creatureLogic)
-{
-    cell.creature = new Creature(type, creatureLogic);
-}
-
-
 function CycleContext(world)
 {
     this.world = world;
