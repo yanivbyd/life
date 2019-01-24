@@ -1,3 +1,4 @@
+var fs = require('fs');
 var assert = require('../js/assert');
 var utils = require('../js/utils');
 var lifeArrays = require('../js/lifeArrays');
@@ -7,6 +8,7 @@ var creatureSize = require('../js/creatureSize');
 var world = require('../js/world');
 var stats = require('../js/stats');
 var dna = require('../js/dna');
+var persistent = require('../js/persistent');
 
 var massert = require('assert');
 
@@ -93,3 +95,45 @@ describe('Life', () => {
     });
 });
 
+describe('LifePersistency', () => {
+    it('file persistency', () => {
+        var world1 = new world.World();
+        world1.init(60);
+        world1.addCreatures();
+        worldParams.rules.mutationChance = 20;
+        for (var i=0;i<50;i++) world1.cycle();
+
+        var stats1 = stats.calcStats(world1);
+        if (!fs.existsSync('output')) fs.mkdirSync('output');
+        persistent.saveWorldToFile(world1, 'output/world_for_test.life');
+
+        var world2 = new world.World();
+        persistent.loadWorldFromFile(world2, 'output/world_for_test.life');
+
+        for (var i=0;i<world1.size;i++) {
+            for (var j=0;j<world1.size;j++) {
+                massert(world1.matrix[i][j].vegetation == world2.matrix[i][j].vegetation);
+                var c1 = world1.matrix[i][j].creature;
+                var c2 = world2.matrix[i][j].creature;
+                if (c1) {
+                    massert(!!c2);
+                    massert.equal(c1.health, c2.health);
+                    massert.equal(c1.type, c2.type);
+                    massert.equal(c1.size, c2.size);
+                    massert.equal(c1.getDNA().toString(), c2.getDNA().toString());
+                }
+                else
+                    massert(!c2);
+            }
+        }
+
+        var stats2 = stats.calcStats(world2);
+        massert(world1.currentCycle, world2.currentCycle);
+
+        if (!stats1.equals(stats2)) {
+            console.error("stats1=" + stats1 + "\n\n");
+            console.error("stats2=" + stats2 + "\n\n");
+        }
+        massert(stats1.equals(stats2));
+    });
+});
