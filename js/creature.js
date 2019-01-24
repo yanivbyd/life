@@ -6,6 +6,11 @@ function Creature(health, type, creatureLogic)
     this.size = creatureLogic.params.size;
 }
 
+Creature.prototype.getDNA = function()
+{
+    return this.logic.params._dna;
+}
+
 Creature.prototype.fixMaxHealth = function()
 {
     this.health = Math.min(this.health, creatureSize.maxHealth(this.size));
