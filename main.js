@@ -4,7 +4,9 @@ program
     .version('1.0')
     .option('-c, --cycles <count>', 'Number of cycles (required)', parseInt)
     .option('-g, --graph', 'Save output graph file')
-    .option('-s, --single-creature <type>', 'Run with a single creature')
+    .option('-m, --single-creature <type>', 'Run with a single creature')
+    .option('-s, --save <file>', 'Persist to output file when done')
+    .option('-l, --load <file>', 'Start from a loaded file')
     .parse(process.argv);
 
 if (!program.cycles) {
@@ -24,6 +26,7 @@ var creatureSize = require('./js/creatureSize');
 var world = require('./js/world');
 var dna = require('./js/dna');
 var stats = require('./js/stats');
+var persistent = require('./js/persistent');
 
 function initOutputFiles()
 {
@@ -79,11 +82,17 @@ function main()
     initOutputFiles();
 
     var myworld = new world.World();
-    myworld.init(350);
-    if (program.singleCreature)
-        myworld.addCreatures(program.singleCreature);
-    else
-        myworld.addCreatures();
+    if (program.load) {
+        persistent.loadWorldFromFile(myworld, program.load);
+        console.log("World loaded from %s, cycle=%d", program.load, myworld.currentCycle);
+    } else {
+        myworld.init(350);
+        if (program.singleCreature)
+            myworld.addCreatures(program.singleCreature);
+        else
+            myworld.addCreatures();
+    }
+
     var numOfCycles = program.cycles || 500;
     console.log("Running %d cycles\n", numOfCycles);
     for (var i=0;i<numOfCycles;i++) {
@@ -92,6 +101,11 @@ function main()
         if (i%100 == 99 && i + 50 < numOfCycles) printStats(myworld);
     }
     printStats(myworld);
+
+    if (program.save) {
+        persistent.saveWorldToFile(myworld, program.save);
+        console.log("World saved to " + program.save);
+    }
 }
 
 main();
