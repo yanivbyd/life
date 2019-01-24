@@ -22,6 +22,8 @@ Creature.prototype.cycle = function(ctx)
     this.logic.cycle(this, ctx);
     this.health -= creatureSize.penaltyBreathing(this.size);
     this.playedCycle = ctx.world.currentCycle;
+
+    this.health = Math.floor(this.health);
     if (this.health <= 0) {
         assert.strictEqual(ctx.cell.creature, this);
         ctx.cell.creature = null;
@@ -95,11 +97,13 @@ CycleContext.prototype.findBreedMate = function()
 {
     var cells = this.world.nearCells(this.row, this.col);
     for (var i=0;i<cells.length;i++) {
-        if (cells[i].creature && cells[i].creature.type == this.creature.type) {
-            var mateMinHealth = Math.max(worldParams.rules.penalties.breed * 2, // * 2 because of health given to baby
-                    cells[i].creature.logic.breedParams.minHealth);
-            if (cells[i].creature.health > mateMinHealth)
+        var mate = cells[i].creature;
+        if (mate && mate.type == this.creature.type) {
+            if (mate.health / 2 - worldParams.rules.penalties.breed >= 1
+                && mate.health >= mate.logic.breedParams.minHealth)
+            {
                 return cells[i];
+            }
         }
     }
     return null;
@@ -112,6 +116,7 @@ CycleContext.prototype.breed = function(mateCell, emptyCell)
     var babyHealth1 = this.creature.health / 2;
     var babyHealth2 = mateCell.creature.health / 2;
     var babyHealth = babyHealth1 + babyHealth2 - worldParams.rules.penalties.babyPenalty;
+    babyHealth = Math.floor(babyHealth);
     if (babyHealth <= 0) return;
 
     var babyLogicParams = dna.creatureParamsForBaby(this.creature.logic.params,
@@ -121,8 +126,9 @@ CycleContext.prototype.breed = function(mateCell, emptyCell)
 
     this.creature.health -= (babyHealth1 + worldParams.rules.penalties.breed);
     mateCell.creature.health -= (babyHealth2 + worldParams.rules.penalties.breed);
+    mateCell.creature.health = Math.floor(mateCell.creature.health);
 
-    assert(this.creature.health > 0, "health below 0");
+    assert(this.creature.health >= 1, "health below 0 (or will be rounded to 0) " + this.creature.health);
     assert(mateCell.creature.health > 0, "mate health below 0");
 }
 
@@ -160,10 +166,11 @@ action.Breed = function(logicParams)
 {
     this.params = logicParams;
 }
+
 action.Breed.prototype.cycle = function(creature, ctx)
 {
     if (creature.health < this.params.minHealth) return;
-    if (creature.health <= 2 * worldParams.rules.penalties.breed) return; // so as not to die
+    if (creature.health / 2 - worldParams.rules.penalties.breed < 1) return; // so as not to die
     var mateCell = ctx.findBreedMate();
     if (mateCell) {
         var emptyCell = ctx.findEmptyCellWithMostVeg();
