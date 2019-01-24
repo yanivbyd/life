@@ -7,6 +7,7 @@ program
     .option('-m, --single-creature <type>', 'Run with a single creature')
     .option('-s, --save <file>', 'Persist to output file when done')
     .option('-l, --load <file>', 'Start from a loaded file')
+    .option('-a, --auto-save <cycles>', 'Auto save after x cycles')
     .parse(process.argv);
 
 if (!program.cycles) {
@@ -99,6 +100,10 @@ function main()
         myworld.cycle();
         if (program.graph) writeCycleToOutputFiles(myworld);
         if (i%100 == 99 && i + 50 < numOfCycles) printStats(myworld);
+        if (program.autoSave && (i % program.autoSave == 0)) {
+            persistent.saveWorldToFile(myworld, program.save);
+            console.log("Auto saving to " + program.save);
+        }
     }
     printStats(myworld);
 
