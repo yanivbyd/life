@@ -1,7 +1,7 @@
 function panic(msg)
 {
     debugger;
-    msg = msg || '';
+    if (msg === undefined) msg = '';
     console.error(msg);
     window.alert("PANIC - " + msg);
 }
