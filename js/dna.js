@@ -16,7 +16,7 @@ dna.DNA.prototype._updateStr = function()
 dna.DNA.prototype.fromCreatureParams = function(params)
 {
     this.arr = [];
-    this._write(params.size);
+    this._write(creatureSizeToByte(params.size));
     var eatAction = getAction(params, 'eat');
     this._write(eatAction.p);
     var moveAction = getAction(params, 'move');
@@ -60,6 +60,12 @@ function creatureSizeFromByte(byte)
 {
     if (byte >= 10 && byte <= 20) return 1+(20-byte);
     return 1 + (byte % 10);
+}
+
+function creatureSizeToByte(size)
+{
+    assert(size > 0, size);
+    return size - 1;
 }
 
 function getAction(params, actionType)
