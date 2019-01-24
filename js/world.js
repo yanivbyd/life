@@ -17,10 +17,11 @@ World.prototype.init = function(size)
     }
 }
 
-World.prototype.initEmpty = function(size)
+World.prototype.initEmpty = function(size, cycle)
 {
+    this.currentCycle = cycle || 0;
     this.size = size;
-    this.nextCycle = 1;
+    this.nextCycle = this.currentCycle + 1;
     this.matrix = [];
     for(var i=0; i<size; i++) {
         this.matrix[i] = [];

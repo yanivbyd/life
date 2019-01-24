@@ -59,8 +59,7 @@ function readMatrix(file, w, cycle)
     var buffer = Buffer.alloc(4);
     var dnaBuffer = Buffer.alloc(DNA_STRING_SIZE);
     const size = readInt32(file, buffer);
-    w.initEmpty(size);
-    w.currentCycle = cycle;
+    w.initEmpty(size, cycle);
 
     for (var pos = 0; pos < size * size; pos++) {
         var i = Math.floor(pos / size);
