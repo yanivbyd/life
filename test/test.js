@@ -14,7 +14,7 @@ var massert = require('assert');
 function creature1Params()
 {
     var out = {
-        size: 0,
+        size: 1,
         actions: [
             { t: 'eat', p: 100 },
             { t: 'breed', p: 33, minHealth: 5 },
@@ -28,7 +28,7 @@ function creature1Params()
 function creature2Params()
 {
     var out = {
-        size: 1,
+        size: 2,
         actions: [
             { t: 'breed', p: 12, minHealth: 5 },
             { t: 'eat', p: 80 },
