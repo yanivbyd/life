@@ -13,6 +13,12 @@ dna.DNA.prototype._updateStr = function()
     this.str = this.arr.map(x => String.fromCharCode(x)).join('');
 }
 
+dna.DNA.prototype.toString = function()
+{
+    assert(this.str !== undefined);
+    return this.str;
+}
+
 dna.DNA.prototype.fromCreatureParams = function(params)
 {
     this.arr = [];
@@ -188,4 +194,14 @@ dna.initDNAForCreatureParams = function(creatureParams)
     var dna1 = new dna.DNA(); dna1.fromCreatureParams(creatureParams);
     creatureParams._dna = dna1;
 }
+
+dna.paramsFromDNAStr = function(dnaStr)
+{
+    var dna1 = new dna.DNA();
+    dna1.arr = dnaStr.split('').map(x => x.charCodeAt(0));
+    dna1._updateStr();
+    assert.equal(dnaStr, dna1.str);
+    return dna1.toCreatureParams();
+}
+
 module.exports = dna;
