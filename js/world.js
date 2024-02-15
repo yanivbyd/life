@@ -31,14 +31,20 @@ World.prototype.initEmpty = function(size, cycle)
     }
 }
 
+World.prototype.isValidIndex = function(index) {
+    return index >= 0 && index < this.size;
+}
+
 World.prototype.nearCells = function(row, col)
 {
     var deltas = lifeArrays.getNearbyDeltas();
     var cells = [];
     for (var i=0;i<deltas.length;i++) {
-        var row1 = (row+deltas[i].dy+this.size) % this.size;
-        var col1 = (col+deltas[i].dx+this.size) % this.size;
-        cells.push(this.matrix[row1][col1]);
+        var row1 = row+deltas[i].dy;
+        var col1 = col+deltas[i].dx;
+        if (this.isValidIndex(row1) && this.isValidIndex(col1)) {
+            cells.push(this.matrix[row1][col1]);
+        }
     }
     return cells;
 }
@@ -47,9 +53,13 @@ World.prototype.findPosFromNearby = function(row, col, cell)
 {
     var deltas = lifeArrays.getNearbyDeltas();
     for (var i=0;i<deltas.length;i++) {
-        var row1 = (row+deltas[i].dy+this.size) % this.size;
-        var col1 = (col+deltas[i].dx+this.size) % this.size;
-        if (this.matrix[row1][col1] === cell) return { row: row1, col: col1 };
+        var row1 = row+deltas[i].dy;
+        var col1 = col+deltas[i].dx;
+        if (this.isValidIndex(row1) && this.isValidIndex(col1)) {
+            if (this.matrix[row1][col1] === cell) {
+                return { row: row1, col: col1 };
+            }
+        }
     }
     panic("Cell not nearby " + row + "," + col);
 }
