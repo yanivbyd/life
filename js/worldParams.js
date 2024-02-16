@@ -18,7 +18,7 @@ worldParams = {
             breed: 2,   /* Penalty of a parent for breeding. Breeding is done by 2 parents */
             babyPenalty: 2  /* Penalty of a baby for being bord. The health of the baby is taken from its parents */
         },
-        mutationChance: 1,  /* 0-100 chance for gene single change on birth */
+        mutationChance: 10,  /* 0-100 chance for gene single change on birth */
         switchGeneChance: 30, /* 0-100 chance while copying dna to switch to the other parent's dna */
     },
 
