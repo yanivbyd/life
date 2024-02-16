@@ -5,13 +5,14 @@ function Sampler(name, options)
     this.count = 0;
     this.sum = 0;
     if (options && options.idToText) this.idToText = options.idToText;
-    if (options && options.idToNum) this.idToNum = options.idToNum;
     if (options && options.sumOnly) this.sumOnly = true;
 }
+
 Sampler.prototype.getFreq = function(val)
 {
     return this.vals[val] | 0;
 }
+
 Sampler.prototype.avg = function(val)
 {
     return (this.sum && this.count) ? this.sum / this.count : 0;
@@ -19,8 +20,7 @@ Sampler.prototype.avg = function(val)
 Sampler.prototype.sample = function(val)
 {
     this.count++;
-    var num = (this.idToNum === undefined) ? val : this.idToNum[val];
-    if (!isNaN(num)) this.sum += num;
+    if (!isNaN(val)) this.sum += val;
 
     if (!this.sumOnly) {
         if (!this.vals[val]) this.vals[val] = 1;
