@@ -59,38 +59,38 @@ worldParams = {
     creatures: [
         {
             name: "red",
-            size: 1,
+            size: 10,
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'breed', p: 33, minHealth: 5 },
-                { t: 'move', p: 50, cellVegAmountToMove: 6 }
+                { t: 'move', p: 50, cellVegAmountToMove: 6 },
+                { t: 'breed', p: 33, minHealth: 35 }
             ]
         },
         {
             name: "blue",
-            size: 1,
+            size: 10,
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'breed', p: 50, minHealth: 16 },
-                { t: 'move', p: 20, cellVegAmountToMove: 3 },
+                { t: 'move', p: 100, cellVegAmountToMove: 3 },
+                { t: 'breed', p: 50, minHealth: 30 }
             ]
         },
         {
             name: "orange",
-            size: 1,
+            size: 10,
             actions: [
                 { t: 'eat', p: 100 },
                 { t: 'move', p: 100, cellVegAmountToMove: 4 },
-                { t: 'breed', p: 100, minHealth: 16 },
+                { t: 'breed', p: 100, minHealth: 25 }
             ]
         },
         {
             name: "purple",
-            size: 1,
+            size: 10,
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'breed', p: 50, minHealth: 16 },
-                { t: 'move', p: 30, cellVegAmountToMove: 4 },
+                { t: 'move', p: 100, cellVegAmountToMove: 4 },
+                { t: 'breed', p: 50, minHealth: 25 }
             ]
         }
     ],
