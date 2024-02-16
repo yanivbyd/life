@@ -32,6 +32,17 @@ worldParams = {
                 vegMaxAmount: 100,
                 rain:2
             }
+        },
+        {
+            type: 'rect',
+            x: 300,
+            y: 300,
+            width: 30,
+            height: 35,
+            environment: {
+                vegMaxAmount: 100,
+                rain:2
+            }
         }
     ],
     rendering: {
@@ -74,8 +85,8 @@ worldParams = {
             size: 10,
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'move', p: 50, cellVegAmountToMove: 6 },
-                { t: 'breed', p: 33, minHealth: 35 }
+                { t: 'move', p: 100, cellVegAmountToMove: 4 },
+                { t: 'breed', p: 100, minHealth: 25 }
             ]
         },
         {
@@ -83,8 +94,8 @@ worldParams = {
             size: 10,
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'move', p: 100, cellVegAmountToMove: 3 },
-                { t: 'breed', p: 50, minHealth: 30 }
+                { t: 'move', p: 100, cellVegAmountToMove: 4 },
+                { t: 'breed', p: 100, minHealth: 25 }
             ]
         },
         {
@@ -102,7 +113,7 @@ worldParams = {
             actions: [
                 { t: 'eat', p: 100 },
                 { t: 'move', p: 100, cellVegAmountToMove: 4 },
-                { t: 'breed', p: 50, minHealth: 25 }
+                { t: 'breed', p: 100, minHealth: 25 }
             ]
         }
     ],
