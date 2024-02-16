@@ -33,6 +33,8 @@
         <button onclick="addCreatures(); render()">Add</button>
         <button id="play_stop" onclick="playOrStop();">Play</button>
         <button onclick="cycle(); render()">Cycle</button>
+        <input type="checkbox" id="autoRender" checked="true">
+        <label for="autoRender">Auto Render</label>
     </div>
 
     <script type="text/javascript">
@@ -46,10 +48,19 @@
             renderCanvas($('#canvas')[0], global_world);
             $('#summary').text(stats.calcStats(global_world).toString());
         }
+        function renderLight() {
+            if (global_world.currentCycle % 10 == 0) {
+                $('#summary').text('cycle: ' + global_world.currentCycle);
+            }
+        }
         function continuePlaying() {
             if (!global_playing) return;
             cycle();
-            render();
+            if ($('#autoRender').is(':checked')) {
+                render();
+            } else {
+                renderLight();
+            }
             setTimeout(continuePlaying, 10);
         }
         function playOrStop() {
