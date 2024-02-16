@@ -93,6 +93,7 @@ Stats.prototype.calc = function(world)
     this.eatPerc = new Sampler("eat percent");
     this.breedPerc = new Sampler("breed percent");
     this.breedminHealth = new Sampler("breed min health");
+    this.health = new Sampler("health");
     this.creatures = new Sampler("creature", { idToText: creatureIdToText() });
 
     for (var row=0;row<world.size;row++) {
@@ -107,6 +108,7 @@ Stats.prototype.calc = function(world)
                 this.eatPerc.sample(cell.creature.logic.eatParams.p);
                 this.breedPerc.sample(cell.creature.logic.breedParams.p);
                 this.breedminHealth.sample(cell.creature.logic.breedParams.minHealth);
+                this.health.sample(cell.creature.health);
             }
         }
     }
@@ -138,6 +140,11 @@ Stats.prototype.toString = function()
     addSamplerText(arr, this.eatPerc);
     addSamplerText(arr, this.breedPerc);
     addSamplerText(arr, this.breedminHealth);
+
+    if (this.creatures.count) {
+        arr.push("");
+        addSamplerText(arr, this.health);
+    }
     return arr.join('\n');
 }
 
