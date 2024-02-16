@@ -24,8 +24,8 @@ worldParams = {
     areas: [
         {
             type: 'rect',
-            x: 0,
-            y: 0,
+            x: 12,
+            y: 12,
             width: 320,
             height: 170,
             environment: {
@@ -34,11 +34,10 @@ worldParams = {
             }
         },
         {
-            type: 'rect',
+            type: 'circle',
             x: 300,
             y: 300,
-            width: 30,
-            height: 35,
+            radius: 40,
             environment: {
                 vegMaxAmount: 100,
                 rain:2

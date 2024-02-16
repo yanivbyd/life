@@ -37,7 +37,9 @@ World.prototype.initAreas = function()
 
     for (const area of worldParams.areas) {
         if (area.type == 'rect') {
-            areaRectangle(this.matrix, this.size, area.environment, area.x, area.y, area.width, area.height);
+            areaRectangle(this, area.environment, area.x, area.y, area.width, area.height);
+        } else if (area.type == 'circle') {
+            areaCircle(this, area.environment, area.x, area.y, area.radius);
         }
     }
 }
