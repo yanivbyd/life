@@ -118,14 +118,20 @@ Stats.prototype.calc = function(world)
 Stats.prototype.toString = function()
 {
     var arr = [];
-    arr.push("cycle: " + utils.numberWithCommas(this.cycle));
     if (this.creatures.count) {
-        arr.push("creatures: " + utils.numberWithCommas(this.creatures.count));
-        arr.push(this.creatures.name + ": " + this.creatures.toString(5));
+        arr.push(this.creatures.toString(5));
+        arr.push("");
     }
+
+    arr.push("cycle: " + utils.numberWithCommas(this.cycle));
     arr.push(this.vegetation.name + ": " + this.vegetation.avg().toFixed(1));
-    if (this.creatures.count)
-        arr.push("genes");
+    arr.push("creatures: " + utils.numberWithCommas(this.creatures.count));
+
+    if (this.creatures.count) {
+        arr.push(""); // New line
+        arr.push("Genes:");
+        arr.push("------");
+    }
     addSamplerText(arr, this.size, 1);
     addSamplerText(arr, this.movePerc);
     addSamplerText(arr, this.moveMaxVeg);
