@@ -18,7 +18,7 @@ worldParams = {
         switchGeneChance: 30, /* 0-100 chance while copying dna to switch to the other parent's dna */
     },
     environment: {
-        vegMaxAmount: 20,      /* max amount of vegetation per cell */
+        vegMaxAmount: 60,      /* max amount of vegetation per cell */
         rain: 1             /* rain increases vegetation count per cell */
     },
     areas: [
