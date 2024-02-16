@@ -23,7 +23,11 @@ worldParams = {
     },
     areas: [
         {
-            minX: 0, maxX: 350, minY: 0, maxY: 170,
+            type: 'rect',
+            x: 0,
+            y: 0,
+            width: 320,
+            height: 170,
             environment: {
                 vegMaxAmount: 100,
                 rain:2

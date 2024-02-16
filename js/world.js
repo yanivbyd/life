@@ -1,7 +1,7 @@
-function Cell(vegetation, env)
+function Cell(env)
 {
     this.env = env;
-    this.vegetation = vegetation;
+    this.vegetation = utils.randomInt(env.vegMaxAmount+1);
 }
 
 function World()
@@ -27,18 +27,26 @@ World.prototype.initMaxVegetation = function()
     }
 }
 
-World.prototype.init = function(size)
+World.prototype.initAreas = function()
 {
-    this.initEmpty(size);
-    for(var i=0; i<size; i++) {
-        for(var j=0; j<size; j++) {
-            var env = this.enviromentByPos(j, i);
-            this.matrix[i][j] = new Cell(utils.randomInt(env.vegMaxAmount+1), env);
+    for(var i=0; i<this.size; i++) {
+        for (var j = 0; j < this.size; j++) {
+            this.matrix[i][j] = new Cell(worldParams.environment);
+        }
+    }
+
+    for (const area of worldParams.areas) {
+        if (area.type == 'rect') {
+            for (var i=area.y; i<=Math.min(area.y+area.height, this.size-1); i++) {
+                for (var j=area.x; j<=Math.min(area.x+area.width, this.size-1); j++) {
+                    this.matrix[i][j] = new Cell(area.environment);
+                }
+            }
         }
     }
 }
 
-World.prototype.initEmpty = function(size, cycle)
+World.prototype.init = function(size)
 {
     this.currentCycle = cycle || 0;
     this.size = size;
@@ -46,10 +54,9 @@ World.prototype.initEmpty = function(size, cycle)
     this.matrix = [];
     for(var i=0; i<size; i++) {
         this.matrix[i] = [];
-        for(var j=0; j<size; j++) {
-            this.matrix[i][j] = new Cell(0);
-        }
     }
+
+    this.initAreas();
 }
 
 World.prototype.isValidIndex = function(index) {
