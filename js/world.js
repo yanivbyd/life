@@ -37,11 +37,7 @@ World.prototype.initAreas = function()
 
     for (const area of worldParams.areas) {
         if (area.type == 'rect') {
-            for (var i=area.y; i<=Math.min(area.y+area.height, this.size-1); i++) {
-                for (var j=area.x; j<=Math.min(area.x+area.width, this.size-1); j++) {
-                    this.matrix[i][j] = new Cell(area.environment);
-                }
-            }
+            areaRectangle(this.matrix, this.size, area.environment, area.x, area.y, area.width, area.height);
         }
     }
 }
