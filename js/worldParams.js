@@ -23,11 +23,12 @@ worldParams = {
     },
     areas: [
         {
-            type: 'rect',
+            type: 'roundedRect',
             x: 12,
             y: 12,
             width: 320,
             height: 170,
+            cornerRadius: 30,
             environment: {
                 vegMaxAmount: 100,
                 rain:2
