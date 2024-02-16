@@ -1,9 +1,5 @@
 worldParams = {
     rules: {
-        veg: {
-            maxAmount: 20,      /* max amount of vegetation per cell */
-            rain: 1             /* rain increases vegetation count per cell */
-        },
         creature: {
             maxHealth: "18 + size * 2"  /* maximum health points a creature can have. When a creature reaches 0 or negative health it dies */
         },
@@ -21,7 +17,10 @@ worldParams = {
         mutationChance: 10,  /* 0-100 chance for gene single change on birth */
         switchGeneChance: 30, /* 0-100 chance while copying dna to switch to the other parent's dna */
     },
-
+    environment: {
+        vegMaxAmount: 20,      /* max amount of vegetation per cell */
+        rain: 1             /* rain increases vegetation count per cell */
+    },
     rendering: {
         creatures: [    /* colors of creatures */
             [255, 0, 0],

@@ -12,7 +12,7 @@ World.prototype.init = function(size)
     this.initEmpty(size);
     for(var i=0; i<size; i++) {
         for(var j=0; j<size; j++) {
-            this.matrix[i][j] = new Cell(utils.randomInt(worldParams.rules.veg.maxAmount+1));
+            this.matrix[i][j] = new Cell(utils.randomInt(worldParams.environment.vegMaxAmount+1));
         }
     }
 }
@@ -103,8 +103,8 @@ World.prototype.findCreature = function()
 
 function cycleVegetation(cell)
 {
-    cell.vegetation += worldParams.rules.veg.rain;
-    cell.vegetation = Math.min(cell.vegetation, worldParams.rules.veg.maxAmount);
+    cell.vegetation += worldParams.environment.rain;
+    cell.vegetation = Math.min(cell.vegetation, worldParams.environment.vegMaxAmount);
 }
 
 World.prototype.cycle = function()
