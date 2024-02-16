@@ -44,7 +44,7 @@
         }
         function render() {
             renderCanvas($('#canvas')[0], global_world);
-            $('#summary').text(stats.calcStats(global_world).toString());
+            $('#summary').val(stats.calcStats(global_world).toString());
         }
         function continuePlaying() {
             if (!global_playing) return;
