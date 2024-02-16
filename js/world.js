@@ -48,7 +48,7 @@ World.prototype.initAreas = function()
 
 World.prototype.init = function(size)
 {
-    this.currentCycle = cycle || 0;
+    this.currentCycle = 0;
     this.size = size;
     this.nextCycle = this.currentCycle + 1;
     this.matrix = [];
