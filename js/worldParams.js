@@ -35,11 +35,11 @@ worldParams = {
         },
         {
             type: 'circle',
-            x: 300,
-            y: 300,
-            radius: 40,
+            x: 430,
+            y: 420,
+            radius: 65,
             environment: {
-                vegMaxAmount: 100,
+                vegMaxAmount: 90,
                 rain:2
             }
         }
