@@ -37,7 +37,8 @@ utils = {
     {
         if (p == 0) return false;
         if (p == 100) return true;
-        return utils.randomInt(100) > p;
+        let randomInt = utils.randomInt(100);
+        return randomInt < p;
     }
 }
 
