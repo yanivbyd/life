@@ -21,6 +21,15 @@ worldParams = {
         vegMaxAmount: 20,      /* max amount of vegetation per cell */
         rain: 1             /* rain increases vegetation count per cell */
     },
+    areas: [
+        {
+            minX: 0, maxX: 350, minY: 0, maxY: 170,
+            environment: {
+                vegMaxAmount: 100,
+                rain:2
+            }
+        }
+    ],
     rendering: {
         creatures: [    /* colors of creatures */
             [255, 0, 0],

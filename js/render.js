@@ -1,12 +1,14 @@
 var global_veg_colors = [];
 
-function initVegColors(veg_colors)
+function initVegColors(world, veg_colors)
 {
     if (veg_colors.length > 0) return; // already initialized
 
     var start_color = [255,255,255];
     var end_color = [38,255,0];
-    var max_veg = worldParams.environment.vegMaxAmount;
+
+    world.initMaxVegetation();
+    var max_veg = world.maxVegetation;
 
     for (var i=0;i<=max_veg;i++) veg_colors[i] = [];
     var incArr = [];
@@ -34,7 +36,7 @@ function renderCreature(data, i, creature)
 
 function renderCanvas(canvas, world)
 {
-    initVegColors(global_veg_colors);
+    initVegColors(world, global_veg_colors);
 
     var ctx = canvas.getContext('2d');
     var width = $(canvas).width();
