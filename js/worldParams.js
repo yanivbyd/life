@@ -19,7 +19,7 @@ worldParams = {
     },
     environment: {
         vegMaxAmount: 60,      /* max amount of vegetation per cell */
-        rain: 1             /* rain increases vegetation count per cell */
+        rain: 2             /* rain increases vegetation count per cell */
     },
     areas: [
         {
@@ -27,7 +27,7 @@ worldParams = {
             x: 'rnd(100)', y: 'rnd(50)', width: '200+rnd(150)', height: '90 + rnd(100)', cornerRadius: '30+rnd(30)',
             environment: {
                 vegMaxAmount: 90,
-                rain:2
+                rain:3
             }
         },
         {
@@ -35,18 +35,19 @@ worldParams = {
             x: '350+rnd(100)', y: '200+rnd(220)', radius: '30 + rnd(65)',
             environment: {
                 vegMaxAmount: 90,
-                rain:2
+                rain:3
             }
         },
         {
             name: 'heart',
             type: 'polygon',
-            arcRadius: 15,
+            arcRadius: '10+rnd(2)',
+            dx: 'rnd(250)', dy: 'rnd(300)',
             points: [
-                { x: 150, y: 390 },
-                { x: 215, y: 300 },
-                { x: 150, y: 325 },
-                { x: 85, y: 300 },
+                { x: 65, y: 90 },
+                { x: 130, y: 0 },
+                { x: 65, y: 25 },
+                { x: 0, y: 0 },
             ],
             environment: {
                 vegMaxAmount: 90,

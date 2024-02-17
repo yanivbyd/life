@@ -32,10 +32,17 @@ World.prototype.initAreas = function()
     }
 
     for (const area of worldParams.areas) {
-        const fields = ['x','y','width','height','cornerRadius','radius','arcRadius']
+        const fields = ['x','y','width','height','cornerRadius','radius','arcRadius','dx','dy']
         for (let field in area) {
             if (fields.indexOf(field) > -1) {
                 area[field] = pEval(area[field]);
+            }
+        }
+        if (!!area.points) {
+            for (point in area.points) {
+                for (let pointField in point) {
+                    point[pointField] = pEval(point[pointField]);
+                }
             }
         }
     }
@@ -48,7 +55,7 @@ World.prototype.initAreas = function()
         } else if (area.type == 'circle') {
             areaCircle(this, area.environment, area.x, area.y, area.radius);
         } else if (area.type == 'polygon') {
-            areaPolygon(this, area.environment, area.points, area.arcRadius);
+            areaPolygon(this, area.environment, area.points, area.arcRadius, area.dx || 0, area.dy || 0);
         }
     }
 }

@@ -55,20 +55,20 @@ function areaRoundedRectangle(world, env, x, y, width, height, cornerRadius) {
     }
 }
 
-function areaPolygon(world, env, points, arcRadius) {
+function areaPolygon(world, env, points, arcRadius, dx, dy) {
     const ctx = createCanvasCtx(world.size, world.size);
     ctx.beginPath();
 
-    ctx.moveTo(points[0].x, points[0].y);
+    ctx.moveTo(dx+points[0].x, dy+points[0].y);
     for(let i=1; i<points.length; i++) {
         if (arcRadius) {
-            ctx.arcTo(points[i-1].x, points[i-1].y, points[i].x, points[i].y, arcRadius);
+            ctx.arcTo(dx+points[i-1].x, dy+points[i-1].y, dx+points[i].x, dy+points[i].y, arcRadius);
         } else {
-            ctx.lineTo(points[i].x, points[i].y);
+            ctx.lineTo(dx+points[i].x, dy+points[i].y);
         }
     }
     if (arcRadius) {
-        ctx.arcTo(points[points.length-1].x, points[points.length-1].y, points[0].x, points[0].y, arcRadius);
+        ctx.arcTo(dx+points[points.length-1].x, dy+points[points.length-1].y, dx+points[0].x, dy+points[0].y, arcRadius);
     }
     ctx.closePath();
     ctx.fillStyle = 'black';
