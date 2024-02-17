@@ -16,11 +16,27 @@ World.prototype.initMaxVegetation = function()
     }
 }
 
+function rnd(max) {
+    return Math.floor(Math.random() * (max + 1));
+}
+
+function pEval(value) {
+    return eval(value);
+}
 World.prototype.initAreas = function()
 {
     for(var i=0; i<this.size; i++) {
         for (var j = 0; j < this.size; j++) {
             this.matrix[i][j] = new Cell(worldParams.environment);
+        }
+    }
+
+    for (const area of worldParams.areas) {
+        const fields = ['x','y','width','height','cornerRadius','radius','arcRadius']
+        for (let field in area) {
+            if (fields.indexOf(field) > -1) {
+                area[field] = pEval(area[field]);
+            }
         }
     }
 
