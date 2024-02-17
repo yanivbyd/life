@@ -23,16 +23,24 @@ worldParams = {
     },
     areas: [
         {
-            type: 'roundedRect',
-            x: 'rnd(0, 100)', y: 'rnd(0, 50)', width: 'rnd(200, 350)', height: 'rnd(90, 190)', cornerRadius: 'rnd(30, 60)',
+            type: 'multiAreas',
+            shapes: 'rnd(1,4)',
+            area: {
+                type: 'roundedRect',
+                x: 'rnd(0, 100)', y: 'rnd(0, 50)', width: 'rnd(200, 280)', height: 'rnd(50, 150)', cornerRadius: 'rnd(10, 40)'
+            },
             environment: {
                 vegMaxAmount: 90,
                 rain:3
             }
         },
         {
-            type: 'circle',
-            x: 'rnd(350, 450)', y: 'rnd(200, 420)', radius: 'rnd(30, 95)',
+            type: 'multiAreas',
+            shapes: 'rnd(1,5)',
+            area: {
+                type: 'circle',
+                x: 'rnd(350, 450)', y: 'rnd(200, 420)', radius: 'rnd(5, 95)'
+            },
             environment: {
                 vegMaxAmount: 90,
                 rain:3
@@ -55,7 +63,7 @@ worldParams = {
             },
             environment: {
                 vegMaxAmount: 90,
-                rain:4
+                rain: 5
             }
         }
     ],
