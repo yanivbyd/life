@@ -27,7 +27,7 @@ function createCanvasCtx(width, height) {
     canvas.width = width;
     canvas.height = height;
     let ctx = canvas.getContext('2d');
-    // document.body.appendChild(canvas); # keep this for debugging
+    // document.body.appendChild(canvas); /* keep this for debugging */
     return ctx;
 }
 function canvasHasColor(canvasCtx, x, y) {
@@ -49,6 +49,34 @@ function areaRoundedRectangle(world, env, x, y, width, height, cornerRadius) {
     for (let i=y; i<= toValidIndex(world, y+height); i++) {
         for (let j=x; j<=toValidIndex(world, x+width); j++) {
             if (canvasHasColor(ctx, j-x, i-y)) {
+                world.matrix[i][j] = new Cell(env);
+            }
+        }
+    }
+}
+
+function areaPolygon(world, env, points, arcRadius) {
+    const ctx = createCanvasCtx(world.size, world.size);
+    ctx.beginPath();
+
+    ctx.moveTo(points[0].x, points[0].y);
+    for(let i=1; i<points.length; i++) {
+        if (arcRadius) {
+            ctx.arcTo(points[i-1].x, points[i-1].y, points[i].x, points[i].y, arcRadius);
+        } else {
+            ctx.lineTo(points[i].x, points[i].y);
+        }
+    }
+    if (arcRadius) {
+        ctx.arcTo(points[points.length-1].x, points[points.length-1].y, points[0].x, points[0].y, arcRadius);
+    }
+    ctx.closePath();
+    ctx.fillStyle = 'black';
+    ctx.fill();
+
+    for (let i=0; i<=world.size; i++) {
+        for (let j=0; j<=world.size; j++) {
+            if (canvasHasColor(ctx, j, i)) {
                 world.matrix[i][j] = new Cell(env);
             }
         }

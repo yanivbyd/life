@@ -8,17 +8,6 @@ function World()
 {
 }
 
-World.prototype.enviromentByPos = function(x, y) {
-    for (const area of worldParams.areas) {
-        if (x >= area.minX && x <= area.maxX) {
-            if (y >= area.minY && y <= area.maxY) {
-                return area.environment;
-            }
-        }
-    }
-    return worldParams.environment;
-}
-
 World.prototype.initMaxVegetation = function()
 {
     this.maxVegetation = worldParams.environment.vegMaxAmount;
@@ -42,6 +31,8 @@ World.prototype.initAreas = function()
             areaRoundedRectangle(this, area.environment, area.x, area.y, area.width, area.height, area.cornerRadius);
         } else if (area.type == 'circle') {
             areaCircle(this, area.environment, area.x, area.y, area.radius);
+        } else if (area.type == 'polygon') {
+            areaPolygon(this, area.environment, area.points, area.arcRadius);
         }
     }
 }

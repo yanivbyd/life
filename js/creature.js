@@ -46,9 +46,9 @@ CycleContext.prototype.nextCell = function(row, col)
 
 CycleContext.prototype.eat = function(vegAmount)
 {
-    var maxHealth = creatureSize.maxHealth(this.creature.size);
-    var leftForCreature = maxHealth - this.creature.health;
-    var actualAmount = Math.min(vegAmount, this.cell.vegetation, leftForCreature);
+    const maxHealth = creatureSize.maxHealth(this.creature.size);
+    const leftForCreature = maxHealth - this.creature.health;
+    const actualAmount = Math.min(vegAmount, this.cell.vegetation, leftForCreature);
     this.creature.health += actualAmount;
     assert(this.creature.health <= maxHealth);
     this.creature.fixMaxHealth(); // no need for it because of the assert
@@ -64,7 +64,7 @@ CycleContext.prototype.getCurrentVegetation = function()
 CycleContext.prototype.findEmptyCellWithMostVeg = function()
 {
     var maxCells = [];
-    var cells = this.world.nearCells(this.row, this.col);
+    const cells = this.world.nearCells(this.row, this.col);
 
     for (var i=0;i<cells.length;i++) {
         if (cells[i].vegetation == 0 || cells[i].creature) continue;

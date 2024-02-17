@@ -24,24 +24,32 @@ worldParams = {
     areas: [
         {
             type: 'roundedRect',
-            x: 12,
-            y: 12,
-            width: 320,
-            height: 170,
-            cornerRadius: 30,
+            x: 12, y: 12, width: 320, height: 170, cornerRadius: 90,
             environment: {
-                vegMaxAmount: 100,
+                vegMaxAmount: 90,
                 rain:2
             }
         },
         {
             type: 'circle',
-            x: 430,
-            y: 420,
-            radius: 65,
+            x: 430, y: 420, radius: 65,
             environment: {
                 vegMaxAmount: 90,
                 rain:2
+            }
+        },
+        {
+            type: 'polygon',
+            arcRadius: 15,
+            points: [
+                { x: 150, y: 390 },
+                { x: 200, y: 280 },
+                { x: 150, y: 310 },
+                { x: 100, y: 280 },
+            ],
+            environment: {
+                vegMaxAmount: 90,
+                rain:20
             }
         }
     ],
