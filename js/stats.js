@@ -85,6 +85,7 @@ function Stats() {}
 
 Stats.prototype.calc = function(world)
 {
+    this.world = world;
     this.cycle = world.currentCycle | 0;
     this.vegetation = new Sampler("vegetation", { sumOnly: true });
     this.size = new Sampler("size");
@@ -129,6 +130,9 @@ Stats.prototype.toString = function()
 
     arr.push(this.vegetation.name + ": " + this.vegetation.avg().toFixed(1));
     arr.push("creatures: " + utils.numberWithCommas(this.creatures.count));
+    if (this.world.deathsThisCycle) {
+        arr.push('deaths this cycle: ' + this.world.deathsThisCycle);
+    }
 
     if (this.creatures.count) {
         arr.push(""); // New line

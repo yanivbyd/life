@@ -139,6 +139,7 @@ World.prototype.cycle = function()
 {
     this.currentCycle = this.nextCycle;
     this.nextCycle++;
+    this.deathsThisCycle = 0;
     var cycleCtx = new creature.CycleContext(this);
     for(var i=0; i<this.size; i++) {
         for(var j=0; j<this.size; j++) {
