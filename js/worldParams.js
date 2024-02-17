@@ -36,10 +36,10 @@ worldParams = {
         },
         {
             type: 'multiAreas',
-            shapes: 'rnd(1,5)',
+            shapes: 'rnd(3,6)',
             area: {
                 type: 'circle',
-                x: 'rnd(350, 450)', y: 'rnd(200, 420)', radius: 'rnd(5, 95)'
+                x: 'rnd(50, 450)', y: 'rnd(40, 420)', radius: 'rnd(5, 95)'
             },
             environment: {
                 vegMaxAmount: 90,
