@@ -16,8 +16,8 @@ World.prototype.initMaxVegetation = function()
     }
 }
 
-function rnd(max) {
-    return Math.floor(Math.random() * (max + 1));
+function rnd(min, max) {
+    return min + Math.floor(Math.random() * (max-min + 1));
 }
 
 function pEval(value) {

@@ -24,7 +24,7 @@ worldParams = {
     areas: [
         {
             type: 'roundedRect',
-            x: 'rnd(100)', y: 'rnd(50)', width: '200+rnd(150)', height: '90 + rnd(100)', cornerRadius: '30+rnd(30)',
+            x: 'rnd(0, 100)', y: 'rnd(0, 50)', width: 'rnd(200, 350)', height: 'rnd(90, 190)', cornerRadius: 'rnd(30, 60)',
             environment: {
                 vegMaxAmount: 90,
                 rain:3
@@ -32,7 +32,7 @@ worldParams = {
         },
         {
             type: 'circle',
-            x: '350+rnd(100)', y: '200+rnd(220)', radius: '30 + rnd(65)',
+            x: 'rnd(350, 450)', y: 'rnd(200, 420)', radius: 'rnd(30, 95)',
             environment: {
                 vegMaxAmount: 90,
                 rain:3
@@ -41,13 +41,13 @@ worldParams = {
         {
             name: 'heart',
             type: 'polygon',
-            arcRadius: '10+rnd(2)',
-            dx: 'rnd(250)', dy: 'rnd(300)',
+            arcRadius: 'rnd(10, 12)',
+            dx: 'rnd(0, 250)', dy: 'rnd(0, 300)',
             points: [
                 { x: 65, y: 90 },
-                { x: 130, y: 0 },
+                { x: 120, y: 0 },
                 { x: 65, y: 25 },
-                { x: 0, y: 0 },
+                { x: 10, y: 0 },
             ],
             environment: {
                 vegMaxAmount: 90,
