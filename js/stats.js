@@ -120,12 +120,13 @@ Stats.prototype.calc = function(world)
 Stats.prototype.toString = function()
 {
     var arr = [];
+    arr.push("cycle: " + utils.numberWithCommas(this.cycle));
+
     if (this.creatures.count) {
         arr.push(this.creatures.toString(5));
         arr.push("");
     }
 
-    arr.push("cycle: " + utils.numberWithCommas(this.cycle));
     arr.push(this.vegetation.name + ": " + this.vegetation.avg().toFixed(1));
     arr.push("creatures: " + utils.numberWithCommas(this.creatures.count));
 

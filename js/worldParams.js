@@ -18,16 +18,17 @@ worldParams = {
         switchGeneChance: 30, /* 0-100 chance while copying dna to switch to the other parent's dna */
     },
     environment: {
-        vegMaxAmount: 20,      /* max amount of vegetation per cell */
+        vegMaxAmount: 60,      /* max amount of vegetation per cell */
         rain: 1             /* rain increases vegetation count per cell */
     },
     areas: [
         {
-            type: 'rect',
+            type: 'roundedRect',
             x: 12,
             y: 12,
             width: 320,
             height: 170,
+            cornerRadius: 30,
             environment: {
                 vegMaxAmount: 100,
                 rain:2
@@ -35,11 +36,11 @@ worldParams = {
         },
         {
             type: 'circle',
-            x: 300,
-            y: 300,
-            radius: 40,
+            x: 430,
+            y: 420,
+            radius: 65,
             environment: {
-                vegMaxAmount: 100,
+                vegMaxAmount: 90,
                 rain:2
             }
         }
