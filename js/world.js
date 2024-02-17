@@ -23,6 +23,23 @@ function rnd(min, max) {
 function pEval(value) {
     return eval(value);
 }
+
+World.prototype.initAreaDef = function(areaDef) {
+    const fields = ['x','y','width','height','cornerRadius','radius','arcRadius','dx','dy']
+    for (let field in areaDef) {
+        if (fields.indexOf(field) > -1) {
+            areaDef[field] = pEval(areaDef[field]);
+        }
+    }
+    if (!!areaDef.points) {
+        for (point in areaDef.points) {
+            for (let pointField in point) {
+                point[pointField] = pEval(point[pointField]);
+            }
+        }
+    }
+}
+
 World.prototype.initAreas = function()
 {
     for(var i=0; i<this.size; i++) {
@@ -32,31 +49,29 @@ World.prototype.initAreas = function()
     }
 
     for (const area of worldParams.areas) {
-        const fields = ['x','y','width','height','cornerRadius','radius','arcRadius','dx','dy']
-        for (let field in area) {
-            if (fields.indexOf(field) > -1) {
-                area[field] = pEval(area[field]);
-            }
-        }
-        if (!!area.points) {
-            for (point in area.points) {
-                for (let pointField in point) {
-                    point[pointField] = pEval(point[pointField]);
-                }
-            }
-        }
+        this.initAreaDef(area);
     }
 
     for (const area of worldParams.areas) {
-        if (area.type == 'rect') {
-            areaRectangle(this, area.environment, area.x, area.y, area.width, area.height);
-        } else if (area.type == 'roundedRect') {
-            areaRoundedRectangle(this, area.environment, area.x, area.y, area.width, area.height, area.cornerRadius);
-        } else if (area.type == 'circle') {
-            areaCircle(this, area.environment, area.x, area.y, area.radius);
-        } else if (area.type == 'polygon') {
-            areaPolygon(this, area.environment, area.points, area.arcRadius, area.dx || 0, area.dy || 0);
+        this.initArea(area, area.environment);
+    }
+}
+World.prototype.initArea = function(area, env) {
+    if (area.type == 'multiAreas') {
+        let shapesCount = pEval(area.shapes);
+        for (let i=0; i< shapesCount; i++) {
+            const clonedArea = JSON.parse(JSON.stringify(area.area)); // to allow multiple randoms
+            this.initAreaDef(clonedArea);
+            this.initArea(clonedArea, env);
         }
+    } else if (area.type == 'rect') {
+        areaRectangle(this, env, area.x, area.y, area.width, area.height);
+    } else if (area.type == 'roundedRect') {
+        areaRoundedRectangle(this, env, area.x, area.y, area.width, area.height, area.cornerRadius);
+    } else if (area.type == 'circle') {
+        areaCircle(this, env, area.x, area.y, area.radius);
+    } else if (area.type == 'polygon') {
+        areaPolygon(this, env, area.points, area.arcRadius, area.dx || 0, area.dy || 0);
     }
 }
 

@@ -39,19 +39,23 @@ worldParams = {
             }
         },
         {
-            name: 'heart',
-            type: 'polygon',
-            arcRadius: 'rnd(10, 12)',
-            dx: 'rnd(0, 250)', dy: 'rnd(0, 300)',
-            points: [
-                { x: 65, y: 90 },
-                { x: 120, y: 0 },
-                { x: 65, y: 25 },
-                { x: 10, y: 0 },
-            ],
+            name: 'hearts',
+            type: 'multiAreas',
+            shapes: 'rnd(5,8)',
+            area: {
+                type: 'polygon',
+                arcRadius: 'rnd(10, 12)',
+                dx: 'rnd(0, 250)', dy: 'rnd(0, 300)',
+                points: [
+                    {x: 65, y: 90},
+                    {x: 120, y: 0},
+                    {x: 65, y: 25},
+                    {x: 10, y: 0},
+                ],
+            },
             environment: {
                 vegMaxAmount: 90,
-                rain:8
+                rain:4
             }
         }
     ],
