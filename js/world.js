@@ -58,7 +58,7 @@ World.prototype.initAreas = function()
 }
 World.prototype.initArea = function(area, env) {
     if (area.type == 'multiAreas') {
-        let shapesCount = pEval(area.shapes);
+        let shapesCount = pEval(area.numberOfShapes);
         for (let i=0; i< shapesCount; i++) {
             const clonedArea = JSON.parse(JSON.stringify(area.area)); // to allow multiple randoms
             this.initAreaDef(clonedArea);
@@ -72,6 +72,8 @@ World.prototype.initArea = function(area, env) {
         areaCircle(this, env, area.x, area.y, area.radius);
     } else if (area.type == 'polygon') {
         areaPolygon(this, env, area.points, area.arcRadius, area.dx || 0, area.dy || 0);
+    } else if (area.type == 'randomShape') {
+        areaRandomShape(this, env);
     }
 }
 

@@ -24,22 +24,10 @@ worldParams = {
     areas: [
         {
             type: 'multiAreas',
-            shapes: 'rnd(1,4)',
-            area: {
-                type: 'roundedRect',
-                x: 'rnd(0, 100)', y: 'rnd(0, 50)', width: 'rnd(200, 280)', height: 'rnd(50, 150)', cornerRadius: 'rnd(10, 40)'
-            },
-            environment: {
-                vegMaxAmount: 90,
-                rain:3
-            }
-        },
-        {
-            type: 'multiAreas',
-            shapes: 'rnd(3,6)',
+            numberOfShapes: 'rnd(1, 2)',
             area: {
                 type: 'circle',
-                x: 'rnd(50, 450)', y: 'rnd(40, 420)', radius: 'rnd(5, 95)'
+                x: 'rnd(50, 450)', y: 'rnd(40, 420)', radius: 'rnd(25, 95)'
             },
             environment: {
                 vegMaxAmount: 90,
@@ -49,7 +37,7 @@ worldParams = {
         {
             name: 'hearts',
             type: 'multiAreas',
-            shapes: 'rnd(5,8)',
+            numberOfShapes: 'rnd(1,2)',
             area: {
                 type: 'polygon',
                 arcRadius: 'rnd(10, 12)',
@@ -64,6 +52,17 @@ worldParams = {
             environment: {
                 vegMaxAmount: 90,
                 rain: 4
+            }
+        },
+        {
+            type: 'multiAreas',
+            numberOfShapes: 'rnd(2,3)',
+            area: {
+                type: 'randomShape',
+            },
+            environment: {
+                vegMaxAmount: 90,
+                rain: 5
             }
         }
     ],

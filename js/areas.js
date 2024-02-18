@@ -82,3 +82,37 @@ function areaPolygon(world, env, points, arcRadius, dx, dy) {
         }
     }
 }
+
+function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function areaRandomShape(world, env) {
+    const ctx = createCanvasCtx(world.size, world.size);
+
+    var x = randomInt(0, world.size);
+    var y = randomInt(0, world.size);
+    var numLines = randomInt(3, 10);
+
+    ctx.beginPath();
+    var point = [randomInt(0, world.size), randomInt(0, world.size)];
+    ctx.moveTo(point[0], point[1]);
+
+    for (var i = 0; i < numLines; i++) {
+        var newPoint = [randomInt(0, world.size), randomInt(0, world.size)];
+        ctx.arcTo(point[0], point[1], newPoint[0], newPoint[1], randomInt(20, 50));
+        point = newPoint;
+    }
+
+    ctx.fillStyle = 'black';
+    ctx.closePath();
+    ctx.fill();
+
+    for (let i=0; i<=world.size; i++) {
+        for (let j=0; j<=world.size; j++) {
+            if (canvasHasColor(ctx, j, i)) {
+                world.matrix[i][j] = new Cell(env);
+            }
+        }
+    }
+}
