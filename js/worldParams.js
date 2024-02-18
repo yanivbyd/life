@@ -7,18 +7,18 @@ worldParams = {
             amount: 1000,       /* Amount of creatures by types added when the game starts */
             initialHealth: "10 + size * 1.5", /* health to be given to a creature when the game starts, can't excceed maxHealth */
         },
-        eating: "3 + size * 1",   /* Amount of vegetation eaten from a cell per turn. The actual amount eaten will not exceed creature's maxHealth nor the vegetation amount in the cell */
+        eating: "3 + size * 1.5",   /* Amount of vegetation eaten from a cell per turn. The actual amount eaten will not exceed creature's maxHealth nor the vegetation amount in the cell */
         penalties: {
-            breathing: "1 + size * 0.8",  /* Fixed creature penalty on each turn, regardless of what it does */
+            breathing: "1 + size * 0.5",  /* Fixed creature penalty on each turn, regardless of what it does */
             moving: 3,  /* Penalty for moving to another empty cell */
             breed: 2,   /* Penalty of a parent for breeding. Breeding is done by 2 parents */
             babyPenalty: 2  /* Penalty of a baby for being bord. The health of the baby is taken from its parents */
         },
-        mutationChance: 10,  /* 0-100 chance for gene single change on birth */
-        switchGeneChance: 30, /* 0-100 chance while copying dna to switch to the other parent's dna */
+        mutationChance: 5,  /* 0-100 chance for gene single change on birth */
+        switchGeneChance: 1, /* 0-100 chance while copying dna to switch to the other parent's dna */
     },
     environment: {
-        vegMaxAmount: 60,      /* max amount of vegetation per cell */
+        vegMaxAmount: 60,   /* max amount of vegetation per cell */
         rain: 2             /* rain increases vegetation count per cell */
     },
     areas: [
@@ -63,7 +63,7 @@ worldParams = {
             },
             environment: {
                 vegMaxAmount: 90,
-                rain: 5
+                rain: 4
             }
         }
     ],
@@ -72,7 +72,8 @@ worldParams = {
             [255, 0, 0],
             [0, 0, 255],
             [255, 165, 0],
-            [128, 0, 128]
+            [128, 0, 128],
+            [255, 255, 0]
         ]
     },
 
@@ -131,6 +132,15 @@ worldParams = {
         },
         {
             name: "purple",
+            size: 10,
+            actions: [
+                { t: 'eat', p: 100 },
+                { t: 'move', p: 100, cellVegAmountToMove: 4 },
+                { t: 'breed', p: 100, minHealth: 25 }
+            ]
+        },
+        {
+            name: "yellow",
             size: 10,
             actions: [
                 { t: 'eat', p: 100 },
