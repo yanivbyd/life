@@ -172,11 +172,12 @@ action.Breed.prototype.cycle = function(creature, ctx)
 {
     if (creature.health < this.params.minHealth) return;
     if (creature.health / 2 - worldParams.rules.penalties.breed < 1) return; // so as not to die
-    var mateCell = ctx.findBreedMate();
+    const mateCell = ctx.findBreedMate();
     if (mateCell) {
         var emptyCell = ctx.findEmptyCellWithMostVeg();
         if (emptyCell && utils.checkPercentage(this.params.p)) {
             ctx.breed(mateCell, emptyCell);
+            ctx.world.birthsThisCycle++;
         }
     }
 }
