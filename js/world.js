@@ -1,6 +1,6 @@
 function Cell(env)
 {
-    this.env = env;
+    this.env = { vegMaxAmount: env.vegMaxAmount, rain: env.rain };
     this.vegetation = utils.randomInt(env.vegMaxAmount+1);
 }
 
@@ -11,9 +11,6 @@ function World()
 World.prototype.initMaxVegetation = function()
 {
     this.maxVegetation = worldParams.environment.vegMaxAmount;
-    for (const area of worldParams.areas) {
-        this.maxVegetation = Math.max(this.maxVegetation, area.environment.vegMaxAmount);
-    }
 }
 
 function rnd(min, max) {
@@ -47,34 +44,7 @@ World.prototype.initAreas = function()
             this.matrix[i][j] = new Cell(worldParams.environment);
         }
     }
-
-    for (const area of worldParams.areas) {
-        this.initAreaDef(area);
-    }
-
-    for (const area of worldParams.areas) {
-        this.initArea(area, area.environment);
-    }
-}
-World.prototype.initArea = function(area, env) {
-    if (area.type == 'multiAreas') {
-        let shapesCount = pEval(area.numberOfShapes);
-        for (let i=0; i< shapesCount; i++) {
-            const clonedArea = JSON.parse(JSON.stringify(area.area)); // to allow multiple randoms
-            this.initAreaDef(clonedArea);
-            this.initArea(clonedArea, env);
-        }
-    } else if (area.type == 'rect') {
-        areaRectangle(this, env, area.x, area.y, area.width, area.height);
-    } else if (area.type == 'roundedRect') {
-        areaRoundedRectangle(this, env, area.x, area.y, area.width, area.height, area.cornerRadius);
-    } else if (area.type == 'circle') {
-        areaCircle(this, env, area.x, area.y, area.radius);
-    } else if (area.type == 'polygon') {
-        areaPolygon(this, env, area.points, area.arcRadius, area.dx || 0, area.dy || 0);
-    } else if (area.type == 'randomShape') {
-        areaRandomShape(this, env);
-    }
+    initRandomAreas(this);
 }
 
 World.prototype.init = function(size)

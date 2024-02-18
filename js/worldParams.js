@@ -19,60 +19,16 @@ worldParams = {
     },
     environment: {
         vegMaxAmount: 60,   /* max amount of vegetation per cell */
-        rain: 2             /* rain increases vegetation count per cell */
+        rain: 4             /* rain increases vegetation count per cell */
     },
-    areas: [
-        {
-            type: 'multiAreas',
-            numberOfShapes: 'rnd(1, 2)',
-            area: {
-                type: 'circle',
-                x: 'rnd(50, 450)', y: 'rnd(40, 420)', radius: 'rnd(25, 95)'
-            },
-            environment: {
-                vegMaxAmount: 90,
-                rain:3
-            }
-        },
-        {
-            name: 'hearts',
-            type: 'multiAreas',
-            numberOfShapes: 'rnd(1,2)',
-            area: {
-                type: 'polygon',
-                arcRadius: 'rnd(10, 12)',
-                dx: 'rnd(0, 250)', dy: 'rnd(0, 300)',
-                points: [
-                    {x: 65, y: 90},
-                    {x: 120, y: 0},
-                    {x: 65, y: 25},
-                    {x: 10, y: 0},
-                ],
-            },
-            environment: {
-                vegMaxAmount: 90,
-                rain: 4
-            }
-        },
-        {
-            type: 'multiAreas',
-            numberOfShapes: 'rnd(2,3)',
-            area: {
-                type: 'randomShape',
-            },
-            environment: {
-                vegMaxAmount: 90,
-                rain: 5
-            }
-        }
-    ],
     rendering: {
         creatures: [    /* colors of creatures */
             [255, 0, 0],
             [0, 0, 255],
             [255, 165, 0],
             [128, 0, 128],
-            [255, 255, 0]
+            [255, 255, 0],
+            [150, 75, 0]
         ]
     },
 
@@ -145,6 +101,15 @@ worldParams = {
                 { t: 'eat', p: 100 },
                 { t: 'move', p: 20, cellVegAmountToMove: 4 },
                 { t: 'breed', p: 45, minHealth: 25 }
+            ]
+        },
+        {
+            name: "brown",
+            size: 10,
+            actions: [
+                { t: 'eat', p: 100 },
+                { t: 'move', p: 30, cellVegAmountToMove: 4 },
+                { t: 'breed', p: 40, minHealth: 25 }
             ]
         }
     ],
