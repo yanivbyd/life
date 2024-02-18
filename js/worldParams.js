@@ -1,18 +1,18 @@
 worldParams = {
     rules: {
         creature: {
-            maxHealth: "18 + size * 2"  /* maximum health points a creature can have. When a creature reaches 0 or negative health it dies */
+            maxHealth: "18 + size * 4"  /* maximum health points a creature can have. When a creature reaches 0 or negative health it dies */
         },
         addCreatures: {
             amount: 1000,       /* Amount of creatures by types added when the game starts */
             initialHealth: "10 + size * 1.5", /* health to be given to a creature when the game starts, can't excceed maxHealth */
         },
-        eating: "3 + size * 1.5",   /* Amount of vegetation eaten from a cell per turn. The actual amount eaten will not exceed creature's maxHealth nor the vegetation amount in the cell */
+        eating: "2 + size * 3",   /* Amount of vegetation eaten from a cell per turn. The actual amount eaten will not exceed creature's maxHealth nor the vegetation amount in the cell */
         penalties: {
-            breathing: "1 + size * 0.5",  /* Fixed creature penalty on each turn, regardless of what it does */
-            moving: 5,  /* Penalty for moving to another empty cell */
-            breed: 2,   /* Penalty of a parent for breeding. Breeding is done by 2 parents */
-            babyPenalty: 2  /* Penalty of a baby for being bord. The health of the baby is taken from its parents */
+            breathing: "3 + size * 0.5",  /* Fixed creature penalty on each turn, regardless of what it does */
+            moving: 7,  /* Penalty for moving to another empty cell */
+            breed: 4,   /* Penalty of a parent for breeding. Breeding is done by 2 parents */
+            babyPenalty: 3  /* Penalty of a baby for being bord. The health of the baby is taken from its parents */
         },
         mutationChance: 5,  /* 0-100 chance for gene single change on birth */
         switchGeneChance: 30, /* 0-100 chance while copying dna to switch to the other parent's dna */
