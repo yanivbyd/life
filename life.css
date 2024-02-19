@@ -1,6 +1,13 @@
 #summary {
     width: 450px;
-    height: 450px;
+    height: 346px;
+    font-size: 10px;
+    margin-left: 20px;
+}
+
+#rules {
+    width: 450px;
+    height: 346px;
     font-size: 10px;
     margin-left: 20px;
 }

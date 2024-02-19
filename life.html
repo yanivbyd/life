@@ -27,8 +27,9 @@
 </script>
 
 <body>
-    <canvas id="canvas" width="450" height="450"></canvas>
+    <canvas id="canvas" width="350" height="350"></canvas>
     <textarea id="summary"></textarea>
+    <textarea id="rules"></textarea>
     <div id="toolbar">
         <button onclick="addCreatures(); render()">Add</button>
         <button id="play_stop" onclick="playOrStop();">Play</button>
@@ -72,6 +73,8 @@
     <script type="text/javascript">
         if ( $('#canvas').width() !=  $('#canvas').height()) alert("matrix width should equal its height");
         global_world.init($('#canvas').width());
+
+        $('#rules').val(global_world.initRules());
         render();
     </script>
 </body>

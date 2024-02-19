@@ -47,6 +47,10 @@ World.prototype.initAreas = function()
     initRandomAreas(this);
 }
 
+World.prototype.initRules = function() {
+    return 'Rules\n----\n' + JSON.stringify(worldParams.rules, null, 2);
+}
+
 World.prototype.init = function(size)
 {
     this.currentCycle = 0;

@@ -63,8 +63,8 @@ worldParams = {
             size: 10,
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'move', p: 100, cellVegAmountToMove: 4 },
-                { t: 'breed', p: 50, minHealth: 25 }
+                { t: 'move', p: 15, cellVegAmountToMove: 4 },
+                { t: 'breed', p: 6, minHealth: 25 }
             ]
         },
         {
@@ -72,8 +72,8 @@ worldParams = {
             size: 10,
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'move', p: 100, cellVegAmountToMove: 4 },
-                { t: 'breed', p: 50, minHealth: 25 }
+                { t: 'move', p: 15, cellVegAmountToMove: 4 },
+                { t: 'breed', p: 5, minHealth: 25 }
             ]
         },
         {
@@ -81,8 +81,8 @@ worldParams = {
             size: 10,
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'move', p: 80, cellVegAmountToMove: 4 },
-                { t: 'breed', p: 55, minHealth: 25 }
+                { t: 'move', p: 15, cellVegAmountToMove: 4 },
+                { t: 'breed', p: 5, minHealth: 25 }
             ]
         },
         {
@@ -90,8 +90,8 @@ worldParams = {
             size: 10,
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'move', p: 75, cellVegAmountToMove: 4 },
-                { t: 'breed', p: 50, minHealth: 25 }
+                { t: 'move', p: 15, cellVegAmountToMove: 4 },
+                { t: 'breed', p: 5, minHealth: 25 }
             ]
         },
         {
@@ -99,8 +99,8 @@ worldParams = {
             size: 10,
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'move', p: 20, cellVegAmountToMove: 4 },
-                { t: 'breed', p: 45, minHealth: 25 }
+                { t: 'move', p: 10, cellVegAmountToMove: 4 },
+                { t: 'breed', p: 5, minHealth: 25 }
             ]
         },
         {
@@ -108,8 +108,8 @@ worldParams = {
             size: 10,
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'move', p: 30, cellVegAmountToMove: 4 },
-                { t: 'breed', p: 40, minHealth: 25 }
+                { t: 'move', p: 12, cellVegAmountToMove: 4 },
+                { t: 'breed', p: 5, minHealth: 25 }
             ]
         }
     ],

@@ -28,7 +28,7 @@ function finalizeCanvas(world, ctx) {
     for (let i=0; i<=world.size; i++) {
         for (let j=0; j<=world.size; j++) {
             if (canvasHasColor(ctx, j, i)) {
-                world.matrix[i][j].env.rain = world.matrix[i][j].env.rain+2;
+                world.matrix[i][j].env.rain = world.matrix[i][j].env.rain+1;
             }
         }
     }
@@ -48,7 +48,7 @@ function initRandomAreas(world) {
         ctx.moveTo(point[0], point[1]);
 
         for (var i = 0; i < numLines; i++) {
-            var newPoint = [point[0] + randomInt(0, size-10), randomInt(0, size-10)];
+            var newPoint = [point[0] + randomInt(0, size-50), randomInt(0, size-50)];
             ctx.bezierCurveTo(point[0], point[1], newPoint[0], newPoint[1], randomInt(0, size), randomInt(0, size));
             point = newPoint;
         }
@@ -57,7 +57,7 @@ function initRandomAreas(world) {
 
     var numberOfEllipses = randomInt(5, 8);
     for (let counter=0; counter < numberOfEllipses.length; counter++) {
-        ctx.ellipse(randomInt(0, size-10), randomInt(0, size-10),
+        ctx.ellipse(randomInt(0, size-80), randomInt(0, size-80),
             randomInt(10, 30), randomInt(10, 30),
             randomInt(5, 10), randomInt(0 ,90), 1);
         finalizeCanvas(world, ctx);
