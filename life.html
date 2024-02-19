@@ -27,7 +27,7 @@
 </script>
 
 <body>
-    <canvas id="canvas" width="350" height="350"></canvas>
+    <canvas id="canvas" width="400" height="400"></canvas>
     <textarea id="summary"></textarea>
     <textarea id="rules"></textarea>
     <div id="toolbar">
@@ -51,7 +51,7 @@
         }
         function renderLight() {
             if (global_world.currentCycle % 10 == 0) {
-                $('#summary').text('cycle: ' + global_world.currentCycle);
+                $('#summary').val('cycle: ' + global_world.currentCycle);
             }
         }
         function continuePlaying() {

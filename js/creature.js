@@ -156,7 +156,7 @@ action.Move.prototype.cycle = function(creature, ctx)
     if (ctx.getCurrentVegetation() <= this.params.cellVegAmountToMove) {
         var nextCell = ctx.findEmptyCellWithMostVeg();
         if (nextCell && nextCell.vegetation > ctx.getCurrentVegetation() &&
-            utils.checkPercentage(this.params.p))
+            utils.checkPercentage(this.params.p) && creature.health > worldParams.rules.penalties.moving)
         {
             ctx.move(nextCell);
         }

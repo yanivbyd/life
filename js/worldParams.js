@@ -6,8 +6,8 @@ worldParams = {
         eating: "1 + size * 1",   /* Amount of vegetation eaten from a cell per turn. The actual amount eaten will not exceed creature's maxHealth nor the vegetation amount in the cell */
         penalties: {
             breathing: "2 + 0.5 * size * 1",  /* Fixed creature penalty on each turn, regardless of what it does */
-            moving: 7,  /* Penalty for moving to another empty cell */
-            breed: 4,   /* Penalty of a parent for breeding. Breeding is done by 2 parents */
+            moving: 6,  /* Penalty for moving to another empty cell */
+            breed: 3,   /* Penalty of a parent for breeding. Breeding is done by 2 parents */
             babyPenalty: 3  /* Penalty of a baby for being bord. The health of the baby is taken from its parents */
         },
         mutationChance: 5,  /* 0-100 chance for gene single change on birth */
@@ -63,8 +63,8 @@ worldParams = {
             size: random(1,12),
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'move', p: 15, cellVegAmountToMove: 4 },
-                { t: 'breed', p: 6, minHealth: 25 }
+                { t: 'move', p: random(10,15), cellVegAmountToMove: random(4,8) },
+                { t: 'breed', p: random(1,60), minHealth: random(5,15) }
             ]
         },
         {
@@ -72,8 +72,8 @@ worldParams = {
             size: random(1,12),
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'move', p: random(30,60), cellVegAmountToMove: 4 },
-                { t: 'breed', p: 5, minHealth: 25 }
+                { t: 'move', p: random(10,15), cellVegAmountToMove: random(4,8) },
+                { t: 'breed', p: random(1,60), minHealth: random(5,15) }
             ]
         },
         {
@@ -81,8 +81,8 @@ worldParams = {
             size: random(1,12),
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'move', p: random(30,60), cellVegAmountToMove: 4 },
-                { t: 'breed', p: 5, minHealth: 25 }
+                { t: 'move', p: random(10,15), cellVegAmountToMove: random(4,8) },
+                { t: 'breed', p: random(1,60), minHealth: random(5,15) }
             ]
         },
         {
@@ -90,8 +90,8 @@ worldParams = {
             size: random(1,12),
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'move', p: 15, cellVegAmountToMove: 4 },
-                { t: 'breed', p: 5, minHealth: 25 }
+                { t: 'move', p: random(10,15), cellVegAmountToMove: random(4,8) },
+                { t: 'breed', p: random(1,60), minHealth: random(5,15) }
             ]
         },
         {
@@ -99,8 +99,8 @@ worldParams = {
             size: random(1,12),
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'move', p: 40, cellVegAmountToMove: 4 },
-                { t: 'breed', p: 5, minHealth: 25 }
+                { t: 'move', p: random(10,15), cellVegAmountToMove: random(4,8) },
+                { t: 'breed', p: random(1,60), minHealth: random(5,15) }
             ]
         },
         {
@@ -108,8 +108,8 @@ worldParams = {
             size: random(1,12),
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'move', p: 12, cellVegAmountToMove: 4 },
-                { t: 'breed', p: 5, minHealth: 25 }
+                { t: 'move', p: random(10,15), cellVegAmountToMove: random(4,8) },
+                { t: 'breed', p: random(1,60), minHealth: random(5,15) }
             ]
         }
     ],
