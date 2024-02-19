@@ -1,6 +1,6 @@
 function Cell(env)
 {
-    this.env = env;
+    this.env = { vegMaxAmount: env.vegMaxAmount, rain: env.rain };
     this.vegetation = utils.randomInt(env.vegMaxAmount+1);
 }
 
@@ -8,23 +8,9 @@ function World()
 {
 }
 
-World.prototype.enviromentByPos = function(x, y) {
-    for (const area of worldParams.areas) {
-        if (x >= area.minX && x <= area.maxX) {
-            if (y >= area.minY && y <= area.maxY) {
-                return area.environment;
-            }
-        }
-    }
-    return worldParams.environment;
-}
-
 World.prototype.initMaxVegetation = function()
 {
     this.maxVegetation = worldParams.environment.vegMaxAmount;
-    for (const area of worldParams.areas) {
-        this.maxVegetation = Math.max(this.maxVegetation, area.environment.vegMaxAmount);
-    }
 }
 
 World.prototype.initAreas = function()
@@ -34,20 +20,82 @@ World.prototype.initAreas = function()
             this.matrix[i][j] = new Cell(worldParams.environment);
         }
     }
+    initRandomAreas(this);
+}
 
-    for (const area of worldParams.areas) {
-        if (area.type == 'rect') {
-            areaRectangle(this, area.environment, area.x, area.y, area.width, area.height);
-        } else if (area.type == 'roundedRect') {
-            areaRoundedRectangle(this, area.environment, area.x, area.y, area.width, area.height, area.cornerRadius);
-        } else if (area.type == 'circle') {
-            areaCircle(this, area.environment, area.x, area.y, area.radius);
+function replaceRandom(expression) {
+    var regex = /random\((\d+),(\d+)\)/g;
+
+    return expression.replace(regex, function(match, min, max) {
+        return random(parseInt(min), parseInt(max)).toString();
+    });
+}
+
+function evalRandomValues(obj) {
+    for (field in obj) {
+        switch (typeof obj[field]) {
+            case 'string':
+                if (obj[field].indexOf('random(') > -1) {
+                    obj[field] = replaceRandom(obj[field]);
+                }
+                break;
+            case 'object':
+                evalRandomValues(obj[field]);
+                break;
+            case 'array':
+                for (let item in obj[field]) {
+                    evalRandomValues(item);
+                }
+                break;
         }
     }
 }
 
+function removeHiddenFields(obj) {
+    for (field in obj) {
+        if (field.indexOf("_") == 0) {
+            delete obj[field];
+            continue;
+        }
+        switch (typeof obj[field]) {
+            case 'object':
+                removeHiddenFields(obj[field]);
+                break;
+            case 'array':
+                for (let item in obj[field]) {
+                    removeHiddenFields(item);
+                }
+                break;
+        }
+    }
+}
+
+function showObjectRemoveHidden(obj) {
+    const clone = JSON.parse(JSON.stringify(obj));
+    removeHiddenFields(clone);
+    return JSON.stringify(clone, null, 2)
+}
+
+World.prototype.rulesSummary = function() {
+    let result = [];
+    result.push('Rules');
+    result.push('---------');
+    result.push(showObjectRemoveHidden(worldParams.rules));
+
+    result.push('');
+    result.push('');
+    result.push('Creatures (starting point)');
+    result.push('--------------------------');
+    result.push(showObjectRemoveHidden(worldParams.creatures));
+
+    return result.join('\n');
+}
+
 World.prototype.init = function(size)
 {
+    evalRandomValues(worldParams.rules);
+    evalRandomValues(worldParams.creatures);
+    
     this.currentCycle = 0;
     this.size = size;
     this.nextCycle = this.currentCycle + 1;
@@ -57,6 +105,7 @@ World.prototype.init = function(size)
     }
 
     this.initAreas();
+    this.addCreatures();
 }
 
 World.prototype.isValidIndex = function(index) {
@@ -139,6 +188,8 @@ World.prototype.cycle = function()
 {
     this.currentCycle = this.nextCycle;
     this.nextCycle++;
+    this.deathsThisCycle = 0;
+    this.birthsThisCycle = 0;
     var cycleCtx = new creature.CycleContext(this);
     for(var i=0; i<this.size; i++) {
         for(var j=0; j<this.size; j++) {

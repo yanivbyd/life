@@ -1,56 +1,34 @@
 worldParams = {
     rules: {
         creature: {
-            maxHealth: "18 + size * 2"  /* maximum health points a creature can have. When a creature reaches 0 or negative health it dies */
+            maxHealth: "18 + size * 4"  /* maximum health points a creature can have. When a creature reaches 0 or negative health it dies */
         },
         addCreatures: {
             amount: 1000,       /* Amount of creatures by types added when the game starts */
-            initialHealth: "10 + size * 1.5", /* health to be given to a creature when the game starts, can't excceed maxHealth */
+            initialHealth: "10 + size * (random(1,5) / 2)", /* health to be given to a creature when the game starts, can't excceed maxHealth */
         },
-        eating: "3 + size * 1",   /* Amount of vegetation eaten from a cell per turn. The actual amount eaten will not exceed creature's maxHealth nor the vegetation amount in the cell */
+        eating: "random(1,5) + size * random(1,5)",   /* Amount of vegetation eaten from a cell per turn. The actual amount eaten will not exceed creature's maxHealth nor the vegetation amount in the cell */
         penalties: {
-            breathing: "1 + size * 0.8",  /* Fixed creature penalty on each turn, regardless of what it does */
-            moving: 3,  /* Penalty for moving to another empty cell */
-            breed: 2,   /* Penalty of a parent for breeding. Breeding is done by 2 parents */
-            babyPenalty: 2  /* Penalty of a baby for being bord. The health of the baby is taken from its parents */
+            breathing: "random(1,5) + size * 0.5",  /* Fixed creature penalty on each turn, regardless of what it does */
+            moving: 7,  /* Penalty for moving to another empty cell */
+            breed: 4,   /* Penalty of a parent for breeding. Breeding is done by 2 parents */
+            babyPenalty: 3  /* Penalty of a baby for being bord. The health of the baby is taken from its parents */
         },
-        mutationChance: 10,  /* 0-100 chance for gene single change on birth */
+        mutationChance: 5,  /* 0-100 chance for gene single change on birth */
         switchGeneChance: 30, /* 0-100 chance while copying dna to switch to the other parent's dna */
     },
     environment: {
-        vegMaxAmount: 60,      /* max amount of vegetation per cell */
-        rain: 1             /* rain increases vegetation count per cell */
+        vegMaxAmount: 60,   /* max amount of vegetation per cell */
+        rain: 4             /* rain increases vegetation count per cell */
     },
-    areas: [
-        {
-            type: 'roundedRect',
-            x: 12,
-            y: 12,
-            width: 320,
-            height: 170,
-            cornerRadius: 30,
-            environment: {
-                vegMaxAmount: 100,
-                rain:2
-            }
-        },
-        {
-            type: 'circle',
-            x: 430,
-            y: 420,
-            radius: 65,
-            environment: {
-                vegMaxAmount: 90,
-                rain:2
-            }
-        }
-    ],
     rendering: {
         creatures: [    /* colors of creatures */
             [255, 0, 0],
             [0, 0, 255],
             [255, 165, 0],
-            [128, 0, 128]
+            [128, 0, 128],
+            [255, 255, 0],
+            [150, 75, 0]
         ]
     },
 
@@ -82,38 +60,56 @@ worldParams = {
     creatures: [
         {
             name: "red",
-            size: 10,
+            size: random(1,12),
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'move', p: 100, cellVegAmountToMove: 4 },
-                { t: 'breed', p: 100, minHealth: 25 }
+                { t: 'move', p: 15, cellVegAmountToMove: 4 },
+                { t: 'breed', p: 6, minHealth: 25 }
             ]
         },
         {
             name: "blue",
-            size: 10,
+            size: random(1,12),
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'move', p: 100, cellVegAmountToMove: 4 },
-                { t: 'breed', p: 100, minHealth: 25 }
+                { t: 'move', p: 15, cellVegAmountToMove: 4 },
+                { t: 'breed', p: 5, minHealth: 25 }
             ]
         },
         {
             name: "orange",
-            size: 10,
+            size: random(1,12),
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'move', p: 100, cellVegAmountToMove: 4 },
-                { t: 'breed', p: 100, minHealth: 25 }
+                { t: 'move', p: 15, cellVegAmountToMove: 4 },
+                { t: 'breed', p: 5, minHealth: 25 }
             ]
         },
         {
             name: "purple",
-            size: 10,
+            size: random(1,12),
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'move', p: 100, cellVegAmountToMove: 4 },
-                { t: 'breed', p: 100, minHealth: 25 }
+                { t: 'move', p: 15, cellVegAmountToMove: 4 },
+                { t: 'breed', p: 5, minHealth: 25 }
+            ]
+        },
+        {
+            name: "yellow",
+            size: random(1,12),
+            actions: [
+                { t: 'eat', p: 100 },
+                { t: 'move', p: 10, cellVegAmountToMove: 4 },
+                { t: 'breed', p: 5, minHealth: 25 }
+            ]
+        },
+        {
+            name: "brown",
+            size: random(1,12),
+            actions: [
+                { t: 'eat', p: 100 },
+                { t: 'move', p: 12, cellVegAmountToMove: 4 },
+                { t: 'breed', p: 5, minHealth: 25 }
             ]
         }
     ],

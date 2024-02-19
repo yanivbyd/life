@@ -64,8 +64,7 @@ dna.DNA.prototype.equal = function(dna2)
 
 function creatureSizeFromByte(byte)
 {
-    if (byte >= 10 && byte <= 20) return 1+(20-byte);
-    return 1 + (byte % 10);
+    return 1 + byte;
 }
 
 function creatureSizeToByte(size)
@@ -174,8 +173,6 @@ dna.DNA.prototype.fromParents = function(dna1, dna2, hasMutation, switchParentCh
 
 dna.creatureParamsForBaby = function(parent1Params, parent2Params, mutationChance, switchParentChance)
 {
-    switchParentChance = switchParentChance | 30;
-
     var dna1 = parent1Params._dna;
     var dna2 = parent2Params._dna;
 
@@ -184,7 +181,7 @@ dna.creatureParamsForBaby = function(parent1Params, parent2Params, mutationChanc
     if (dnasEqual && !mutation) return parent1Params;
 
     var dna3 = new dna.DNA();
-    dna3.fromParents(dna1, dna2, mutationChance, switchParentChance);
+    dna3.fromParents(dna1, dna2, mutationChance, switchParentChance | 0);
 
     return dna3.toCreatureParams();
 }

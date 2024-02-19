@@ -18,7 +18,7 @@ Creature.prototype.fixMaxHealth = function()
 
 Creature.prototype.cycle = function(ctx)
 {
-    if (this.playedCycle == ctx.world.currentCycle) return;
+    if (this.playedCycle == ctx.world.currentCycle) return;  // So the same create won't play twice on the same cycle
     this.logic.cycle(this, ctx);
     this.health -= creatureSize.penaltyBreathing(this.size);
     this.playedCycle = ctx.world.currentCycle;
@@ -27,6 +27,7 @@ Creature.prototype.cycle = function(ctx)
     if (this.health <= 0) {
         assert.strictEqual(ctx.cell.creature, this);
         ctx.cell.creature = null;
+        ctx.world.deathsThisCycle++;
     }
 }
 
@@ -45,9 +46,9 @@ CycleContext.prototype.nextCell = function(row, col)
 
 CycleContext.prototype.eat = function(vegAmount)
 {
-    var maxHealth = creatureSize.maxHealth(this.creature.size);
-    var leftForCreature = maxHealth - this.creature.health;
-    var actualAmount = Math.min(vegAmount, this.cell.vegetation, leftForCreature);
+    const maxHealth = creatureSize.maxHealth(this.creature.size);
+    const leftForCreature = maxHealth - this.creature.health;
+    const actualAmount = Math.min(vegAmount, this.cell.vegetation, leftForCreature);
     this.creature.health += actualAmount;
     assert(this.creature.health <= maxHealth);
     this.creature.fixMaxHealth(); // no need for it because of the assert
@@ -63,7 +64,7 @@ CycleContext.prototype.getCurrentVegetation = function()
 CycleContext.prototype.findEmptyCellWithMostVeg = function()
 {
     var maxCells = [];
-    var cells = this.world.nearCells(this.row, this.col);
+    const cells = this.world.nearCells(this.row, this.col);
 
     for (var i=0;i<cells.length;i++) {
         if (cells[i].vegetation == 0 || cells[i].creature) continue;
@@ -171,11 +172,12 @@ action.Breed.prototype.cycle = function(creature, ctx)
 {
     if (creature.health < this.params.minHealth) return;
     if (creature.health / 2 - worldParams.rules.penalties.breed < 1) return; // so as not to die
-    var mateCell = ctx.findBreedMate();
+    const mateCell = ctx.findBreedMate();
     if (mateCell) {
         var emptyCell = ctx.findEmptyCellWithMostVeg();
         if (emptyCell && utils.checkPercentage(this.params.p)) {
             ctx.breed(mateCell, emptyCell);
+            ctx.world.birthsThisCycle++;
         }
     }
 }
