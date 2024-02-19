@@ -69,7 +69,7 @@ worldParams = {
         },
         {
             name: "blue",
-            size: 10,
+            size: random(1,12),
             actions: [
                 { t: 'eat', p: 100 },
                 { t: 'move', p: 15, cellVegAmountToMove: 4 },
@@ -78,7 +78,7 @@ worldParams = {
         },
         {
             name: "orange",
-            size: 10,
+            size: random(1,12),
             actions: [
                 { t: 'eat', p: 100 },
                 { t: 'move', p: 15, cellVegAmountToMove: 4 },
@@ -87,7 +87,7 @@ worldParams = {
         },
         {
             name: "purple",
-            size: 10,
+            size: random(1,12),
             actions: [
                 { t: 'eat', p: 100 },
                 { t: 'move', p: 15, cellVegAmountToMove: 4 },
@@ -96,7 +96,7 @@ worldParams = {
         },
         {
             name: "yellow",
-            size: 10,
+            size: random(1,12),
             actions: [
                 { t: 'eat', p: 100 },
                 { t: 'move', p: 10, cellVegAmountToMove: 4 },
@@ -105,7 +105,7 @@ worldParams = {
         },
         {
             name: "brown",
-            size: 10,
+            size: random(1,12),
             actions: [
                 { t: 'eat', p: 100 },
                 { t: 'move', p: 12, cellVegAmountToMove: 4 },

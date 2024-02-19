@@ -51,18 +51,43 @@ function evalRandomValues(obj) {
     }
 }
 
+function removeHiddenFields(obj) {
+    for (field in obj) {
+        if (field.indexOf("_") == 0) {
+            delete obj[field];
+            continue;
+        }
+        switch (typeof obj[field]) {
+            case 'object':
+                removeHiddenFields(obj[field]);
+                break;
+            case 'array':
+                for (let item in obj[field]) {
+                    removeHiddenFields(item);
+                }
+                break;
+        }
+    }
+}
+
+function showObjectRemoveHidden(obj) {
+    const clone = JSON.parse(JSON.stringify(obj));
+    removeHiddenFields(clone);
+    return JSON.stringify(clone, null, 2)
+}
+
 World.prototype.rulesSummary = function() {
     let result = [];
     result.push('Rules');
     result.push('---------');
-    result.push(JSON.stringify(worldParams.rules, null, 2));
+    result.push(showObjectRemoveHidden(worldParams.rules));
 
     result.push('');
     result.push('');
     result.push('Creatures (starting point)');
     result.push('--------------------------');
-    result.push(JSON.stringify(worldParams.creatures, null, 2));
-    
+    result.push(showObjectRemoveHidden(worldParams.creatures));
+
     return result.join('\n');
 }
 
