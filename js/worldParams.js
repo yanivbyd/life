@@ -5,11 +5,11 @@ worldParams = {
         },
         addCreatures: {
             amount: 1000,       /* Amount of creatures by types added when the game starts */
-            initialHealth: "10 + size * 1.5", /* health to be given to a creature when the game starts, can't excceed maxHealth */
+            initialHealth: "10 + size * (random(1,5) / 2)", /* health to be given to a creature when the game starts, can't excceed maxHealth */
         },
-        eating: "2 + size * 3",   /* Amount of vegetation eaten from a cell per turn. The actual amount eaten will not exceed creature's maxHealth nor the vegetation amount in the cell */
+        eating: "random(1,5) + size * random(1,5)",   /* Amount of vegetation eaten from a cell per turn. The actual amount eaten will not exceed creature's maxHealth nor the vegetation amount in the cell */
         penalties: {
-            breathing: "3 + size * 0.5",  /* Fixed creature penalty on each turn, regardless of what it does */
+            breathing: "random(1,5) + size * 0.5",  /* Fixed creature penalty on each turn, regardless of what it does */
             moving: 7,  /* Penalty for moving to another empty cell */
             breed: 4,   /* Penalty of a parent for breeding. Breeding is done by 2 parents */
             babyPenalty: 3  /* Penalty of a baby for being bord. The health of the baby is taken from its parents */

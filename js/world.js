@@ -13,30 +13,6 @@ World.prototype.initMaxVegetation = function()
     this.maxVegetation = worldParams.environment.vegMaxAmount;
 }
 
-function rnd(min, max) {
-    return min + Math.floor(Math.random() * (max-min + 1));
-}
-
-function pEval(value) {
-    return eval(value);
-}
-
-World.prototype.initAreaDef = function(areaDef) {
-    const fields = ['x','y','width','height','cornerRadius','radius','arcRadius','dx','dy']
-    for (let field in areaDef) {
-        if (fields.indexOf(field) > -1) {
-            areaDef[field] = pEval(areaDef[field]);
-        }
-    }
-    if (!!areaDef.points) {
-        for (point in areaDef.points) {
-            for (let pointField in point) {
-                point[pointField] = pEval(point[pointField]);
-            }
-        }
-    }
-}
-
 World.prototype.initAreas = function()
 {
     for(var i=0; i<this.size; i++) {
@@ -47,7 +23,31 @@ World.prototype.initAreas = function()
     initRandomAreas(this);
 }
 
+function replaceRandom(expression) {
+    var regex = /random\((\d+),(\d+)\)/g;
+
+    return expression.replace(regex, function(match, min, max) {
+        return random(parseInt(min), parseInt(max)).toString();
+    });
+}
+
+function evalRandomValues(obj) {
+    for (field in obj) {
+        switch (typeof obj[field]) {
+            case 'string':
+                if (obj[field].indexOf('random(') > -1) {
+                    obj[field] = replaceRandom(obj[field]);
+                }
+                break;
+            case 'object':
+                evalRandomValues(obj[field]);
+                break;
+        }
+    }
+}
+
 World.prototype.initRules = function() {
+    evalRandomValues(worldParams.rules);
     return 'Rules\n----\n' + JSON.stringify(worldParams.rules, null, 2);
 }
 
