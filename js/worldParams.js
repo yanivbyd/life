@@ -60,7 +60,7 @@ worldParams = {
     creatures: [
         {
             name: "red",
-            size: 10,
+            size: random(1,12),
             actions: [
                 { t: 'eat', p: 100 },
                 { t: 'move', p: 15, cellVegAmountToMove: 4 },

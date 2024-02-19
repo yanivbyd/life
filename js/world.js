@@ -42,17 +42,35 @@ function evalRandomValues(obj) {
             case 'object':
                 evalRandomValues(obj[field]);
                 break;
+            case 'array':
+                for (let item in obj[field]) {
+                    evalRandomValues(item);
+                }
+                break;
         }
     }
 }
 
-World.prototype.initRules = function() {
-    evalRandomValues(worldParams.rules);
-    return 'Rules\n----\n' + JSON.stringify(worldParams.rules, null, 2);
+World.prototype.rulesSummary = function() {
+    let result = [];
+    result.push('Rules');
+    result.push('---------');
+    result.push(JSON.stringify(worldParams.rules, null, 2));
+
+    result.push('');
+    result.push('');
+    result.push('Creatures (starting point)');
+    result.push('--------------------------');
+    result.push(JSON.stringify(worldParams.creatures, null, 2));
+    
+    return result.join('\n');
 }
 
 World.prototype.init = function(size)
 {
+    evalRandomValues(worldParams.rules);
+    evalRandomValues(worldParams.creatures);
+    
     this.currentCycle = 0;
     this.size = size;
     this.nextCycle = this.currentCycle + 1;
@@ -62,6 +80,7 @@ World.prototype.init = function(size)
     }
 
     this.initAreas();
+    this.addCreatures();
 }
 
 World.prototype.isValidIndex = function(index) {
