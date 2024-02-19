@@ -130,12 +130,8 @@ Stats.prototype.toString = function()
 
     arr.push(this.vegetation.name + ": " + this.vegetation.avg().toFixed(1));
     arr.push("creatures: " + utils.numberWithCommas(this.creatures.count));
-    if (this.world.birthsThisCycle) {
-        arr.push('births this cycle: ' + this.world.birthsThisCycle);
-    }
-    if (this.world.deathsThisCycle) {
-        arr.push('deaths this cycle: ' + this.world.deathsThisCycle);
-    }
+    arr.push('births this cycle: ' + this.world.birthsThisCycle);
+    arr.push('deaths this cycle: ' + this.world.deathsThisCycle);
 
     if (this.creatures.count) {
         arr.push(""); // New line
