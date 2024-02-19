@@ -8,6 +8,7 @@ worldParams = {
             breed: 3,   /* Penalty of a parent for breeding. Breeding is done by 2 parents */
             babyPenalty: 3  /* Penalty of a baby for being bord. The health of the baby is taken from its parents */
         },
+        randomDeathChance: 1,
         mutationChance: 5,  /* 0-100 chance for gene single change on birth */
         switchGeneChance: 30, /* 0-100 chance while copying dna to switch to the other parent's dna */
         addCreatures: {

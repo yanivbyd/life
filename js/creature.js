@@ -19,6 +19,13 @@ Creature.prototype.fixMaxHealth = function()
 Creature.prototype.cycle = function(ctx)
 {
     if (this.playedCycle == ctx.world.currentCycle) return;  // So the same create won't play twice on the same cycle
+    if (utils.checkPercentage(worldParams.rules.randomDeathChance)) {
+        assert.strictEqual(ctx.cell.creature, this);
+        ctx.cell.creature = null;
+        ctx.world.deathsThisCycle++;
+        return;
+    }
+
     this.logic.cycle(this, ctx);
     this.health -= creatureSize.penaltyBreathing(this.size);
     this.playedCycle = ctx.world.currentCycle;
