@@ -43,31 +43,17 @@ function finalizeCanvas(world, ctx) {
 function initRandomAreas(world) {
     const size = world.size;
     const ctx = createCanvasCtx(size, size);
+    const numberOfShapes = 3;
 
-    for (let i = 0; i < 5; i++) {
-        var startX = getRandom(0, 1) * size;
-        var startY = getRandom(0, 1) * size;
-        ctx.moveTo(startX, startY);
+    for (var s=0;s<numberOfShapes;s++) {
+        for (var i = 0; i < 4; i++) {
+            ctx.beginPath();
+            ctx.moveTo(randomInt(5, size - 5), randomInt(5, size - 5));
 
-        var cp1X = getRandom(0, 1) * size;
-        var cp1Y = getRandom(0, 1) * size;
-        var cp2X = getRandom(0, 1) * size;
-        var cp2Y = getRandom(0, 1) * size;
-        var endX = getRandom(0, 1) * size;
-        var endY = getRandom(0, 1) * size;
-        ctx.bezierCurveTo(cp1X, cp1Y, cp2X, cp2Y, endX, endY);
-
-        ctx.moveTo(startX, startY);
-        ctx.lineTo(startX, getRandom(0.7, 1) * size);
-
-        cp1X = getRandom(0, 1) * size;
-        cp1Y = getRandom(0, 1) * size;
-        cp2X = getRandom(0, 1) * size;
-        cp2Y = getRandom(0, 1) * size;
-        endX = getRandom(0, 1) * size;
-        endY = getRandom(0, 1) * size;
-        ctx.bezierCurveTo(cp1X, cp1Y, cp2X, cp2Y, endX, endY);
-
+            for (var i = 0; i < 10; i++) {
+                ctx.quadraticCurveTo(randomInt(0, size), randomInt(0, size), randomInt(0, size), randomInt(0, size));
+            }
+        }
         finalizeCanvas(world, ctx);
     }
 

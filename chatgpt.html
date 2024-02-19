@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Butterfly Shape</title>
+    <title>Island Shape</title>
     <style>
         canvas {
             border: 1px solid black;
@@ -11,56 +11,49 @@
     </style>
 </head>
 <body>
-<canvas id="myCanvas" width="400" height="400"></canvas>
+<canvas id="myCanvas" width="800" height="600"></canvas>
 
 <script>
     var canvas = document.getElementById('myCanvas');
     var ctx = canvas.getContext('2d');
 
-    function drawRandomButterflyShape() {
+    function drawIsland() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Starting point
-        var startX = getRandom(0, 1) * canvas.width;
-        var startY = getRandom(0, 1) * canvas.height;
+        // Randomize starting point within canvas
+        var startX = getRandomInt(50, canvas.width - 50);
+        var startY = getRandomInt(50, canvas.height - 50);
+
+        ctx.beginPath();
         ctx.moveTo(startX, startY);
 
-        // First wing
-        var cp1X = getRandom(0, 1) * canvas.width;
-        var cp1Y = getRandom(0, 1) * canvas.height;
-        var cp2X = getRandom(0, 1) * canvas.width;
-        var cp2Y = getRandom(0, 1) * canvas.height;
-        var endX = getRandom(0, 1) * canvas.width;
-        var endY = getRandom(0, 1) * canvas.height;
-        ctx.bezierCurveTo(cp1X, cp1Y, cp2X, cp2Y, endX, endY);
+        // Generate random control points to create a less curvy shape
+        for (var i = 0; i < 5; i++) {
+            var cpX = getRandomInt(0, canvas.width);
+            var cpY = getRandomInt(0, canvas.height);
+            var x = getRandomInt(0, canvas.width);
+            var y = getRandomInt(0, canvas.height);
 
-        // Body
-        ctx.moveTo(startX, startY);
-        ctx.lineTo(startX, getRandom(0.7, 1) * canvas.height);
+            ctx.quadraticCurveTo(cpX, cpY, x, y);
+        }
 
-        // Second wing
-        cp1X = getRandom(0, 1) * canvas.width;
-        cp1Y = getRandom(0, 1) * canvas.height;
-        cp2X = getRandom(0, 1) * canvas.width;
-        cp2Y = getRandom(0, 1) * canvas.height;
-        endX = getRandom(0, 1) * canvas.width;
-        endY = getRandom(0, 1) * canvas.height;
-        ctx.bezierCurveTo(cp1X, cp1Y, cp2X, cp2Y, endX, endY);
+        // Close the path to form a loop
+        ctx.closePath();
 
-        // Fill the shape
-        ctx.fillStyle = 'pink';
+        // Fill the shape with a fixed color
+        ctx.fillStyle = 'lightgreen';
         ctx.fill();
     }
 
-    function getRandom(min, max) {
-        return Math.random() * (max - min) + min;
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    drawRandomButterflyShape(); // Initial drawing
+    drawIsland(); // Initial drawing
 
     // Redraw when clicked
     canvas.addEventListener('click', function() {
-        drawRandomButterflyShape();
+        drawIsland();
     });
 </script>
 </body>

@@ -5,7 +5,7 @@ worldParams = {
         },
         eating: "1 + size * 1",   /* Amount of vegetation eaten from a cell per turn. The actual amount eaten will not exceed creature's maxHealth nor the vegetation amount in the cell */
         penalties: {
-            breathing: "1 + 0.5 * size * 1",  /* Fixed creature penalty on each turn, regardless of what it does */
+            breathing: "2 + 0.5 * size * 1",  /* Fixed creature penalty on each turn, regardless of what it does */
             moving: 7,  /* Penalty for moving to another empty cell */
             breed: 4,   /* Penalty of a parent for breeding. Breeding is done by 2 parents */
             babyPenalty: 3  /* Penalty of a baby for being bord. The health of the baby is taken from its parents */
