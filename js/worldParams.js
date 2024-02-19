@@ -3,23 +3,23 @@ worldParams = {
         creature: {
             maxHealth: "18 + size * 4"  /* maximum health points a creature can have. When a creature reaches 0 or negative health it dies */
         },
-        addCreatures: {
-            amount: 1000,       /* Amount of creatures by types added when the game starts */
-            initialHealth: "10 + size * (random(1,5) / 2)", /* health to be given to a creature when the game starts, can't excceed maxHealth */
-        },
-        eating: "random(1,5) + size * random(1,5)",   /* Amount of vegetation eaten from a cell per turn. The actual amount eaten will not exceed creature's maxHealth nor the vegetation amount in the cell */
+        eating: "1 + size * 1",   /* Amount of vegetation eaten from a cell per turn. The actual amount eaten will not exceed creature's maxHealth nor the vegetation amount in the cell */
         penalties: {
-            breathing: "random(1,5) + size * 0.5",  /* Fixed creature penalty on each turn, regardless of what it does */
+            breathing: "1 + 0.5 * size * 1",  /* Fixed creature penalty on each turn, regardless of what it does */
             moving: 7,  /* Penalty for moving to another empty cell */
             breed: 4,   /* Penalty of a parent for breeding. Breeding is done by 2 parents */
             babyPenalty: 3  /* Penalty of a baby for being bord. The health of the baby is taken from its parents */
         },
         mutationChance: 5,  /* 0-100 chance for gene single change on birth */
         switchGeneChance: 30, /* 0-100 chance while copying dna to switch to the other parent's dna */
+        addCreatures: {
+            amount: 1000,       /* Amount of creatures by types added when the game starts */
+            initialHealth: "10 + size * random(1,5)", /* health to be given to a creature when the game starts, can't excceed maxHealth */
+        }
     },
     environment: {
         vegMaxAmount: 60,   /* max amount of vegetation per cell */
-        rain: 4             /* rain increases vegetation count per cell */
+        rain: 1            /* rain increases vegetation count per cell */
     },
     rendering: {
         creatures: [    /* colors of creatures */
@@ -72,7 +72,7 @@ worldParams = {
             size: random(1,12),
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'move', p: 15, cellVegAmountToMove: 4 },
+                { t: 'move', p: random(30,60), cellVegAmountToMove: 4 },
                 { t: 'breed', p: 5, minHealth: 25 }
             ]
         },
@@ -81,7 +81,7 @@ worldParams = {
             size: random(1,12),
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'move', p: 15, cellVegAmountToMove: 4 },
+                { t: 'move', p: random(30,60), cellVegAmountToMove: 4 },
                 { t: 'breed', p: 5, minHealth: 25 }
             ]
         },
@@ -99,7 +99,7 @@ worldParams = {
             size: random(1,12),
             actions: [
                 { t: 'eat', p: 100 },
-                { t: 'move', p: 10, cellVegAmountToMove: 4 },
+                { t: 'move', p: 40, cellVegAmountToMove: 4 },
                 { t: 'breed', p: 5, minHealth: 25 }
             ]
         },

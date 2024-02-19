@@ -20,6 +20,11 @@ function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function getRandom(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+
 function finalizeCanvas(world, ctx) {
     ctx.fillStyle = 'black';
     ctx.closePath();
@@ -32,34 +37,37 @@ function finalizeCanvas(world, ctx) {
             }
         }
     }
-    ctx.clearRect(0, 0, world.size, world.size);
+    // ctx.clearRect(0, 0, world.size, world.size);
 }
 
 function initRandomAreas(world) {
     const size = world.size;
     const ctx = createCanvasCtx(size, size);
 
-    var numberOfRandomShapes = randomInt(5, 8);
-    for (let counter=0; counter<numberOfRandomShapes; counter++) {
-        var numLines = randomInt(30, 80);
+    for (let i = 0; i < 5; i++) {
+        var startX = getRandom(0, 1) * size;
+        var startY = getRandom(0, 1) * size;
+        ctx.moveTo(startX, startY);
 
-        ctx.beginPath();
-        var point = [randomInt(0, size), randomInt(0, size)];
-        ctx.moveTo(point[0], point[1]);
+        var cp1X = getRandom(0, 1) * size;
+        var cp1Y = getRandom(0, 1) * size;
+        var cp2X = getRandom(0, 1) * size;
+        var cp2Y = getRandom(0, 1) * size;
+        var endX = getRandom(0, 1) * size;
+        var endY = getRandom(0, 1) * size;
+        ctx.bezierCurveTo(cp1X, cp1Y, cp2X, cp2Y, endX, endY);
 
-        for (var i = 0; i < numLines; i++) {
-            var newPoint = [point[0] + randomInt(0, size-50), randomInt(0, size-50)];
-            ctx.bezierCurveTo(point[0], point[1], newPoint[0], newPoint[1], randomInt(0, size), randomInt(0, size));
-            point = newPoint;
-        }
-        finalizeCanvas(world, ctx);
-    }
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(startX, getRandom(0.7, 1) * size);
 
-    var numberOfEllipses = randomInt(5, 8);
-    for (let counter=0; counter < numberOfEllipses.length; counter++) {
-        ctx.ellipse(randomInt(0, size-80), randomInt(0, size-80),
-            randomInt(10, 30), randomInt(10, 30),
-            randomInt(5, 10), randomInt(0 ,90), 1);
+        cp1X = getRandom(0, 1) * size;
+        cp1Y = getRandom(0, 1) * size;
+        cp2X = getRandom(0, 1) * size;
+        cp2Y = getRandom(0, 1) * size;
+        endX = getRandom(0, 1) * size;
+        endY = getRandom(0, 1) * size;
+        ctx.bezierCurveTo(cp1X, cp1Y, cp2X, cp2Y, endX, endY);
+
         finalizeCanvas(world, ctx);
     }
 
