@@ -16,7 +16,7 @@ creatureSize = {
     },
     maxHealth: function(size)
     {
-        return cacheValue(size, "maxHealth", worldParams.rules.creature.maxHealth);
+        return cacheValue(size, "maxHealth", worldParams.rules.creatureMaxHealth);
     },
     eating: function(size)
     {

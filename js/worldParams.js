@@ -1,8 +1,6 @@
 worldParams = {
     rules: {
-        creature: {
-            maxHealth: "18 + size * 4"  /* maximum health points a creature can have. When a creature reaches 0 or negative health it dies */
-        },
+        creatureMaxHealth: "18 + size * 4",  /* maximum health points a creature can have. When a creature reaches 0 or negative health it dies */
         eating: "1 + size * 1",   /* Amount of vegetation eaten from a cell per turn. The actual amount eaten will not exceed creature's maxHealth nor the vegetation amount in the cell */
         penalties: {
             breathing: "2 + 0.5 * size * 1",  /* Fixed creature penalty on each turn, regardless of what it does */
