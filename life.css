@@ -12,6 +12,13 @@
     margin-left: 20px;
 }
 
+#add {
+    margin-left: 5px;
+}
+
+#autoRender {
+    margin-left: 10px;
+}
 #canvas {
     border: 1px solid #f1ecec;
 }

@@ -61,7 +61,7 @@ worldParams = {
             name: "red",
             size: random(1,12),
             actions: [
-                { t: 'eat', p: 100 },
+                { t: 'eat', p: 50 },
                 { t: 'move', p: random(10,15), cellVegAmountToMove: random(4,8) },
                 { t: 'breed', p: random(1,60), minHealth: random(5,15) }
             ]
@@ -70,7 +70,7 @@ worldParams = {
             name: "blue",
             size: random(1,12),
             actions: [
-                { t: 'eat', p: 100 },
+                { t: 'eat', p: 50 },
                 { t: 'move', p: random(10,15), cellVegAmountToMove: random(4,8) },
                 { t: 'breed', p: random(1,60), minHealth: random(5,15) }
             ]
