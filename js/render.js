@@ -76,7 +76,7 @@ function buildGenesTable(table) {
     }
 
     worldParams.creatures.forEach(function(param) {
-        const tr = $('<tr/>').appendTo(tBody);
+        const tr = $('<tr/>').attr('id', 'creature_' + param.name).appendTo(tBody);
         $('<td/>').text(param.name).appendTo(tr);
         $('<td/>').text(param.size).appendTo(tr);
         var eatParam = findActionParam(param, 'eat');
