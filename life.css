@@ -23,6 +23,12 @@
     border: 1px solid #f1ecec;
 }
 
+#genes {
+    margin-top: 10px;
+}
+#genes_table td {
+    width: 70px;
+}
 .lifegraph .dygraph-axis-label { font-size: 8px; color: #c5c8d4; }
 .lifegraph .dygraph-label { font-size: 8px; color: #c5c8d4; }
 .lifegraph .dygraph-legend { font-size: 8px; color: #c5c8d4; }

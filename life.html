@@ -40,6 +40,10 @@
         <label for="autoRender" class="checkbox-label">Auto Render</label>
     </div>
 
+    <div id="genes">
+        <table id="genes_table" class="table table-success table-striped"/>
+    </div>
+
     <script type="text/javascript">
         function cycle() {
             global_world.cycle();
@@ -80,5 +84,7 @@
         render();
 
         $('#play_stop').click();
+
+        buildGenesTable($('#genes_table'));
     </script>
 </body>

@@ -56,3 +56,47 @@ function renderCanvas(canvas, world)
     }
     ctx.putImageData(imageData, 0, 0);
 }
+
+function buildGenesTable(table) {
+    const tHead = $('<thead/>');
+    const topTR = $('<tr/>').appendTo(tHead);
+    topTR.append('<td>name</td>').append('<td>size</td>');
+    $('<td/>').text('move').appendTo(topTR);
+    $('<td/>').text('min veg (move)').appendTo(topTR);
+    $('<td/>').text('breed').appendTo(topTR);
+    $('<td/>').text('min helath (breed)').appendTo(topTR);
+    $('<td/>').text('eat').appendTo(topTR);
+
+    const tBody = $('<tbody/>');
+
+    const avgTR = $('<tr/>').attr('id', 'avg_tr').appendTo(tBody);
+    $('<td/>').text('average').appendTo(avgTR);
+    for(var i=0;i<6;i++) {
+        $('<td/>').appendTo(avgTR);
+    }
+
+    worldParams.creatures.forEach(function(param) {
+        const tr = $('<tr/>').appendTo(tBody);
+        $('<td/>').text(param.name).appendTo(tr);
+        $('<td/>').text(param.size).appendTo(tr);
+        var eatParam = findActionParam(param, 'eat');
+        var moveParam = findActionParam(param, 'move');
+        var breedParam = findActionParam(param, 'breed');
+        $('<td/>').text(moveParam ? moveParam.p + '%' : '').appendTo(tr);
+        $('<td/>').text(moveParam ? moveParam.cellVegAmountToMove : '').appendTo(tr);
+        $('<td/>').text(breedParam ? breedParam.p + '%' : '').appendTo(tr);
+        $('<td/>').text(breedParam ? breedParam.minHealth : '').appendTo(tr);
+        $('<td/>').text(eatParam ? eatParam.p + '%' : '').appendTo(tr);
+    });
+
+    table.append(tHead);
+    table.append(tBody);
+}
+
+function findActionParam(param, actionName) {
+    for (var i in param.actions) {
+        if (param.actions[i].t == actionName) {
+            return param.actions[i];
+        }
+    }
+}

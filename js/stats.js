@@ -114,6 +114,16 @@ Stats.prototype.calc = function(world)
         }
     }
 
+    const tds = $('#avg_tr td');
+    if (tds.length > 0) {
+        $(tds[1]).text(this.size.avg().toFixed(1));
+        $(tds[2]).text(this.movePerc.avg().toFixed(1) + '%');
+        $(tds[3]).text(this.moveMaxVeg.avg().toFixed(1));
+        $(tds[4]).text(this.breedPerc.avg().toFixed(1) + '%');
+        $(tds[5]).text(this.breedminHealth.avg().toFixed(1));
+        $(tds[6]).text(this.eatPerc.avg().toFixed(1) + '%');
+    }
+
     this.samplers = [ this.vegetation, this.size, this.movePerc, this.moveMaxVeg,
                     this.eatPerc, this.breedPerc, this.breedminHealth, this.creatures];
 }
