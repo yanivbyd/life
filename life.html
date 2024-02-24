@@ -30,8 +30,6 @@
 
 <body>
     <canvas id="canvas" width="400" height="400"></canvas>
-    <textarea id="summary"></textarea>
-    <textarea id="rules"></textarea>
     <div id="toolbar">
         <button id="add" onclick="addCreatures(); render()" class="btn btn-secondary">Add</button>
         <button id="play_stop" onclick="playOrStop();" class="btn btn-primary">Play</button>
@@ -41,8 +39,14 @@
     </div>
 
     <div id="genes">
-        <table id="genes_table" class="table table-success"/>
+        <table id="genes_table" class="table table-success"></table>
     </div>
+
+    <div>
+        <textarea id="summary"></textarea>
+        <textarea id="rules"></textarea>
+    </div>
+
 
     <script type="text/javascript">
         function cycle() {
