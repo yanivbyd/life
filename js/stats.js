@@ -92,6 +92,15 @@ function addSamplerText(arr, sampler, avgFixedSize)
         + "[" + sampler.toString() + "]");
 }
 
+function setCreatureTdText(td, param, sampler, withPercent) {
+    const pText = (withPercent ? '%' : '');
+    if (sampler.count == 0) {
+        $(td).text(param + pText);
+    } else {
+        $(td).text(param + pText + ' (' + sampler.avg().toFixed(1)  + ')');
+    }
+}
+
 function Stats() {}
 
 Stats.prototype.calc = function(world)
@@ -107,6 +116,19 @@ Stats.prototype.calc = function(world)
     this.breedminHealth = new Sampler("breed min health");
     this.health = new Sampler("health");
     this.creatures = new Sampler("creature", { idToText: creatureIdToText() });
+    this.byCreature = {};
+    for (var i=0;i<worldParams.creatures.length;i++) {
+        this.byCreature[i] = {
+            params: worldParams.creatures[i],
+            size: new Sampler("size"),
+            movePerc: new Sampler("move percent"),
+            moveMaxVeg: new Sampler("move max veg"),
+            eatPerc: new Sampler("eat percent"),
+            breedPerc: new Sampler("breed percent"),
+            breedminHealth: new Sampler("breed min health"),
+            health: new Sampler("health")
+        }
+    }
 
     for (var row=0;row<world.size;row++) {
         for (var col=0;col<world.size;col++) {
@@ -121,6 +143,15 @@ Stats.prototype.calc = function(world)
                 this.breedPerc.sample(cell.creature.logic.breedParams.p);
                 this.breedminHealth.sample(cell.creature.logic.breedParams.minHealth);
                 this.health.sample(cell.creature.health);
+
+                const samplersByCreature = this.byCreature[cell.creature.type];
+                samplersByCreature.size.sample(cell.creature.size);
+                samplersByCreature.movePerc.sample(cell.creature.logic.moveParams.p);
+                samplersByCreature.moveMaxVeg.sample(cell.creature.logic.moveParams.cellVegAmountToMove);
+                samplersByCreature.eatPerc.sample(cell.creature.logic.eatParams.p);
+                samplersByCreature.breedPerc.sample(cell.creature.logic.breedParams.p);
+                samplersByCreature.breedminHealth.sample(cell.creature.logic.breedParams.minHealth);
+                samplersByCreature.health.sample(cell.creature.health);
             }
         }
     }
@@ -128,22 +159,39 @@ Stats.prototype.calc = function(world)
     const tds = $('#avg_tr td');
     if (tds.length > 0) {
         $(tds[1]).text('100%');
-        $(tds[2]).text(this.size.avg().toFixed(1));
-        $(tds[3]).text(this.movePerc.avg().toFixed(1) + '%');
-        $(tds[4]).text(this.moveMaxVeg.avg().toFixed(1));
-        $(tds[5]).text(this.breedPerc.avg().toFixed(1) + '%');
-        $(tds[6]).text(this.breedminHealth.avg().toFixed(1));
-        $(tds[7]).text(this.eatPerc.avg().toFixed(1) + '%');
+        $(tds[2]).text(this.health.avg().toFixed(1));
+        $(tds[3]).text(this.size.avg().toFixed(1));
+        $(tds[4]).text(this.movePerc.avg().toFixed(1) + '%');
+        $(tds[5]).text(this.moveMaxVeg.avg().toFixed(1));
+        $(tds[6]).text(this.breedPerc.avg().toFixed(1) + '%');
+        $(tds[7]).text(this.breedminHealth.avg().toFixed(1));
+        $(tds[8]).text(this.eatPerc.avg().toFixed(1) + '%');
     }
 
     const creaturesSampler = this.creatures;
+    const creatureSamplers = this.byCreature;
 
     $('#genes_table tbody tr').each(function (index, tr) {
         if (index > 0) {
+            const tds = $(tr).children('td');
             const creatureName = $(tr).attr('id').replace(/^creature_/, '');
             const creatureId = creatureTextToId(creatureName);
-            const p = percentage(creaturesSampler.getFreq(creatureId), creaturesSampler.count).toFixed(0) + '%';
-            $(tr).children('td').eq(1).text(p);
+            const samplers = creatureSamplers[creatureId];
+            const params = samplers.params;
+
+            var eatParam = findActionParam(params, 'eat');
+            var moveParam = findActionParam(params, 'move');
+            var breedParam = findActionParam(params, 'breed');
+
+            const count = percentage(creaturesSampler.getFreq(creatureId), creaturesSampler.count).toFixed(0) + '%';
+            $(tds[1]).text(count);
+            $(tds[2]).text(samplers.health.avg().toFixed(1));
+            setCreatureTdText($(tds[3]), params.size, samplers.size);
+            setCreatureTdText($(tds[4]), moveParam.p, samplers.movePerc, true);
+            setCreatureTdText($(tds[5]), moveParam.cellVegAmountToMove, samplers.moveMaxVeg, false);
+            setCreatureTdText($(tds[6]), breedParam.p, samplers.breedPerc, true);
+            setCreatureTdText($(tds[7]), breedParam.minHealth, samplers.breedminHealth, true);
+            setCreatureTdText($(tds[8]), eatParam.p, samplers.eatPerc, true);
         }
     });
 

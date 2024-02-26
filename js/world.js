@@ -82,12 +82,6 @@ World.prototype.rulesSummary = function() {
     result.push('---------');
     result.push(showObjectRemoveHidden(worldParams.rules));
 
-    result.push('');
-    result.push('');
-    result.push('Creatures (starting point)');
-    result.push('--------------------------');
-    result.push(showObjectRemoveHidden(worldParams.creatures));
-
     return result.join('\n');
 }
 

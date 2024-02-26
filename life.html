@@ -43,7 +43,6 @@
     </div>
 
     <div>
-        <textarea id="summary"></textarea>
         <textarea id="rules"></textarea>
     </div>
 
@@ -57,12 +56,10 @@
         }
         function render() {
             renderCanvas($('#canvas')[0], global_world);
-            $('#summary').val(stats.calcStats(global_world).toString());
+            stats.calcStats(global_world);
+//            $('#summary').val(stats.calcStats(global_world).toString());
         }
         function renderLight() {
-            if (global_world.currentCycle % 10 == 0) {
-                $('#summary').val('cycle: ' + global_world.currentCycle);
-            }
         }
         function continuePlaying() {
             if (!global_playing) return;
