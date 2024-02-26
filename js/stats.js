@@ -73,6 +73,17 @@ function creatureIdToText()
     return idToText;
 }
 
+function creatureTextToId(name)
+{
+    var idToText = {};
+    for (var i=0;i<worldParams.creatures.length;i++) {
+        if (name == worldParams.creatures[i].name) {
+            return i;
+        };
+    }
+    return -1;
+}
+
 function addSamplerText(arr, sampler, avgFixedSize)
 {
     if (!sampler.count) return;
@@ -116,13 +127,25 @@ Stats.prototype.calc = function(world)
 
     const tds = $('#avg_tr td');
     if (tds.length > 0) {
-        $(tds[1]).text(this.size.avg().toFixed(1));
-        $(tds[2]).text(this.movePerc.avg().toFixed(1) + '%');
-        $(tds[3]).text(this.moveMaxVeg.avg().toFixed(1));
-        $(tds[4]).text(this.breedPerc.avg().toFixed(1) + '%');
-        $(tds[5]).text(this.breedminHealth.avg().toFixed(1));
-        $(tds[6]).text(this.eatPerc.avg().toFixed(1) + '%');
+        $(tds[1]).text('100%');
+        $(tds[2]).text(this.size.avg().toFixed(1));
+        $(tds[3]).text(this.movePerc.avg().toFixed(1) + '%');
+        $(tds[4]).text(this.moveMaxVeg.avg().toFixed(1));
+        $(tds[5]).text(this.breedPerc.avg().toFixed(1) + '%');
+        $(tds[6]).text(this.breedminHealth.avg().toFixed(1));
+        $(tds[7]).text(this.eatPerc.avg().toFixed(1) + '%');
     }
+
+    const creaturesSampler = this.creatures;
+
+    $('#genes_table tbody tr').each(function (index, tr) {
+        if (index > 0) {
+            const creatureName = $(tr).attr('id').replace(/^creature_/, '');
+            const creatureId = creatureTextToId(creatureName);
+            const p = percentage(creaturesSampler.getFreq(creatureId), creaturesSampler.count).toFixed(0) + '%';
+            $(tr).children('td').eq(1).text(p);
+        }
+    });
 
     this.samplers = [ this.vegetation, this.size, this.movePerc, this.moveMaxVeg,
                     this.eatPerc, this.breedPerc, this.breedminHealth, this.creatures];

@@ -60,9 +60,11 @@ function renderCanvas(canvas, world)
 function buildGenesTable(table) {
     const tHead = $('<thead/>');
     const topTR = $('<tr/>').appendTo(tHead);
-    topTR.append('<td>name</td>').append('<td>size</td>');
+    $('<td/>').text('name').appendTo(topTR);
+    $('<td/>').text('count').appendTo(topTR);
+    $('<td/>').text('size').appendTo(topTR);
     $('<td/>').text('move').appendTo(topTR);
-    $('<td/>').text('min veg (move)').appendTo(topTR);
+    $('<td/>').text('max veg (move)').appendTo(topTR);
     $('<td/>').text('breed').appendTo(topTR);
     $('<td/>').text('min helath (breed)').appendTo(topTR);
     $('<td/>').text('eat').appendTo(topTR);
@@ -78,6 +80,7 @@ function buildGenesTable(table) {
     worldParams.creatures.forEach(function(param) {
         const tr = $('<tr/>').attr('id', 'creature_' + param.name).appendTo(tBody);
         $('<td/>').text(param.name).appendTo(tr);
+        $('<td/>').addClass('creature_count').appendTo(tr);
         $('<td/>').text(param.size).appendTo(tr);
         var eatParam = findActionParam(param, 'eat');
         var moveParam = findActionParam(param, 'move');
