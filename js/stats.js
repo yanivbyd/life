@@ -190,7 +190,7 @@ Stats.prototype.calc = function(world)
             setCreatureTdText($(tds[4]), moveParam.p, samplers.movePerc, true);
             setCreatureTdText($(tds[5]), moveParam.cellVegAmountToMove, samplers.moveMaxVeg, false);
             setCreatureTdText($(tds[6]), breedParam.p, samplers.breedPerc, true);
-            setCreatureTdText($(tds[7]), breedParam.minHealth, samplers.breedminHealth, true);
+            setCreatureTdText($(tds[7]), breedParam.minHealth, samplers.breedminHealth, false);
             setCreatureTdText($(tds[8]), eatParam.p, samplers.eatPerc, true);
         }
     });

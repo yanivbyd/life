@@ -213,10 +213,11 @@ CreatureLogic = function (logicParams)
 CreatureLogic.prototype.cycle = function(creature, ctx)
 {
     for (var i=0;i<this.actions.length;i++) {
-        this.actions[i].cycle(creature, ctx);
+        if (creature.health > 0) {
+            this.actions[i].cycle(creature, ctx);
+        }
     }
 }
-
 
 creature = {
     Creature: Creature,
