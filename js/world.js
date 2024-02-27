@@ -94,6 +94,7 @@ World.prototype.init = function(size)
     this.size = size;
     this.nextCycle = this.currentCycle + 1;
     this.matrix = [];
+    this.rainDelta = 0;
     for(var i=0; i<size; i++) {
         this.matrix[i] = [];
     }
@@ -172,10 +173,10 @@ World.prototype.findCreature = function()
     }
 }
 
-function cycleVegetation(cell)
+function cycleVegetation(cell, rainDelta)
 {
-    cell.vegetation += cell.env.rain;
-    cell.vegetation = Math.min(cell.vegetation, cell.env.vegMaxAmount);
+    cell.vegetation += (cell.env.rain + rainDelta);
+    cell.vegetation = Math.max(0, Math.min(cell.vegetation, cell.env.vegMaxAmount));
 }
 
 World.prototype.cycle = function()
@@ -188,9 +189,21 @@ World.prototype.cycle = function()
         for(var j=0; j<this.size; j++) {
             cycleCtx.nextCell(i,j);
             var cell = this.matrix[i][j];
-            cycleVegetation(cell);
+            cycleVegetation(cell, this.rainDelta);
             if (cell.creature) cell.creature.cycle(cycleCtx);
         }
+    }
+    if (!this.cycleOfRainChange) {
+        this.cycleOfRainChange = this.currentCycle + random(50,350);
+    }
+    if (this.currentCycle == this.cycleOfRainChange) {
+        this.cycleOfRainChange = this.currentCycle + random(50,350);
+        if (utils.randomBool()) {
+            this.rainDelta++;
+        } else {
+            this.rainDelta--;
+        }
+        this.rainDelta = Math.max(-2, this.rainDelta);
     }
 }
 
