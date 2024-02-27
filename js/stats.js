@@ -168,6 +168,7 @@ Stats.prototype.calc = function(world)
         $(tds[8]).text(global_world.getStat('deaths'));
         $(tds[9]).text(global_world.getStat('births'));
         $(tds[10]).text(global_world.getStat('kills'));
+        $(tds[11]).text(global_world.getStat('attacks'));
     }
 
     const creaturesSampler = this.creatures;
@@ -196,6 +197,7 @@ Stats.prototype.calc = function(world)
             $(tds[8]).text(global_world.getStatPerType('deaths', index-1));
             $(tds[9]).text(global_world.getStatPerType('births', index-1));
             $(tds[10]).text(global_world.getStatPerType('kills', index-1));
+            $(tds[11]).text(global_world.getStatPerType('attacks', index-1));
         }
     });
 

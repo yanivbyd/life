@@ -71,6 +71,7 @@ function buildGenesTable(table) {
     $('<td/>').text('deaths').appendTo(topTR);
     $('<td/>').text('births').appendTo(topTR);
     $('<td/>').text('kills').appendTo(topTR);
+    $('<td/>').text('attacks').appendTo(topTR);
 
     const tBody = $('<tbody/>');
 
@@ -94,6 +95,7 @@ function buildGenesTable(table) {
         $('<td/>').text(moveParam ? moveParam.cellVegAmountToMove : '').appendTo(tr);
         $('<td/>').text(breedParam ? breedParam.p + '%' : '').appendTo(tr);
         $('<td/>').text(breedParam ? breedParam.minHealth : '').appendTo(tr);
+        $('<td/>').appendTo(tr);
         $('<td/>').appendTo(tr);
         $('<td/>').appendTo(tr);
         $('<td/>').appendTo(tr);

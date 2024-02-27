@@ -217,6 +217,7 @@ action.Attack.prototype.cycle = function(creature, ctx)
     if (cell) {
         const opponent = cell.creature;
         if (utils.checkPercentage(worldParams.rules.attackSuccess)) {
+            ctx.world.incCycleStats('attacks', creature.type);
             opponent.health -= creature.size;
             if (opponent.health < 0) {
                 cell.creature = creature;  // move to the dead creature place
