@@ -14,6 +14,13 @@
     margin-left: 5px;
 }
 
+#cycle {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    min-width: 80px;
+    font-size: 16px;
+}
 #autoRender {
     margin-left: 10px;
 }

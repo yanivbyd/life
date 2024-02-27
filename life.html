@@ -38,6 +38,8 @@
         <label for="autoRender" class="checkbox-label">Auto Render</label>
     </div>
 
+    <div id="cycle"></div>
+
     <div id="genes">
         <table id="genes_table" class="table table-success"></table>
     </div>
@@ -57,9 +59,10 @@
         function render() {
             renderCanvas($('#canvas')[0], global_world);
             stats.calcStats(global_world);
-//            $('#summary').val(stats.calcStats(global_world).toString());
+            renderLight();
         }
         function renderLight() {
+            $('#cycle').text('cycle: ' + global_world.currentCycle);
         }
         function continuePlaying() {
             if (!global_playing) return;
