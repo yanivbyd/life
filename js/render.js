@@ -68,7 +68,9 @@ function buildGenesTable(table) {
     $('<td/>').text('max veg (move)').appendTo(topTR);
     $('<td/>').text('breed').appendTo(topTR);
     $('<td/>').text('min health (breed)').appendTo(topTR);
-    $('<td/>').text('eat').appendTo(topTR);
+    $('<td/>').text('deaths').appendTo(topTR);
+    $('<td/>').text('births').appendTo(topTR);
+    $('<td/>').text('kills').appendTo(topTR);
 
     const tBody = $('<tbody/>');
 
@@ -77,7 +79,7 @@ function buildGenesTable(table) {
         $('<td/>').appendTo(avgTR);
     });
 
-    avgTR.children('td').first().text('average');
+    avgTR.children('td').first().text('average/total');
 
     worldParams.creatures.forEach(function(param) {
         const tr = $('<tr/>').attr('id', 'creature_' + param.name).appendTo(tBody);
@@ -92,7 +94,9 @@ function buildGenesTable(table) {
         $('<td/>').text(moveParam ? moveParam.cellVegAmountToMove : '').appendTo(tr);
         $('<td/>').text(breedParam ? breedParam.p + '%' : '').appendTo(tr);
         $('<td/>').text(breedParam ? breedParam.minHealth : '').appendTo(tr);
-        $('<td/>').text(eatParam ? eatParam.p + '%' : '').appendTo(tr);
+        $('<td/>').appendTo(tr);
+        $('<td/>').appendTo(tr);
+        $('<td/>').appendTo(tr);
     });
 
     table.append(tHead);

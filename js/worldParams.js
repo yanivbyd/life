@@ -6,11 +6,14 @@ worldParams = {
             breathing: "2 + 0.5 * size * 1",  /* Fixed creature penalty on each turn, regardless of what it does */
             moving: 6,  /* Penalty for moving to another empty cell */
             breed: 3,   /* Penalty of a parent for breeding. Breeding is done by 2 parents */
-            babyPenalty: 3  /* Penalty of a baby for being bord. The health of the baby is taken from its parents */
+            babyPenalty: 3,  /* Penalty of a baby for being bord. The health of the baby is taken from its parents */
+            attack: 3,   /* Penalty for actually attacking */
+            attackIntent: 1  /* Penalty for deciding to attack and looking for opponents */
         },
         randomDeathChance: 1,
         mutationChance: 5,  /* 0-100 chance for gene single change on birth */
         switchGeneChance: 30, /* 0-100 chance while copying dna to switch to the other parent's dna */
+        attackSuccess: 95, /* the percentage of successful attacks */
         addCreatures: {
             amount: 1000,       /* Amount of creatures by types added when the game starts */
             initialHealth: "10 + size * random(1,5)", /* health to be given to a creature when the game starts, can't excceed maxHealth */
@@ -55,6 +58,11 @@ worldParams = {
         *      - cellVegAmountToMove: the maximum amount of vegetation in a cell for migrating. If the cell vegetation is higher
         *                             no move will happen
         *      - p: chance of moving after all prerequisites are met
+        * attack action
+        *      - When attacking, an adjacent opponent (of a different type) is first selected
+        *      - If the attack is successful (based on a combo of size & health) an amount of the attacker's size is
+        *        reduced from the defender's health and it dies if 0 or lower.
+        *      - If the opponent dies, the attacker moves to take its place
     */
     creatures: [
         {
@@ -63,7 +71,8 @@ worldParams = {
             actions: [
                 { t: 'eat', p: 100 },
                 { t: 'move', p: random(10,15), cellVegAmountToMove: random(4,8) },
-                { t: 'breed', p: random(1,60), minHealth: random(5,15) }
+                { t: 'breed', p: random(1,60), minHealth: random(5,15) },
+                { t: 'attack', p: random(1,60), minHealth: random(5,10), opponentMaxHealth: random(5,10) }
             ]
         },
         {
@@ -72,7 +81,8 @@ worldParams = {
             actions: [
                 { t: 'eat', p: 100 },
                 { t: 'move', p: random(10,15), cellVegAmountToMove: random(4,8) },
-                { t: 'breed', p: random(1,60), minHealth: random(5,15) }
+                { t: 'breed', p: random(1,60), minHealth: random(5,15) },
+                { t: 'attack', p: random(1,60), minHealth: random(5,10), opponentMaxHealth: random(5,10) }
             ]
         },
         {
@@ -81,7 +91,8 @@ worldParams = {
             actions: [
                 { t: 'eat', p: 100 },
                 { t: 'move', p: random(10,15), cellVegAmountToMove: random(4,8) },
-                { t: 'breed', p: random(1,60), minHealth: random(5,15) }
+                { t: 'breed', p: random(1,60), minHealth: random(5,15) },
+                { t: 'attack', p: random(1,60), minHealth: random(5,10), opponentMaxHealth: random(5,10) }
             ]
         },
         {
@@ -90,7 +101,8 @@ worldParams = {
             actions: [
                 { t: 'eat', p: 100 },
                 { t: 'move', p: random(10,15), cellVegAmountToMove: random(4,8) },
-                { t: 'breed', p: random(1,60), minHealth: random(5,15) }
+                { t: 'breed', p: random(1,60), minHealth: random(5,15) },
+                { t: 'attack', p: random(1,60), minHealth: random(5,10), opponentMaxHealth: random(5,10) }
             ]
         },
         {
@@ -99,7 +111,8 @@ worldParams = {
             actions: [
                 { t: 'eat', p: 100 },
                 { t: 'move', p: random(10,15), cellVegAmountToMove: random(4,8) },
-                { t: 'breed', p: random(1,60), minHealth: random(5,15) }
+                { t: 'breed', p: random(1,60), minHealth: random(5,15) },
+                { t: 'attack', p: random(1,60), minHealth: random(5,10), opponentMaxHealth: random(5,10) }
             ]
         },
         {
@@ -108,7 +121,8 @@ worldParams = {
             actions: [
                 { t: 'eat', p: 100 },
                 { t: 'move', p: random(10,15), cellVegAmountToMove: random(4,8) },
-                { t: 'breed', p: random(1,60), minHealth: random(5,15) }
+                { t: 'breed', p: random(1,60), minHealth: random(5,15) },
+                { t: 'attack', p: random(1,60), minHealth: random(5,10), opponentMaxHealth: random(5,10) }
             ]
         }
     ],

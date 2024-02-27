@@ -182,8 +182,7 @@ World.prototype.cycle = function()
 {
     this.currentCycle = this.nextCycle;
     this.nextCycle++;
-    this.deathsThisCycle = 0;
-    this.birthsThisCycle = 0;
+    this.stats = {};
     var cycleCtx = new creature.CycleContext(this);
     for(var i=0; i<this.size; i++) {
         for(var j=0; j<this.size; j++) {
@@ -193,6 +192,31 @@ World.prototype.cycle = function()
             if (cell.creature) cell.creature.cycle(cycleCtx);
         }
     }
+}
+
+World.prototype.incCycleStats = function(statName, creatureType) {
+    this.stats.global = this.stats.global || {};
+    this.stats.global[statName] = this.stats.global[statName] || 0;
+    this.stats.perType = this.stats.perType || {};
+    this.stats.perType[creatureType] = this.stats.perType[creatureType] || {};
+    this.stats.perType[creatureType][statName] = this.stats.perType[creatureType][statName] || 0;
+
+    this.stats.global[statName]++;
+    this.stats.perType[creatureType][statName]++;
+}
+
+World.prototype.getStatPerType = function(statName, creatureType) {
+    if (this.stats.perType && this.stats.perType[creatureType]) {
+        return this.stats.perType[creatureType][statName] || 0;
+    }
+    return 0;
+}
+
+World.prototype.getStat = function(statName) {
+    if (this.stats.global) {
+        return this.stats.global[statName] || 0;
+    }
+    return 0;
 }
 
 module.exports = {

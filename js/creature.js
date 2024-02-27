@@ -22,7 +22,7 @@ Creature.prototype.cycle = function(ctx)
     if (utils.checkPercentage(worldParams.rules.randomDeathChance)) {
         assert.strictEqual(ctx.cell.creature, this);
         ctx.cell.creature = null;
-        ctx.world.deathsThisCycle++;
+        ctx.world.incCycleStats('deaths', this.type);
         return;
     }
 
@@ -34,7 +34,7 @@ Creature.prototype.cycle = function(ctx)
     if (this.health <= 0) {
         assert.strictEqual(ctx.cell.creature, this);
         ctx.cell.creature = null;
-        ctx.world.deathsThisCycle++;
+        ctx.world.incCycleStats('deaths', this.type);
     }
 }
 
@@ -87,6 +87,20 @@ CycleContext.prototype.findEmptyCellWithMostVeg = function()
         }
     }
     return utils.randomArrayItem(maxCells);
+}
+
+CycleContext.prototype.findAttackOpponent = function(opponentMaxHealth)
+{
+    var options = [];
+    const cells = this.world.nearCells(this.row, this.col);
+
+    for (var i=0;i<cells.length;i++) {
+        const opponent = cells[i].creature;
+        if (opponent && opponent.type != this.creature.type && opponent.health <= opponentMaxHealth) {
+            options.push(cells[i]);
+        }
+    }
+    return utils.randomArrayItem(options);
 }
 
 CycleContext.prototype.move = function(toCell)
@@ -184,9 +198,40 @@ action.Breed.prototype.cycle = function(creature, ctx)
         var emptyCell = ctx.findEmptyCellWithMostVeg();
         if (emptyCell && utils.checkPercentage(this.params.p)) {
             ctx.breed(mateCell, emptyCell);
-            ctx.world.birthsThisCycle++;
+            ctx.world.incCycleStats('births', creature.type);
         }
     }
+}
+
+action.Attack = function(logicParams)
+{
+    this.params = logicParams;
+}
+
+action.Attack.prototype.cycle = function(creature, ctx)
+{
+    if (creature.health < this.params.minHealth) return;
+    if (creature.health <= worldParams.rules.penalties.attackIntent + worldParams.rules.penalties.attack) return;
+    if (!utils.checkPercentage(this.params.p)) return;
+    const cell = ctx.findAttackOpponent(this.params.opponentMaxHealth);
+    if (cell) {
+        const opponent = cell.creature;
+        if (utils.checkPercentage(worldParams.rules.attackSuccess)) {
+            opponent.health -= creature.size;
+            if (opponent.health < 0) {
+                cell.creature = creature;  // move to the dead creature place
+                ctx.cell.creature = null;
+                ctx.row = cell.row;
+                ctx.col = cell.col;
+                ctx.cell = cell;
+
+                ctx.world.incCycleStats('kills', creature.type);
+                ctx.world.incCycleStats('deaths', opponent.type);
+            }
+            creature.health -= worldParams.rules.penalties.attack;
+        }
+    }
+    creature.health -= worldParams.rules.penalties.attackIntent;
 }
 
 CreatureLogic = function (logicParams)
@@ -206,6 +251,10 @@ CreatureLogic = function (logicParams)
         else if (logicAction.t == 'breed') {
             this.actions.push(new action.Breed(logicAction));
             this.breedParams = logicAction;
+        }
+        else if (logicAction.t == 'attack') {
+            this.actions.push(new action.Attack(logicAction));
+            this.attackParams = logicAction;
         }
     }
 }

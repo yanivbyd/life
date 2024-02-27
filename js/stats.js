@@ -165,7 +165,9 @@ Stats.prototype.calc = function(world)
         $(tds[5]).text(this.moveMaxVeg.avg().toFixed(1));
         $(tds[6]).text(this.breedPerc.avg().toFixed(1) + '%');
         $(tds[7]).text(this.breedminHealth.avg().toFixed(1));
-        $(tds[8]).text(this.eatPerc.avg().toFixed(1) + '%');
+        $(tds[8]).text(global_world.getStat('deaths'));
+        $(tds[9]).text(global_world.getStat('births'));
+        $(tds[10]).text(global_world.getStat('kills'));
     }
 
     const creaturesSampler = this.creatures;
@@ -191,7 +193,9 @@ Stats.prototype.calc = function(world)
             setCreatureTdText($(tds[5]), moveParam.cellVegAmountToMove, samplers.moveMaxVeg, false);
             setCreatureTdText($(tds[6]), breedParam.p, samplers.breedPerc, true);
             setCreatureTdText($(tds[7]), breedParam.minHealth, samplers.breedminHealth, false);
-            setCreatureTdText($(tds[8]), eatParam.p, samplers.eatPerc, true);
+            $(tds[8]).text(global_world.getStatPerType('deaths', index-1));
+            $(tds[9]).text(global_world.getStatPerType('births', index-1));
+            $(tds[10]).text(global_world.getStatPerType('kills', index-1));
         }
     });
 

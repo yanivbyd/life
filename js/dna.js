@@ -32,6 +32,11 @@ dna.DNA.prototype.fromCreatureParams = function(params)
     this._write(breedAction.p);
     this._write(breedAction.minHealth);
     this._write(actionsOrderNum(params));
+    var attackAction = getAction(params, 'attack');
+    this._write(attackAction.p);
+    this._write(attackAction.minHealth);
+    this._write(attackAction.opponentMaxHealth);
+    this._write(actionsOrderNum(params));
 
     this._updateStr();
 }
@@ -46,6 +51,7 @@ dna.DNA.prototype.toCreatureParams = function()
             { t: 'eat', p: getPercentage(arr[1]) },
             { t: 'move', p: getPercentage(arr[2]), cellVegAmountToMove: arr[3] },
             { t: 'breed', p: getPercentage(arr[4]), minHealth: arr[5] },
+            { t: 'attack', p: getPercentage(arr[6]), minHealth: arr[7], opponentMaxHealth: arr[8] }
         ]
     };
     reorderActions(params, arr[6]);
@@ -133,12 +139,12 @@ function initOrderCache()
 {
     dna.orderCache = {};
     var counter = 0;
-    dna.orderCache["eat,move,breed"] = (counter++);
-    dna.orderCache["eat,breed,move"] = (counter++);
-    dna.orderCache["move,eat,breed"] = (counter++);
-    dna.orderCache["move,breed,eat"] = (counter++);
-    dna.orderCache["breed,move,eat"] = (counter++);
-    dna.orderCache["breed,eat,move"] = (counter++);
+    dna.orderCache["eat,move,breed,attack"] = (counter++);
+    dna.orderCache["eat,breed,move,attack"] = (counter++);
+    dna.orderCache["move,eat,breed,attack"] = (counter++);
+    dna.orderCache["move,breed,eat,attack"] = (counter++);
+    dna.orderCache["breed,move,eat,attack"] = (counter++);
+    dna.orderCache["breed,eat,move,attack"] = (counter++);
     dna.orderCount = counter;
 }
 
