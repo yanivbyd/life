@@ -23,7 +23,9 @@ function initVegColors(world, veg_colors)
 function renderVegetation(data, i, vegetation)
 {
     var vegColor = global_veg_colors[Math.floor(vegetation)];
-    for (var j=0;j<3;j++) data[i+j] = vegColor[j]; // r,g,b
+    if (vegColor) {
+        for (var j = 0; j < 3; j++) data[i + j] = vegColor[j]; // r,g,b
+    }
 }
 
 function renderCreature(data, i, creature)

@@ -193,17 +193,39 @@ World.prototype.cycle = function()
             if (cell.creature) cell.creature.cycle(cycleCtx);
         }
     }
-    if (!this.cycleOfRainChange) {
-        this.cycleOfRainChange = this.currentCycle + random(50,350);
+    if (!this.cycleOfNextEvent) {
+        this.cycleOfNextEvent = 50;
     }
-    if (this.currentCycle == this.cycleOfRainChange) {
-        this.cycleOfRainChange = this.currentCycle + random(50,350);
-        if (utils.randomBool()) {
-            this.rainDelta++;
-        } else {
-            this.rainDelta--;
+    if (this.currentCycle == this.cycleOfNextEvent) {
+        this.cycleOfNextEvent = this.currentCycle + random(50,200);
+        const eventType = utils.randomInt(5);
+        switch (eventType) {
+            case 0:
+                this.rainDelta++;
+                $('#change').text('more rain (delta='+ this.rainDelta+')');
+                break;
+            case 1:
+                if (this.rainDelta > -2) {
+                    this.rainDelta--;
+                    $('#change').text('less rain (delta=' + this.rainDelta + ')');
+                }
+                break;
+            case 2:
+                $('#change').text('more creatures');
+                this.addCreatures();
+                break;
+            case 3:
+                worldParams.rules.penalties.moving += 2;
+                $('#change').text('move penalty increase (val='+ worldParams.rules.penalties.moving + ')');
+                break;
+            case 4:
+                worldParams.rules.penalties.moving -= 2;
+                $('#change').text('move penalty decrease (val='+ worldParams.rules.penalties.moving + ')');
+                break;
         }
-        this.rainDelta = Math.max(-2, this.rainDelta);
+        setTimeout(function () {
+            $('#change').text('');
+        }, 4000);
     }
 }
 

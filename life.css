@@ -17,10 +17,17 @@
 #cycle {
     position: absolute;
     top: 5px;
-    right: 5px;
+    right: 10px;
     min-width: 80px;
     font-size: 16px;
 }
+#change {
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    font-size: 16px;
+}
+
 #autoRender {
     margin-left: 10px;
 }

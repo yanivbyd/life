@@ -15,7 +15,7 @@ worldParams = {
         switchGeneChance: 30, /* 0-100 chance while copying dna to switch to the other parent's dna */
         attackSuccess: 95, /* the percentage of successful attacks */
         addCreatures: {
-            amount: 1000,       /* Amount of creatures by types added when the game starts */
+            amount: 4000,       /* Amount of creatures by types added when the game starts */
             initialHealth: "10 + size * random(1,5)", /* health to be given to a creature when the game starts, can't excceed maxHealth */
         }
     },
