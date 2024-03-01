@@ -1,4 +1,6 @@
-interface CreatureAction {
+import { CycleContext } from "./cycle/cycleContext";
+
+export interface CreatureAction {
     // Method to calculate the area
-    cycle(): void;
+    cycle(ctx: CycleContext): void;
 }

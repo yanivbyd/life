@@ -1,5 +1,5 @@
 import { World } from './world.js';
-import { randomInt } from './random.js';
+import { randomInt } from './utils/random.js';
 
 export class VegShapes {
     world: World;

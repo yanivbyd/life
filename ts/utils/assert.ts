@@ -14,3 +14,18 @@ export function assertNotNull(a: Object) {
     }
 }
 
+export function assertNotNegative(a: number) {
+    if (a < 0) {
+        console.error("negative " + a);
+        debugger;
+        alert("negative " + a);
+    }
+}
+
+export function assertNotHigher(a: number, b: number) {
+    if (a > b) {
+        console.error("higher " + a + " : " + b);
+        debugger;
+        alert("higher " + a + " : " + b);
+    }
+}

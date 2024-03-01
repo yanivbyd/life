@@ -2,12 +2,7 @@ import { World } from './world.js';
 import { globalParams } from './worldParams.js';
 import { assertEquals } from './utils/assert.js';
 import { assertNotNull } from './utils/assert.js';
-
-class RGB {
-    red: number;
-    green: number;
-    blue: number;
-}
+import { RGB } from './rgb.js';
 
 export class CanvasRenderer {
     canvas: Object;
@@ -28,9 +23,9 @@ export class CanvasRenderer {
     }
 
     private _initVegColors() {
-        const startColor: RGB = { red: 255, green: 255, blue: 255};
-        const endColor: RGB = { red: 38, green: 255, blue: 0 };
-        const maxVeg = globalParams.env.maxVeg;
+        const startColor: RGB = new RGB(255, 255, 255);
+        const endColor: RGB = new RGB(38, 255, 0);
+        const maxVeg: number = globalParams.env.maxVeg;
 
         this.vegRgbValues = [];
         for (let i=0;i<=maxVeg;i++) {
@@ -74,6 +69,4 @@ export class CanvasRenderer {
     }
 
 }
-
-
 window['CanvasRenderer'] = CanvasRenderer;
