@@ -29,3 +29,12 @@ export function assertNotHigher(a: number, b: number) {
         alert("higher " + a + " : " + b);
     }
 }
+
+export function assertNull(a: Object) {
+    if (!(a == null || a === undefined)) {
+        console.error("not null", a);
+        debugger;
+        alert("not null" + a);
+    }
+}
+

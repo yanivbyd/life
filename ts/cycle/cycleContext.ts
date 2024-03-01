@@ -1,8 +1,9 @@
-import { Cell } from "../cell";
-import { Creature } from "../creature";
-import { GameRules } from "../rules/gameRules";
-import { Penalties } from "../rules/penalties";
-import { World } from "../world";
+import { Cell } from "../cell.js";
+import { Creature } from "../creature.js";
+import { GameRules } from "../rules/gameRules.js";
+import { Penalties } from "../rules/penalties.js";
+import {assertNotHigher, assertNotNegative, assertNull } from "../utils/assert.js";
+import { World } from "../world.js";
 
 export class CycleContext {
     world: World;
@@ -18,4 +19,19 @@ export class CycleContext {
         this.world.matrix[this.x][this.y].creature = null;
     }
 
+    moveCreatureTo(x: number, y: number) {
+        assertNotNegative(x);
+        assertNotNegative(y);
+        assertNotHigher(x, this.world.width-1);
+        assertNotHigher(y, this.world.height-1);
+
+        const cell: Cell = this.world.matrix[x][y];
+        assertNull(cell.creature);
+        cell.creature = this.creature;
+        this.cell.creature = null;
+
+        this.cell = cell;
+        this.x = x;
+        this.y = y;
+    }
 }

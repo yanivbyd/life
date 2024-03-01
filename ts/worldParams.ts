@@ -1,3 +1,4 @@
+import { MoveDef } from "./actions/moveAction.js";
 import { RGB } from "./rgb.js";
 import { Formula } from "./rules/formula.js";
 import { GameRules } from "./rules/gameRules.js";
@@ -17,6 +18,8 @@ export class CreatureDefs {
     name: string;
     color: RGB;
     size: number;
+
+    move: MoveDef;
 }
 export class WorldParams {
     env: Environment;
@@ -34,12 +37,17 @@ export var globalParams: WorldParams = {
         maxVegToEat: new Formula(1, 1)
     },
     penalties: {
-      breathing: new Formula(0.1, 0.7),
-      eating: new Formula(0.3, 0.2),
+        breathing: new Formula(0.1, 0.7),
+        eating: new Formula(0.3, 0.2),
+        moving: new Formula(6, 0.1)
     },
     creatures: [{
         name: 'red',
         color: new RGB(255, 0, 0),
-        size: randomInt(6, 8)
+        size: randomInt(6, 8),
+        move: {
+            chance: 50,
+            minVegAmount: 5
+        }
     }]
 };
