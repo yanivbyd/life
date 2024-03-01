@@ -1,8 +1,19 @@
+
+export class RandomMinMax {
+    min: number;
+    max: number;
+}
+export class Environment {
+    maxVeg: number;
+    rain: RandomMinMax;
+}
+
 export class WorldParams {
-    minVegetation: number;
-    maxVegetation: number;
+    env: Environment;
 };
 export var globalParams: WorldParams = {
-    minVegetation: 5,
-    maxVegetation: 25
+    env: {
+        maxVeg: 20,
+        rain: { min: 1, max: 4}
+    }
 };

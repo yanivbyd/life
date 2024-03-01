@@ -9,6 +9,7 @@
     <script type="text/javascript"> module = { exports: {} }; </script>
 
     <script type="module" src="ts/world.js"></script>
+    <script type="module" src="ts/renderCanvas.js"></script>
 </head>
 
 <body>
@@ -29,8 +30,7 @@
             global_world.addCreatures();
         }
         function render() {
-            renderCanvas($('#canvas')[0], global_world);
-            stats.calcStats(global_world);
+            global_render.render();
             renderLight();
         }
         function renderLight() {
@@ -55,5 +55,10 @@
     <script type="module">
         window.global_playing = false;
         window.global_world = new World($('#canvas').width(), $('#canvas').height());
+        window.global_render = new CanvasRenderer($('#canvas')[0], global_world);
+
+        setTimeout(function () {
+            global_render.render();
+        }, 5);
     </script>
 </body>
