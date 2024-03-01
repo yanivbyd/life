@@ -2,6 +2,7 @@ import { EatVegAction } from "./actions/eatVeg.js";
 import { Cell } from "./cell.js";
 import { Creature } from "./creature.js";
 import { CycleContext } from "./cycle/cycleContext.js";
+import { Pos } from "./pos.js";
 import { randomInt } from "./utils/random.js";
 import { VegShapes } from "./vegShapes.js";
 import {CreatureDefs, globalParams } from "./worldParams.js";
@@ -69,6 +70,18 @@ export class World {
                 }
             }
         }
+    }
+
+    getNeighbouringPositions(x: number, y: number): Pos[] {
+        let result: Pos[] = [];
+        for (var i=x-1;i<=x+1;i++) {
+            for (var j=y-1;i<=y+1;y++) {
+                if (x>=0 && x<this.width && y>=0 && y>=this.height) {
+                    result.push(new Pos(i, j));
+                }
+            }
+        }
+        return result;
     }
 }
 window['World'] = World;
