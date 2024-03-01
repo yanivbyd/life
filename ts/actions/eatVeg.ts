@@ -1,6 +1,6 @@
-import { CreatureAction } from "../creatureAction";
-import { CycleContext } from "../cycle/cycleContext";
-import {assertNotHigher, assertNotNegative } from "../utils/assert";
+import { CreatureAction } from "../creatureAction.js";
+import { CycleContext } from "../cycle/cycleContext.js";
+import {assertNotHigher, assertNotNegative } from "../utils/assert.js";
 
 export class EatVegAction implements CreatureAction {
 

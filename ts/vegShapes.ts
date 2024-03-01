@@ -24,8 +24,8 @@ export class VegShapes {
                 ctx.beginPath();
                 ctx.moveTo(randomInt(5, width - 5), randomInt(5, height - 5));
                 for (var i = 0; i < 10; i++) {
-                    const x = randomInt(0, width);
-                    const y = randomInt(0, height);
+                    const x = randomInt(0, width-1);
+                    const y = randomInt(0, height-1);
                     ctx.quadraticCurveTo(
                         (x + 30) % width, (y+40) % height,
                         (x + 60) % width, (y+60) % height

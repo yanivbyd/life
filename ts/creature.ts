@@ -1,5 +1,6 @@
 import { CreatureAction } from './creatureAction.js';
 import { CycleContext } from './cycle/cycleContext.js';
+import { CreatureDefs, globalParams } from './worldParams.js';
 
 export class Creature {
     health: number;
@@ -27,4 +28,7 @@ export class Creature {
         return this.health <= 0;
     }
 
+    getTypeDef(): CreatureDefs {
+        return globalParams.creatures[this.type];
+    }
 }

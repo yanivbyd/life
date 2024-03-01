@@ -20,7 +20,7 @@ export class CreatureDefs {
 export class WorldParams {
     env: Environment;
     rules: GameRules;
-    creatues: CreatureDefs[];
+    creatures: CreatureDefs[];
 };
 export var globalParams: WorldParams = {
     env: {
@@ -31,7 +31,7 @@ export var globalParams: WorldParams = {
         creatureMaxHealth: new Formula(18, 4),
         maxVegToEat: new Formula(1, 1)
     },
-    creatues: [{
+    creatures: [{
         name: 'red',
         color: new RGB(255, 0, 0),
         size: randomInt(6, 8)

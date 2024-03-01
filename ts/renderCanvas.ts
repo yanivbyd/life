@@ -57,11 +57,11 @@ export class CanvasRenderer {
         for (var i = 0; i < this.width; i++) {
             for (var j = 0; j < this.height; j++) {
                 var cell = this.world.matrix[i][j];
-                const color = this.vegRgbValues[cell.veg];
-                assertNotNull(color);
-                if (!color) {
-                    debugger;
+                var color = this.vegRgbValues[cell.veg];
+                if (cell.creature) {
+                    color = cell.creature.getTypeDef().color;
                 }
+                assertNotNull(color);
                 dataIndex = this._renderPixel(imageData.data, color, dataIndex);
             }
         }
