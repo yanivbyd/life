@@ -1,6 +1,7 @@
 import { RGB } from "./rgb.js";
 import { Formula } from "./rules/formula.js";
 import { GameRules } from "./rules/gameRules.js";
+import { Penalties } from "./rules/penalties.js";
 import { randomInt } from "./utils/random.js";
 
 export class RandomMinMax {
@@ -20,6 +21,7 @@ export class CreatureDefs {
 export class WorldParams {
     env: Environment;
     rules: GameRules;
+    penalties: Penalties;
     creatures: CreatureDefs[];
 };
 export var globalParams: WorldParams = {
@@ -30,6 +32,10 @@ export var globalParams: WorldParams = {
     rules: {
         creatureMaxHealth: new Formula(18, 4),
         maxVegToEat: new Formula(1, 1)
+    },
+    penalties: {
+      breathing: new Formula(0.1, 0.7),
+      eating: new Formula(0.3, 0.2),
     },
     creatures: [{
         name: 'red',

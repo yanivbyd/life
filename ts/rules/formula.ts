@@ -7,6 +7,6 @@ export class Formula {
         this.sizeCoef = sizeCoef;
     }
     calc(size: number): number {
-        return this.base + this.sizeCoef * size;
+        return Math.round(this.base + this.sizeCoef * size);
     }
 }

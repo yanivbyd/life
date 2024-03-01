@@ -16,14 +16,21 @@ export class Creature {
     }
 
     cycle(ctx: CycleContext): void {
+        this.reduceHealth(ctx.penalties.breathing.calc(this.size), ctx);
+
         for (let i=0;i<this.actions.length;i++) {
-            this.actions[i].cycle(ctx);
-            if (this.isDead()) {
-                return;
+            if (!this.isDead()) {
+                this.actions[i].cycle(ctx);
             }
         }
     }
 
+    reduceHealth(amount: number, ctx: CycleContext) {
+        this.health -= amount;
+        if (this.health <= 0) {
+            ctx.creatureDied();
+        }
+    }
     isDead(): boolean {
         return this.health <= 0;
     }

@@ -54,6 +54,8 @@ export class World {
         let cycleCtx: CycleContext = new CycleContext();
         cycleCtx.world = this;
         cycleCtx.rules = globalParams.rules;
+        cycleCtx.penalties = globalParams.penalties;
+
         for (let i = 0; i < this.width; i++) {
             for (let j = 0; j < this.height; j++) {
                 this.matrix[i][j].cycle();
