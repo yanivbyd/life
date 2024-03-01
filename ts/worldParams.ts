@@ -13,7 +13,7 @@ export class WorldParams {
 };
 export var globalParams: WorldParams = {
     env: {
-        maxVeg: 20,
+        maxVeg: 200,
         rain: { min: 1, max: 4}
     }
 };

@@ -11,6 +11,11 @@ export class Cell {
     }
 
     cycle(): void {
-        this.veg += Math.max(0, Math.min(this.rain, globalParams.env.maxVeg));
+        this.veg += this.rain;
+        this.veg = Math.max(0, Math.min(this.veg, globalParams.env.maxVeg));
+    }
+
+    addRain(rainDelta: number) {
+        this.rain = Math.max(1, this.rain + rainDelta);
     }
 }

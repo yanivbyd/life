@@ -9,5 +9,8 @@
     },
     "dependencies": {
         "commander": "2.19.0"
+    },
+    "devDependencies": {
+        "@types/jquery": "^3.5.29"
     }
 }

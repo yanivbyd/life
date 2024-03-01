@@ -1,4 +1,6 @@
 import { Cell } from './cell.js';
+import { randomInt } from './random.js';
+import { VegShapes } from './vegShapes.js';
 
 export class World {
     width: number;
@@ -13,10 +15,12 @@ export class World {
         for (let i = 0; i < width; i++) {
             this.matrix[i] = [];
             for (let j = 0; j < height; j++) {
-                // You can initialize the cells as needed
                 this.matrix[i][j] = new Cell();
             }
         }
+
+        var vegShapes: VegShapes = new VegShapes(this);
+        vegShapes.addShape(1, 3);
     }
 
     cycle(): void {

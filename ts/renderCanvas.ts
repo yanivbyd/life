@@ -1,6 +1,7 @@
 import { World } from './world.js';
 import { globalParams } from './worldParams.js';
 import { assertEquals } from './assert.js';
+import { assertNotNull } from './assert.js';
 
 class RGB {
     red: number;
@@ -32,7 +33,7 @@ export class CanvasRenderer {
         const maxVeg = globalParams.env.maxVeg;
 
         this.vegRgbValues = [];
-        for (let i=0;i<maxVeg;i++) {
+        for (let i=0;i<=maxVeg;i++) {
             this.vegRgbValues.push({
                 red: this._relativeVal(startColor.red, endColor.red, maxVeg, i),
                 green: this._relativeVal(startColor.green, endColor.green, maxVeg, i),
@@ -61,7 +62,12 @@ export class CanvasRenderer {
         for (var i = 0; i < this.width; i++) {
             for (var j = 0; j < this.height; j++) {
                 var cell = this.world.matrix[i][j];
-                dataIndex = this._renderPixel(imageData.data, this.vegRgbValues[cell.veg], dataIndex);
+                const color = this.vegRgbValues[cell.veg];
+                assertNotNull(color);
+                if (!color) {
+                    debugger;
+                }
+                dataIndex = this._renderPixel(imageData.data, color, dataIndex);
             }
         }
         ctx.putImageData(imageData, 0, 0);
