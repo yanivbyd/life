@@ -1,7 +1,7 @@
 import { World } from './world.js';
 import { globalParams } from './worldParams.js';
-import { assertEquals } from './assert.js';
-import { assertNotNull } from './assert.js';
+import { assertEquals } from './utils/assert.js';
+import { assertNotNull } from './utils/assert.js';
 
 class RGB {
     red: number;
