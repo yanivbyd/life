@@ -3,57 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Island Shape</title>
-    <style>
-        canvas {
-            border: 1px solid black;
-        }
-    </style>
+    <title>Simple Example</title>
 </head>
 <body>
-<canvas id="myCanvas" width="800" height="600"></canvas>
+<h1>Simple Example</h1>
+<script type="module" src="ts/util.js"></script>
+<script type="module" src="ts/example.js"></script>
 
-<script>
-    var canvas = document.getElementById('myCanvas');
-    var ctx = canvas.getContext('2d');
+<!-- Wait for DOMContentLoaded event before executing script -->
+<script type="module">
+    import { Example } from './ts/example.js';
 
-    function drawIsland() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Randomize starting point within canvas
-        var startX = getRandomInt(50, canvas.width - 50);
-        var startY = getRandomInt(50, canvas.height - 50);
-
-        ctx.beginPath();
-        ctx.moveTo(startX, startY);
-
-        // Generate random control points to create a less curvy shape
-        for (var i = 0; i < 5; i++) {
-            var cpX = getRandomInt(0, canvas.width);
-            var cpY = getRandomInt(0, canvas.height);
-            var x = getRandomInt(0, canvas.width);
-            var y = getRandomInt(0, canvas.height);
-
-            ctx.quadraticCurveTo(cpX, cpY, x, y);
-        }
-
-        // Close the path to form a loop
-        ctx.closePath();
-
-        // Fill the shape with a fixed color
-        ctx.fillStyle = 'lightgreen';
-        ctx.fill();
-    }
-
-    function getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    drawIsland(); // Initial drawing
-
-    // Redraw when clicked
-    canvas.addEventListener('click', function() {
-        drawIsland();
+    document.addEventListener('DOMContentLoaded', function() {
+        // Create an instance of Example after the DOM is fully loaded
+        const example = new Example();
     });
 </script>
 </body>

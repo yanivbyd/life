@@ -8,25 +8,8 @@
     <script src="lib/jquery-3.3.1.min.js"></script>
     <script type="text/javascript"> module = { exports: {} }; </script>
 
-    <script src="js/assert.js"></script>
-    <script src="js/utils.js"></script>
-    <script src="js/lifeArrays.js"></script>
-    <script type="text/javascript">
-        document.write('<scr'+'ipt src="js/worldParams.js?'+new Date().getTime()+'"></scr'+'ipt>');
-    </script>
-    <script src="js/creature.js"></script>
-    <script src="js/creatureSize.js"></script>
-    <script src="js/world.js"></script>
-    <script src="js/dna.js"></script>
-    <script src="js/render.js"></script>
-    <script src="js/stats.js"></script>
-    <script src="js/areas.js"></script>
+    <script type="module" src="ts/world.js"></script>
 </head>
-
-<script type="text/javascript">
-    var global_world = new World();
-    var global_playing = false;
-</script>
 
 <body>
     <canvas id="canvas" width="400" height="400"></canvas>
@@ -37,18 +20,6 @@
         <input type="checkbox" id="autoRender" checked="true" class="custom-checkbox">
         <label for="autoRender" class="checkbox-label">Auto Render</label>
     </div>
-
-    <div id="cycle"></div>
-    <div id="change"></div>
-
-    <div id="genes">
-        <table id="genes_table" class="table table-success"></table>
-    </div>
-
-    <div>
-        <textarea id="rules"></textarea>
-    </div>
-
 
     <script type="text/javascript">
         function cycle() {
@@ -81,15 +52,8 @@
             continuePlaying();
         }
     </script>
-    <script type="text/javascript">
-        if ( $('#canvas').width() !=  $('#canvas').height()) alert("matrix width should equal its height");
-        global_world.init($('#canvas').width());
-
-        $('#rules').val(global_world.rulesSummary());
-        render();
-
-        $('#play_stop').click();
-
-        buildGenesTable($('#genes_table'));
+    <script type="module">
+        window.global_playing = false;
+        window.global_world = new World($('#canvas').width(), $('#canvas').height());
     </script>
 </body>
