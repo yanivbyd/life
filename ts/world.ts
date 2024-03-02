@@ -1,3 +1,4 @@
+import { BreedAction } from "./actions/breedAction.js";
 import { EatVegAction } from "./actions/eatVeg.js";
 import { MoveAction } from "./actions/moveAction.js";
 import { Cell } from "./cell.js";
@@ -52,7 +53,8 @@ export class World {
                         creatureDef.size,
                         [
                             new EatVegAction(),
-                            new MoveAction(creatureDef.move)
+                            new MoveAction(creatureDef.move),
+                            new BreedAction(creatureDef.breed)
                         ]
                     );
                 }

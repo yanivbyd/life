@@ -4,4 +4,5 @@ export class Penalties {
     breathing: Formula;
     eating: Formula;
     moving: Formula;
+    birth: Formula;
 }

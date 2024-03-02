@@ -36,6 +36,7 @@ export class Creature {
         this.health -= amount;
         if (this.health <= 0) {
             ctx.creatureDied();
+            ctx.statsCounter.tick("death", this.type);
         }
     }
     isDead(): boolean {

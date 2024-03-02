@@ -1,10 +1,12 @@
 import { Cell } from "../cell.js";
 import { Creature } from "../creature.js";
+import { Pos } from "../pos.js";
 import { GameRules } from "../rules/gameRules.js";
 import { Penalties } from "../rules/penalties.js";
 import { CycleStatsCounter } from "../stats/cycleStatsCounter.js";
 import {assertNotHigher, assertNotNegative, assertNull } from "../utils/assert.js";
 import { World } from "../world.js";
+import { globalParams } from "../worldParams.js";
 
 export class CycleContext {
     world: World;
@@ -36,5 +38,18 @@ export class CycleContext {
         this.cell = cell;
         this.x = x;
         this.y = y;
+    }
+
+    createBaby(babyPos: Pos, babyHealth: number, parent: Creature) {
+        const baby = new Creature(
+            parent.type,
+            babyHealth,
+            parent.size,
+            parent.actions
+        );
+        baby.playedCycle = this.world.currentCycle;
+        const babyCell = this.world.matrix[babyPos.x][babyPos.y];
+        assertNull(babyCell.creature);
+        babyCell.creature = baby;
     }
 }

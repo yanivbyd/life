@@ -19,7 +19,9 @@ export class TableRenderer {
         this.columns = [
             new NameColumn(),
             new CountColumn(),
-            new CycleStatColumn('moves','move')
+            new CycleStatColumn('moves','move'),
+            new CycleStatColumn('deaths','death'),
+            new CycleStatColumn('births','birth'),
         ];
 
         this.thead = $('<thead/>').appendTo($(table));

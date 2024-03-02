@@ -41,7 +41,8 @@ export var globalParams: WorldParams = {
     penalties: {
         breathing: new Formula(0.1, 0.7),
         eating: new Formula(0.3, 0.2),
-        moving: new Formula(2, 0.1)
+        moving: new Formula(2, 0.1),
+        birth: new Formula(2, 0.1)
     },
     creatures: [
         {
@@ -54,7 +55,7 @@ export var globalParams: WorldParams = {
             },
             breed: {
                 chance: 50,
-                minHealth: 12
+                minHealth: 18
             }
         },
         {
@@ -67,7 +68,7 @@ export var globalParams: WorldParams = {
             },
             breed: {
                 chance: 50,
-                minHealth: 10
+                minHealth: 20
             }
         },
     ]
