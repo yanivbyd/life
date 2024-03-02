@@ -1,4 +1,5 @@
 import { CountColumn } from "./stats/countColumn.js";
+import { CycleStatColumn } from "./stats/cycleStatColumn.js";
 import { NameColumn } from "./stats/nameColumn.js";
 import { StatColumn } from "./stats/statColumn.js";
 import { StatsRow } from "./stats/statsRow.js";
@@ -17,7 +18,8 @@ export class TableRenderer {
         this.world = world;
         this.columns = [
             new NameColumn(),
-            new CountColumn()
+            new CountColumn(),
+            new CycleStatColumn('moves','move')
         ];
 
         this.thead = $('<thead/>').appendTo($(table));
