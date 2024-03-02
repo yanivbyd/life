@@ -14,8 +14,8 @@ export class CanvasRenderer {
     constructor(canvas: Object, world: World) {
         this.canvas = canvas;
         this.world = world;
-        this.width = $(canvas).width();
-        this.height =$(canvas).height();
+        this.width = Math.floor($(canvas).width());
+        this.height = Math.floor($(canvas).height());
         this._initVegColors();
 
         assertEquals(this.width, this.world.width);

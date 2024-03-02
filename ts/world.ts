@@ -4,6 +4,7 @@ import { Cell } from "./cell.js";
 import { Creature } from "./creature.js";
 import { CycleContext } from "./cycle/cycleContext.js";
 import { Pos } from "./pos.js";
+import { assertNotNull } from "./utils/assert.js";
 import { randomInt } from "./utils/random.js";
 import { VegShapes } from "./vegShapes.js";
 import {CreatureDefs, globalParams } from "./worldParams.js";
@@ -41,6 +42,7 @@ export class World {
                 const x = randomInt(0, this.width-1);
                 const y = randomInt(0, this.height-1);
 
+                assertNotNull(this.matrix[x][y]);
                 if (!this.matrix[x][y].creature) {
                     this.matrix[x][y].creature = new Creature(
                         type,

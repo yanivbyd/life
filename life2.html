@@ -22,6 +22,8 @@
         <label for="autoRender" class="checkbox-label">Auto Render</label>
     </div>
 
+    <div id="cycle"></div>
+
     <script type="text/javascript">
         function cycle() {
             global_world.cycle();
@@ -54,7 +56,7 @@
     </script>
     <script type="module">
         window.global_playing = false;
-        window.global_world = new World($('#canvas').width(), $('#canvas').height());
+        window.global_world = new World(Math.floor($('#canvas').width()), Math.floor($('#canvas').height()));
         window.global_render = new CanvasRenderer($('#canvas')[0], global_world);
         setTimeout(function () {
             $('#play_stop').click();

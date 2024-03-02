@@ -41,13 +41,24 @@ export var globalParams: WorldParams = {
         eating: new Formula(0.3, 0.2),
         moving: new Formula(2, 0.1)
     },
-    creatures: [{
-        name: 'red',
-        color: new RGB(255, 0, 0),
-        size: randomInt(6, 8),
-        move: {
-            chance: 50,
-            minVegAmount: 5
-        }
-    }]
+    creatures: [
+        {
+            name: 'red',
+            color: new RGB(255, 0, 0),
+            size: randomInt(6, 8),
+            move: {
+                chance: 50,
+                minVegAmount: 5
+            }
+        },
+        {
+            name: 'blue',
+            color: new RGB(0, 0, 255),
+            size: randomInt(5, 8),
+            move: {
+                chance: 70,
+                minVegAmount: 5
+            }
+        },
+    ]
 };
