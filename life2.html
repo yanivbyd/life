@@ -56,7 +56,6 @@
         window.global_playing = false;
         window.global_world = new World($('#canvas').width(), $('#canvas').height());
         window.global_render = new CanvasRenderer($('#canvas')[0], global_world);
-
         setTimeout(function () {
             $('#play_stop').click();
         }, 5);

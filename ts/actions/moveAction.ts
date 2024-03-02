@@ -3,7 +3,7 @@ import { CreatureAction } from "../creatureAction.js";
 import { CycleContext } from "../cycle/cycleContext.js";
 import { Pos } from "../pos.js";
 import { getRandomArrItem } from "../utils/random.js";
-import {chance} from "../utils/random";
+import {chance} from "../utils/random.js";
 
 export class MoveDef {
     chance: number;
@@ -35,10 +35,13 @@ export class MoveAction implements CreatureAction {
         let maxVeg = -1;
         for (var i=0;i<neighbours.length;i++) {
             const cell: Cell = ctx.world.matrix[neighbours[i].x][neighbours[i].y];
-            if (cell.veg == maxVeg) {
-                options.push(neighbours[i]);
-            } else if (cell.veg > maxVeg) {
-                options = [neighbours[i]];
+            if (!cell.creature) {
+                if (cell.veg == maxVeg) {
+                    options.push(neighbours[i]);
+                } else if (cell.veg > maxVeg) {
+                    options = [neighbours[i]];
+                    maxVeg = cell.veg;
+                }
             }
         }
         return getRandomArrItem(options);

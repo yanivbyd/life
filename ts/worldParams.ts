@@ -39,7 +39,7 @@ export var globalParams: WorldParams = {
     penalties: {
         breathing: new Formula(0.1, 0.7),
         eating: new Formula(0.3, 0.2),
-        moving: new Formula(6, 0.1)
+        moving: new Formula(2, 0.1)
     },
     creatures: [{
         name: 'red',

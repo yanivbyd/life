@@ -1,4 +1,5 @@
 import { EatVegAction } from "./actions/eatVeg.js";
+import { MoveAction } from "./actions/moveAction.js";
 import { Cell } from "./cell.js";
 import { Creature } from "./creature.js";
 import { CycleContext } from "./cycle/cycleContext.js";
@@ -11,10 +12,12 @@ export class World {
     width: number;
     height: number;
     matrix: Cell[][];
+    currentCycle: number;
 
     constructor(width: number, height: number) {
         this.width = width;
         this.height = height;
+        this.currentCycle = 0;
 
         this.matrix = [];
         for (let i = 0; i < width; i++) {
@@ -44,7 +47,8 @@ export class World {
                         globalParams.rules.creatureMaxHealth.calc(creatureDef.size),
                         creatureDef.size,
                         [
-                            new EatVegAction()
+                            new EatVegAction(),
+                            new MoveAction(creatureDef.move)
                         ]
                     );
                 }
@@ -52,6 +56,7 @@ export class World {
         }
     }
     cycle(): void {
+        this.currentCycle++;
         let cycleCtx: CycleContext = new CycleContext();
         cycleCtx.world = this;
         cycleCtx.rules = globalParams.rules;
@@ -75,8 +80,8 @@ export class World {
     getNeighbouringPositions(x: number, y: number): Pos[] {
         let result: Pos[] = [];
         for (var i=x-1;i<=x+1;i++) {
-            for (var j=y-1;i<=y+1;y++) {
-                if (x>=0 && x<this.width && y>=0 && y>=this.height) {
+            for (var j=y-1;j<=y+1;j++) {
+                if (i>=0 && i<this.width && j>=0 && j<this.height) {
                     result.push(new Pos(i, j));
                 }
             }

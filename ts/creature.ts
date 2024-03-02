@@ -6,6 +6,7 @@ export class Creature {
     health: number;
     type: number;
     size: number;
+    playedCycle: number;
     actions: CreatureAction[];
 
     constructor(type: number, health: number, size: number, actions: CreatureAction[]) {
@@ -13,9 +14,15 @@ export class Creature {
         this.health = health;
         this.size = size;
         this.actions = actions;
+        this.playedCycle = 0;
     }
 
     cycle(ctx: CycleContext): void {
+        if (this.playedCycle >= ctx.world.currentCycle) {
+            // already played (and probably moved) this cycle
+            return;
+        }
+        this.playedCycle = ctx.world.currentCycle;
         this.reduceHealth(ctx.penalties.breathing.calc(this.size), ctx);
 
         for (let i=0;i<this.actions.length;i++) {
