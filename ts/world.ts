@@ -4,6 +4,7 @@ import { Cell } from "./cell.js";
 import { Creature } from "./creature.js";
 import { CycleContext } from "./cycle/cycleContext.js";
 import { Pos } from "./pos.js";
+import { CycleStatsCounter } from "./stats/cycleStatsCounter.js";
 import { assertNotNull } from "./utils/assert.js";
 import { randomInt } from "./utils/random.js";
 import { VegShapes } from "./vegShapes.js";
@@ -14,6 +15,7 @@ export class World {
     height: number;
     matrix: Cell[][];
     currentCycle: number;
+    statsCounter: CycleStatsCounter;
 
     constructor(width: number, height: number) {
         this.width = width;
@@ -59,10 +61,13 @@ export class World {
     }
     cycle(): void {
         this.currentCycle++;
+        this.statsCounter = new CycleStatsCounter();
+
         let cycleCtx: CycleContext = new CycleContext();
         cycleCtx.world = this;
         cycleCtx.rules = globalParams.rules;
         cycleCtx.penalties = globalParams.penalties;
+        cycleCtx.statsCounter = this.statsCounter;
 
         for (let i = 0; i < this.width; i++) {
             for (let j = 0; j < this.height; j++) {

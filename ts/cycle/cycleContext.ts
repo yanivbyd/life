@@ -2,6 +2,7 @@ import { Cell } from "../cell.js";
 import { Creature } from "../creature.js";
 import { GameRules } from "../rules/gameRules.js";
 import { Penalties } from "../rules/penalties.js";
+import { CycleStatsCounter } from "../stats/cycleStatsCounter.js";
 import {assertNotHigher, assertNotNegative, assertNull } from "../utils/assert.js";
 import { World } from "../world.js";
 
@@ -14,6 +15,8 @@ export class CycleContext {
 
     rules: GameRules;
     penalties: Penalties;
+
+    statsCounter: CycleStatsCounter;
 
     creatureDied() {
         this.world.matrix[this.x][this.y].creature = null;

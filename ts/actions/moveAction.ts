@@ -25,6 +25,7 @@ export class MoveAction implements CreatureAction {
             if (chance(this.def.chance)) {
                 ctx.moveCreatureTo(nextPos.x, nextPos.y);
                 ctx.creature.reduceHealth(movePenalty, ctx);
+                ctx.statsCounter.tick('move', ctx.creature.type);
             }
         }
     }

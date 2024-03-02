@@ -10,6 +10,7 @@
 
     <script type="module" src="ts/world.js"></script>
     <script type="module" src="ts/renderCanvas.js"></script>
+    <script type="module" src="ts/renderTable.js"></script>
 </head>
 
 <body>
@@ -24,6 +25,10 @@
 
     <div id="cycle"></div>
 
+    <div id="stats">
+        <table id="stats_table" class="table table-success"></table>
+    </div>
+
     <script type="text/javascript">
         function cycle() {
             global_world.cycle();
@@ -33,6 +38,7 @@
         }
         function render() {
             global_render.render();
+            global_table_render.render();
             renderLight();
         }
         function renderLight() {
@@ -58,6 +64,7 @@
         window.global_playing = false;
         window.global_world = new World(Math.floor($('#canvas').width()), Math.floor($('#canvas').height()));
         window.global_render = new CanvasRenderer($('#canvas')[0], global_world);
+        window.global_table_render = new TableRenderer($('#stats_table')[0], global_world);
         setTimeout(function () {
             $('#play_stop').click();
         }, 5);

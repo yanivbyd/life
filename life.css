@@ -41,6 +41,13 @@
 #genes_table td {
     min-width: 100px;
 }
+
+#stats {
+    margin-top: 10px;
+}
+#stats_table td {
+    min-width: 100px;
+}
 .lifegraph .dygraph-axis-label { font-size: 8px; color: #c5c8d4; }
 .lifegraph .dygraph-label { font-size: 8px; color: #c5c8d4; }
 .lifegraph .dygraph-legend { font-size: 8px; color: #c5c8d4; }
