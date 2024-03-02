@@ -1,3 +1,4 @@
+import { BreedDef } from "./actions/breedAction.js";
 import { MoveDef } from "./actions/moveAction.js";
 import { RGB } from "./rgb.js";
 import { Formula } from "./rules/formula.js";
@@ -20,6 +21,7 @@ export class CreatureDefs {
     size: number;
 
     move: MoveDef;
+    breed: BreedDef;
 }
 export class WorldParams {
     env: Environment;
@@ -49,6 +51,10 @@ export var globalParams: WorldParams = {
             move: {
                 chance: 50,
                 minVegAmount: 5
+            },
+            breed: {
+                chance: 50,
+                minHealth: 12
             }
         },
         {
@@ -58,6 +64,10 @@ export var globalParams: WorldParams = {
             move: {
                 chance: 70,
                 minVegAmount: 5
+            },
+            breed: {
+                chance: 50,
+                minHealth: 10
             }
         },
     ]
