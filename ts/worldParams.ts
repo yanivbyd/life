@@ -37,7 +37,7 @@ export var globalParams: WorldParams = {
     rules: {
         creatureMaxHealth: new Formula(18, 4),
         maxVegToEat: new Formula(1, 1),
-        deathChance: new Formula(1,0)
+        deathChance: new Formula(3, -0.2)
     },
     penalties: {
         breathing: new Formula(0.1, 0.7),
@@ -118,6 +118,19 @@ export var globalParams: WorldParams = {
             move: {
                 chance: 70,
                 minVegAmount: 5
+            },
+            breed: {
+                chance: 50,
+                minHealth: 20
+            }
+        },
+        {
+            name: 'orange',
+            color: new RGB(255, 165, 0),
+            size: randomInt(2, 5),
+            move: {
+                chance: 80,
+                minVegAmount: 8
             },
             breed: {
                 chance: 50,
