@@ -1,6 +1,3 @@
-import { BreedAction } from "./actions/breedAction.js";
-import { EatVegAction } from "./actions/eatVeg.js";
-import { MoveAction } from "./actions/moveAction.js";
 import { Cell } from "./cell.js";
 import { Creature } from "./creature.js";
 import { CycleContext } from "./cycle/cycleContext.js";
@@ -10,7 +7,7 @@ import { assertNotNull } from "./utils/assert.js";
 import { randomInt } from "./utils/random.js";
 import { VegShapes } from "./vegShapes.js";
 import {CreatureDefs, globalParams } from "./worldParams.js";
-import { DNA } from './actions/dna.js';
+import { CreatureDNA } from './actions/dna.js';
 
 export class World {
     width: number;
@@ -39,19 +36,13 @@ export class World {
     }
 
     addCreatures(): void {
-        var initialDNA: DNA[] = [];
+        var initialDNA: CreatureDNA[] = [];
         for (let type=0;type<globalParams.creatures.length;type++) {
             const creatureDef: CreatureDefs = globalParams.creatures[type];
-            initialDNA.push({
-                actions: [
-                    new EatVegAction(),
-                    new MoveAction(creatureDef.move),
-                    new BreedAction(creatureDef.breed)
-                ]
-            });
+            initialDNA.push(new CreatureDNA(creatureDef.move, creatureDef.breed));
         }
 
-        for (let i=0; i<100; i++) {
+        for (let i=0; i<300; i++) {
             for (let type=0;type<globalParams.creatures.length;type++) {
                 const creatureDef: CreatureDefs = globalParams.creatures[type];
 

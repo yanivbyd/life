@@ -1,6 +1,6 @@
 import { CreatureAction } from './creatureAction.js';
 import { CycleContext } from './cycle/cycleContext.js';
-import { DNA } from './actions/dna.js';
+import { CreatureDNA } from './actions/dna.js';
 import { CreatureDefs, globalParams } from './worldParams.js';
 import {checkChance} from "./utils/random.js";
 
@@ -9,9 +9,9 @@ export class Creature {
     type: number;
     size: number;
     playedCycle: number;
-    dna: DNA;
+    dna: CreatureDNA;
 
-    constructor(type: number, health: number, size: number, dna: DNA) {
+    constructor(type: number, health: number, size: number, dna: CreatureDNA) {
         this.type = type;
         this.health = health;
         this.size = size;

@@ -1,5 +1,6 @@
 import { CountColumn } from "./stats/countColumn.js";
 import { CycleStatColumn } from "./stats/cycleStatColumn.js";
+import { MoveGeneColumn } from "./stats/moveGeneColumn.js";
 import { NameColumn } from "./stats/nameColumn.js";
 import { StatColumn } from "./stats/statColumn.js";
 import { StatsRow } from "./stats/statsRow.js";
@@ -21,6 +22,7 @@ export class TableRenderer {
         this.columns = [
             new NameColumn(),
             this.countColumn,
+            new MoveGeneColumn(),
             new CycleStatColumn('moves','move'),
             new CycleStatColumn('births','birth'),
             new CycleStatColumn('deaths','death')
