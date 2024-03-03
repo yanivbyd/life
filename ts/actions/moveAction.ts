@@ -3,7 +3,7 @@ import { CreatureAction } from "../creatureAction.js";
 import { CycleContext } from "../cycle/cycleContext.js";
 import { Pos } from "../pos.js";
 import { getRandomArrItem } from "../utils/random.js";
-import {chance} from "../utils/random.js";
+import { checkChance } from "../utils/random.js";
 
 export class MoveDef {
     chance: number;
@@ -22,7 +22,7 @@ export class MoveAction implements CreatureAction {
         const movePenalty: number = ctx.penalties.moving.calc(ctx.creature.size);
         const breathPenalty: number = ctx.penalties.breathing.calc(ctx.creature.size);
         if (nextPos && ctx.creature.health > movePenalty + breathPenalty) {
-            if (chance(this.def.chance)) {
+            if (checkChance(this.def.chance)) {
                 ctx.moveCreatureTo(nextPos.x, nextPos.y);
                 ctx.creature.reduceHealth(movePenalty, ctx);
                 ctx.statsCounter.tick('move', ctx.creature.type);

@@ -2,6 +2,7 @@ import { CreatureAction } from './creatureAction.js';
 import { CycleContext } from './cycle/cycleContext.js';
 import { DNA } from './actions/dna.js';
 import { CreatureDefs, globalParams } from './worldParams.js';
+import {checkChance} from "./utils/random.js";
 
 export class Creature {
     health: number;
@@ -29,6 +30,13 @@ export class Creature {
         for (let i=0;i<this.dna.actions.length;i++) {
             if (!this.isDead()) {
                 this.dna.actions[i].cycle(ctx);
+            }
+        }
+        if (!this.isDead()) {
+            const deathChance = Math.max(1, ctx.rules.deathChance.calc(this.size));
+            if (checkChance(deathChance)) {
+                ctx.creatureDied();
+                ctx.statsCounter.tick("death", this.type);
             }
         }
     }

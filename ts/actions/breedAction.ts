@@ -4,7 +4,7 @@ import { CreatureAction } from "../creatureAction.js";
 import { CycleContext } from "../cycle/cycleContext.js";
 import { Pos } from "../pos.js";
 import { getRandomArrItem } from "../utils/random.js";
-import {chance} from "../utils/random.js";
+import { checkChance } from "../utils/random.js";
 
 export class BreedDef {
     chance: number;
@@ -23,7 +23,7 @@ export class BreedAction implements CreatureAction {
         const babyPos: Pos = this._findEmptyNeighbourPos(ctx);
         if (!mate || !babyPos) { return; }
 
-        if (chance(this.def.chance)) {
+        if (checkChance(this.def.chance)) {
             const healthFromMe = Math.floor(ctx.creature.health / 2);
             const healthFromMate = Math.floor(mate.health / 2);
             const babyHealth = healthFromMe + healthFromMate;
@@ -65,6 +65,5 @@ export class BreedAction implements CreatureAction {
         }
         return getRandomArrItem(options);
     }
-
 
 }

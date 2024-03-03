@@ -11,6 +11,7 @@ export function getRandomArrItem(array: any[]): any | null {
     return array[randomInt(0, array.length-1)];
 }
 
-export function chance(chance: number): boolean {
-    return randomInt(0, 100) > chance;
+export function checkChance(chance: number): boolean {
+    const val = randomInt(0, 100);
+    return val <= chance;
 }
