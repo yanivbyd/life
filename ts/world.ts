@@ -57,9 +57,17 @@ export class World {
 
                 const x = randomInt(0, this.width-1);
                 const y = randomInt(0, this.height-1);
+                const x2 = (x > 0) ? x-1: x+1;
 
                 assertNotNull(this.matrix[x][y]);
+                assertNotNull(this.matrix[x2][y]);
                 this.matrix[x][y].creature = new Creature(
+                    type,
+                    globalParams.rules.creatureMaxHealth.calc(creatureDef.size),
+                    creatureDef.size,
+                    initialDNA[type]
+                );
+                this.matrix[x2][y].creature = new Creature(
                     type,
                     globalParams.rules.creatureMaxHealth.calc(creatureDef.size),
                     creatureDef.size,
