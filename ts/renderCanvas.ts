@@ -54,8 +54,8 @@ export class CanvasRenderer {
         var imageData = ctx.createImageData(this.width, this.height);
         let dataIndex = 0;
 
-        for (var i = 0; i < this.width; i++) {
-            for (var j = 0; j < this.height; j++) {
+        for (var j = 0; j < this.height; j++) {
+            for (var i = 0; i < this.width; i++) {
                 var cell = this.world.matrix[i][j];
                 var color = this.vegRgbValues[cell.veg];
                 if (cell.creature) {

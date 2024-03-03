@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <canvas id="canvas" width="400" height="400"></canvas>
+    <canvas id="canvas" width="500" height="400"></canvas>
     <div id="toolbar">
         <button id="add" onclick="addCreatures(); render()" class="btn btn-secondary">Add</button>
         <button id="play_stop" onclick="playOrStop();" class="btn btn-primary">Play</button>
@@ -66,7 +66,9 @@
         window.global_render = new CanvasRenderer($('#canvas')[0], global_world);
         window.global_table_render = new TableRenderer($('#stats_table')[0], global_world);
         setTimeout(function () {
-            $('#play_stop').click();
+            for(var i=0;i<50;i++) { global_world.cycle(); }
+            render();
+            // $('#play_stop').click();
         }, 5);
     </script>
 </body>

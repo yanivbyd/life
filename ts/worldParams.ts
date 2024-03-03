@@ -31,8 +31,8 @@ export class WorldParams {
 };
 export var globalParams: WorldParams = {
     env: {
-        maxVeg: 200,
-        rain: { min: 1, max: 4},
+        maxVeg: 120,
+        rain: { min: 1, max: 3 },
     },
     rules: {
         creatureMaxHealth: new Formula(18, 4),
@@ -87,6 +87,32 @@ export var globalParams: WorldParams = {
         {
             name: 'yellow',
             color: new RGB(255, 255, 0),
+            size: randomInt(5, 8),
+            move: {
+                chance: 70,
+                minVegAmount: 5
+            },
+            breed: {
+                chance: 50,
+                minHealth: 20
+            }
+        },
+        {
+            name: 'brown',
+            color: new RGB(165, 42, 42),
+            size: randomInt(5, 8),
+            move: {
+                chance: 70,
+                minVegAmount: 5
+            },
+            breed: {
+                chance: 50,
+                minHealth: 20
+            }
+        },
+        {
+            name: 'pink',
+            color: new RGB(255, 192, 203),
             size: randomInt(5, 8),
             move: {
                 chance: 70,

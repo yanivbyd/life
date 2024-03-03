@@ -10,6 +10,7 @@ import { assertNotNull } from "./utils/assert.js";
 import { randomInt } from "./utils/random.js";
 import { VegShapes } from "./vegShapes.js";
 import {CreatureDefs, globalParams } from "./worldParams.js";
+import { DNA } from './actions/dna.js';
 
 export class World {
     width: number;
@@ -38,6 +39,18 @@ export class World {
     }
 
     addCreatures(): void {
+        var initialDNA: DNA[] = [];
+        for (let type=0;type<globalParams.creatures.length;type++) {
+            const creatureDef: CreatureDefs = globalParams.creatures[type];
+            initialDNA.push({
+                actions: [
+                    new EatVegAction(),
+                    new MoveAction(creatureDef.move),
+                    new BreedAction(creatureDef.breed)
+                ]
+            });
+        }
+
         for (let i=0; i<100; i++) {
             for (let type=0;type<globalParams.creatures.length;type++) {
                 const creatureDef: CreatureDefs = globalParams.creatures[type];
@@ -50,11 +63,7 @@ export class World {
                     type,
                     globalParams.rules.creatureMaxHealth.calc(creatureDef.size),
                     creatureDef.size,
-                    [
-                        new EatVegAction(),
-                        new MoveAction(creatureDef.move),
-                        new BreedAction(creatureDef.breed)
-                    ]
+                    initialDNA[type]
                 );
             }
         }

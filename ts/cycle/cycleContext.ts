@@ -45,7 +45,7 @@ export class CycleContext {
             parent.type,
             babyHealth,
             parent.size,
-            parent.actions
+            parent.dna
         );
         baby.playedCycle = this.world.currentCycle;
         const babyCell = this.world.matrix[babyPos.x][babyPos.y];

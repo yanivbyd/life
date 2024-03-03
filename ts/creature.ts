@@ -1,5 +1,6 @@
 import { CreatureAction } from './creatureAction.js';
 import { CycleContext } from './cycle/cycleContext.js';
+import { DNA } from './actions/dna.js';
 import { CreatureDefs, globalParams } from './worldParams.js';
 
 export class Creature {
@@ -7,13 +8,13 @@ export class Creature {
     type: number;
     size: number;
     playedCycle: number;
-    actions: CreatureAction[];
+    dna: DNA;
 
-    constructor(type: number, health: number, size: number, actions: CreatureAction[]) {
+    constructor(type: number, health: number, size: number, dna: DNA) {
         this.type = type;
         this.health = health;
         this.size = size;
-        this.actions = actions;
+        this.dna = dna;
         this.playedCycle = 0;
     }
 
@@ -25,9 +26,9 @@ export class Creature {
         this.playedCycle = ctx.world.currentCycle;
         this.reduceHealth(ctx.penalties.breathing.calc(this.size), ctx);
 
-        for (let i=0;i<this.actions.length;i++) {
+        for (let i=0;i<this.dna.actions.length;i++) {
             if (!this.isDead()) {
-                this.actions[i].cycle(ctx);
+                this.dna.actions[i].cycle(ctx);
             }
         }
     }
