@@ -1,3 +1,4 @@
+import { BreedGeneColumn } from "./stats/breedGeneColumn.js";
 import { CountColumn } from "./stats/countColumn.js";
 import { CycleStatColumn } from "./stats/cycleStatColumn.js";
 import { MoveGeneColumn } from "./stats/moveGeneColumn.js";
@@ -23,6 +24,7 @@ export class TableRenderer {
             new NameColumn(),
             this.countColumn,
             new MoveGeneColumn(),
+            new BreedGeneColumn(),
             new CycleStatColumn('moves','move'),
             new CycleStatColumn('births','birth'),
             new CycleStatColumn('deaths','death')
