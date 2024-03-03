@@ -12,13 +12,15 @@ export class TableRenderer {
     tbody: JQuery;
 
     columns: StatColumn[];
+    countColumn: CountColumn;
     rows: StatsRow[];
 
     constructor(table: HTMLTableElement, world: World) {
         this.world = world;
+        this.countColumn = new CountColumn();
         this.columns = [
             new NameColumn(),
-            new CountColumn(),
+            this.countColumn,
             new CycleStatColumn('moves','move'),
             new CycleStatColumn('deaths','death'),
             new CycleStatColumn('births','birth'),
@@ -65,6 +67,38 @@ export class TableRenderer {
                 row.tds[j].text(this.columns[j].getValue(this.world, row.type, row.def));
             }
         }
+
+        this._sortByCounts();
+    }
+
+    private _sortByCounts() {
+        var addedTypes: number[] = [];
+        var lastTr :JQuery = null;
+        for (var i=0;i<this.rows.length;i++) {
+            const lowestType: number = this._getLowestType(addedTypes);
+            if (i==0) {
+                this.tbody.append(this.rows[lowestType].tr);
+            } else {
+                lastTr.before(this.rows[lowestType].tr);
+            }
+            lastTr = this.rows[lowestType].tr;
+            addedTypes.push(lowestType);
+        }
+    }
+
+    private _getLowestType(addedTypes: number[]): number {
+        var lowestCount: number = 9007199254740991;
+        var lowestType: number = -1;
+
+        for (var type=0;type<this.rows.length;type++) {
+            const count = this.countColumn.counts[type];
+            if (addedTypes.indexOf(type) == -1 && count < lowestCount) {
+                lowestCount = count;
+                lowestType = type;
+            }
+        }
+
+        return lowestType;
     }
 }
 window['TableRenderer'] = TableRenderer;

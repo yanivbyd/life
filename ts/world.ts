@@ -46,18 +46,16 @@ export class World {
                 const y = randomInt(0, this.height-1);
 
                 assertNotNull(this.matrix[x][y]);
-                if (!this.matrix[x][y].creature) {
-                    this.matrix[x][y].creature = new Creature(
-                        type,
-                        globalParams.rules.creatureMaxHealth.calc(creatureDef.size),
-                        creatureDef.size,
-                        [
-                            new EatVegAction(),
-                            new MoveAction(creatureDef.move),
-                            new BreedAction(creatureDef.breed)
-                        ]
-                    );
-                }
+                this.matrix[x][y].creature = new Creature(
+                    type,
+                    globalParams.rules.creatureMaxHealth.calc(creatureDef.size),
+                    creatureDef.size,
+                    [
+                        new EatVegAction(),
+                        new MoveAction(creatureDef.move),
+                        new BreedAction(creatureDef.breed)
+                    ]
+                );
             }
         }
     }
