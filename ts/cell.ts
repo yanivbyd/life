@@ -1,5 +1,6 @@
 import { Creature } from './creature.js';
 import { randomInt } from './utils/random.js';
+import { World } from './world.js';
 import { globalParams } from './worldParams.js';
 
 export class Cell {
@@ -13,8 +14,8 @@ export class Cell {
         this.creature = null;
     }
 
-    cycle(): void {
-        this.veg += this.rain;
+    cycle(world: World): void {
+        this.veg += (this.rain+world.rainDelta);
         this.veg = Math.max(0, Math.min(this.veg, globalParams.env.maxVeg));
     }
 

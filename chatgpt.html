@@ -3,20 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Example</title>
+    <title>jQuery Toast Message with Animation</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Styles for the toast */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: none; /* Hidden by default */
+        }
+    </style>
 </head>
 <body>
-<h1>Simple Example</h1>
-<script type="module" src="ts/util.js"></script>
-<script type="module" src="ts/example.js"></script>
 
-<!-- Wait for DOMContentLoaded event before executing script -->
-<script type="module">
-    import { Example } from './ts/example.js';
+<!-- Toast message -->
+<div id="toast" class="toast">
+    This is a toast message.
+</div>
 
-    document.addEventListener('DOMContentLoaded', function() {
-        // Create an instance of Example after the DOM is fully loaded
-        const example = new Example();
+<!-- Button to trigger the toast -->
+<button id="showToast">Show Toast</button>
+
+<script>
+    $(document).ready(function(){
+        // Function to show the toast with animation
+        $('#showToast').click(function(){
+            $('#toast').fadeIn('slow').delay(2000).fadeOut('slow');
+        });
     });
 </script>
 </body>

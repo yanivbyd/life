@@ -16,7 +16,9 @@ export class VegShapes {
         let ctx = this.canvas.getContext('2d');
         const width = this.canvas.width;
         const height = this.canvas.height;
-
+        ctx.lineJoin = 'round'
+        ctx.lineWidth = 3;
+        
         const numberOfShapes = 6;
         for (var s=0;s<numberOfShapes;s++) {
             ctx.clearRect(0, 0, width, height);

@@ -9,6 +9,7 @@ import { VegShapes } from "./vegShapes.js";
 import { CreatureDNA } from './actions/dna.js';
 import { globalParams } from "./worldParams.js";
 import { CreatureDefs } from "./worldParamsDefs.js";
+import { GlobalEvents } from "./globalEvents.js";
 
 export class World {
     width: number;
@@ -16,11 +17,15 @@ export class World {
     matrix: Cell[][];
     currentCycle: number;
     statsCounter: CycleStatsCounter;
+    rainDelta: number;
+    globalEvents: GlobalEvents;
 
     constructor(width: number, height: number) {
         this.width = width;
         this.height = height;
+        this.rainDelta = 0;
         this.currentCycle = 0;
+        this.globalEvents = new GlobalEvents(this);
 
         this.matrix = [];
         for (let i = 0; i < width; i++) {
@@ -80,7 +85,7 @@ export class World {
 
         for (let i = 0; i < this.width; i++) {
             for (let j = 0; j < this.height; j++) {
-                this.matrix[i][j].cycle();
+                this.matrix[i][j].cycle(this);
                 if (this.matrix[i][j].creature) {
                     cycleCtx.creature = this.matrix[i][j].creature;
                     cycleCtx.cell = this.matrix[i][j];
@@ -91,6 +96,7 @@ export class World {
                 }
             }
         }
+        this.globalEvents.cycle();
     }
 
     getNeighbouringPositions(x: number, y: number): Pos[] {
