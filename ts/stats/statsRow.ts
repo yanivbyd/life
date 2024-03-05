@@ -1,4 +1,4 @@
-import { CreatureDefs } from "../worldParams.js";
+import { CreatureDefs } from "../worldParamsDefs";
 
 export class StatsRow {
     tr: JQuery;

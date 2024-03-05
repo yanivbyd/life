@@ -6,8 +6,9 @@ import { CycleStatsCounter } from "./stats/cycleStatsCounter.js";
 import { assertNotNull } from "./utils/assert.js";
 import { randomInt } from "./utils/random.js";
 import { VegShapes } from "./vegShapes.js";
-import {CreatureDefs, globalParams } from "./worldParams.js";
 import { CreatureDNA } from './actions/dna.js';
+import { globalParams } from "./worldParams.js";
+import { CreatureDefs } from "./worldParamsDefs.js";
 
 export class World {
     width: number;

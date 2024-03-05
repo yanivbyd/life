@@ -1,8 +1,9 @@
 import { CreatureAction } from './creatureAction.js';
 import { CycleContext } from './cycle/cycleContext.js';
 import { CreatureDNA } from './actions/dna.js';
-import { CreatureDefs, globalParams } from './worldParams.js';
 import {checkChance} from "./utils/random.js";
+import { globalParams } from './worldParams.js';
+import { CreatureDefs } from './worldParamsDefs.js';
 
 export class Creature {
     health: number;

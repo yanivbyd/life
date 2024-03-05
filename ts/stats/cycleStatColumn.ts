@@ -1,6 +1,7 @@
 import { Cell } from "../cell";
 import { World } from "../world";
-import { CreatureDefs, globalParams } from "../worldParams";
+import { globalParams } from "../worldParams.js";
+import { CreatureDefs } from "../worldParamsDefs";
 import {StatColumn} from "./statColumn";
 
 export class CycleStatColumn implements StatColumn {

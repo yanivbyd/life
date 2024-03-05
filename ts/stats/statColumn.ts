@@ -1,6 +1,6 @@
 import { Cell } from "../cell.js";
 import { World } from "../world.js";
-import { CreatureDefs } from "../worldParams.js";
+import { CreatureDefs } from "../worldParamsDefs.js";
 
 export interface StatColumn {
     getTitle(): string;
