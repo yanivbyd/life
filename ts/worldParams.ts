@@ -11,7 +11,8 @@ export var globalParams: WorldParams = {
     rules: {
         creatureMaxHealth: new Formula(18, 4),
         maxVegToEat: new Formula(1, 1),
-        deathChance: new Formula(3, -0.2)
+        deathChance: new Formula(3, -0.2),
+        mutationChance: 10
     },
     penalties: {
         breathing: new Formula(0.1, 0.7),

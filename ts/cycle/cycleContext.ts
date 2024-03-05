@@ -1,3 +1,4 @@
+import { CreatureDNA } from "../actions/dna.js";
 import { Cell } from "../cell.js";
 import { Creature } from "../creature.js";
 import { Pos } from "../pos.js";
@@ -40,15 +41,15 @@ export class CycleContext {
         this.y = y;
     }
 
-    createBaby(babyPos: Pos, babyHealth: number, parent: Creature) {
+    createBaby(babyPos: Pos, babyHealth: number, parent: Creature, babyDNA: CreatureDNA) {
         const baby = new Creature(
             parent.type,
             babyHealth,
             parent.size,
-            parent.dna
+            babyDNA
         );
         baby.playedCycle = this.world.currentCycle;
-        const babyCell = this.world.matrix[babyPos.x][babyPos.y];
+        const babyCell: Cell = this.world.matrix[babyPos.x][babyPos.y];
         assertNull(babyCell.creature);
         babyCell.creature = baby;
     }
