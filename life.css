@@ -16,8 +16,8 @@
 
 #cycle {
     position: absolute;
-    top: 5px;
-    right: 10px;
+    top: 0px;
+    left: 600px;
     min-width: 80px;
     font-size: 16px;
 }

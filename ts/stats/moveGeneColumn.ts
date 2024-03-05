@@ -9,7 +9,7 @@ export class MoveGeneColumn {
     counts: number[];
 
     getTitle(): string {
-        return 'move gene (min veg, chance)';
+        return 'move genes (min veg, chance)';
     }
     getValue(world: World, type: number, def: CreatureDefs): string {
         if (this.counts[type]==0) {

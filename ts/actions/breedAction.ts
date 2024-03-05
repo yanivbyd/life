@@ -27,12 +27,16 @@ export class BreedAction implements CreatureAction {
             const healthFromMe = Math.floor(ctx.creature.health / 2);
             const healthFromMate = Math.floor(mate.health / 2);
             const babyHealth = healthFromMe + healthFromMate;
-            const babyDNA = checkChance(ctx.rules.mutationChance) ? ctx.creature.dna.mutate() : ctx.creature.dna; 
+            const hasMutation = checkChance(ctx.rules.mutationChance)
+            const babyDNA = hasMutation ? ctx.creature.dna.mutate() : ctx.creature.dna; 
             ctx.createBaby(babyPos, babyHealth, ctx.creature, babyDNA);
             
             ctx.creature.reduceHealth(healthFromMe + ctx.penalties.birth.calc(ctx.creature.size), ctx);
             mate.reduceHealth(healthFromMate + ctx.penalties.birth.calc(mate.size), ctx);
             ctx.statsCounter.tick('birth', ctx.creature.type);
+            if (hasMutation) {
+                ctx.statsCounter.tick('mutation', ctx.creature.type);
+            }
         }
     }
 

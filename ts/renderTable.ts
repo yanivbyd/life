@@ -25,6 +25,7 @@ export class TableRenderer {
             this.countColumn,
             new MoveGeneColumn(),
             new BreedGeneColumn(),
+            new CycleStatColumn('new mutations','mutation'),
             new CycleStatColumn('moves','move'),
             new CycleStatColumn('births','birth'),
             new CycleStatColumn('deaths','death')
