@@ -9,4 +9,9 @@ export class Formula {
     calc(size: number): number {
         return Math.round(this.base + this.sizeCoef * size);
     }
+
+    describe(): string {
+        return '' + this.base + ' + size*' + this.sizeCoef;
+    }
+
 }

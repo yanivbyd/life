@@ -49,12 +49,12 @@ export class GlobalEvents {
             case 4:
                 if (globalParams.penalties.moving.base > 0) {
                     globalParams.penalties.moving.base--;
-                    return 'Easier to move (penalty=' + globalParams.penalties.moving.base + ')';
+                    return 'Easier to move (penalty=' + globalParams.penalties.moving.describe() + ')';
                 }
                 break;
             case 5:
                 globalParams.penalties.moving.base++;
-                return 'Harder to move (penalty=' + globalParams.penalties.moving.base + ')';
+                return 'Harder to move (penalty=' + globalParams.penalties.moving.describe() + ')';
         }
         return null;
     }
