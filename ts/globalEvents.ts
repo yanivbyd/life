@@ -2,6 +2,8 @@ import { randomInt } from "./utils/random.js";
 import { World } from "./world.js";
 import { globalParams } from "./worldParams.js";
 import {randomBool} from "./utils/random.js";
+import { Formula } from "./rules/formula.js";
+import { Penalties } from "./rules/penalties.js";
 
 export class GlobalEvents {
     world: World;
@@ -30,9 +32,11 @@ export class GlobalEvents {
             this._updateNextEventTime();
         }
     }
+
     private _updateNextEventTime() {
         this.nextEventTime = this.world.currentCycle + randomInt(100, 200);
     }
+
     private _runRandomEvent(): string {
         const randomIndex = randomInt(1, 4);
         switch (randomIndex) {
@@ -48,23 +52,17 @@ export class GlobalEvents {
                     return 'More rain (' + (this.world.rainDelta + globalParams.env.rain) + ')';
                 }
             case 2:
-                for (var i=0;i<5;i++) {
+                for (var i = 0; i < 5; i++) {
                     this.world.addCreatures();
                 }
                 return 'Adding creatures';
             case 3:
-                if (randomBool()) {
-                    if (globalParams.penalties.moving.base > 0) {
-                        globalParams.penalties.moving.base--;
-                        return 'Easier to move (penalty=' + globalParams.penalties.moving.describe() + ')';
-                    } else {
-                        globalParams.penalties.moving.base++;
-                        return 'Harder to move (penalty=' + globalParams.penalties.moving.describe() + ')';
-                    }
-                }
-                return null;
+                return this._updateFormula(globalParams.penalties.moving,
+                    'Harder to move (penalty=', ')',
+                    'Easier to move (penalty=', ')'
+                );
             case 4:
-                const amount = randomInt(1,5);
+                const amount = randomInt(1, 5);
                 if (randomBool()) {
                     globalParams.env.maxVeg += amount;
                     return 'More veg per cell (' + globalParams.env.maxVeg + ')';
@@ -77,4 +75,26 @@ export class GlobalEvents {
         }
         return null;
     }
+
+    private _updateFormula(formula: Formula,
+                           incPrefix: string, incSuffix: string,
+                           decPrefix: string, decSuffix: string): string {
+        switch (randomInt(1, 4)) {
+            case 1:
+                formula.base++;
+                return incPrefix + formula.describe() + incSuffix;
+            case 2:
+                formula.sizeCoef = ((formula.sizeCoef*10) + 2)/10;
+                return incPrefix + formula.describe() + incSuffix;
+            case 3:
+                if (formula.base <= 0) return null;
+                formula.base--;
+                return decPrefix + formula.describe() + decSuffix;
+            case 4:
+                if (formula.sizeCoef <= 0.2) return null;
+                formula.sizeCoef = ((formula.sizeCoef*10) - 2)/10;
+                return decPrefix + formula.describe() + decSuffix;
+        }
+    }
+
 }
