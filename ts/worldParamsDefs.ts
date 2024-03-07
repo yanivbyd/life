@@ -10,7 +10,7 @@ export class RandomMinMax {
 }
 export class Environment {
     maxVeg: number;
-    rain: RandomMinMax;
+    rain: number;
 }
 
 export class CreatureDefs {

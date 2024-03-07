@@ -6,7 +6,7 @@ import { WorldParams } from "./worldParamsDefs.js";
 export var globalParams: WorldParams = {
     env: {
         maxVeg: 120,
-        rain: { min: 1, max: 3 },
+        rain: 1,
     },
     rules: {
         creatureMaxHealth: new Formula(18, 4),

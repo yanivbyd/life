@@ -10,7 +10,7 @@ export class Cell {
 
     constructor() {
         this.veg = 0;
-        this.rain = randomInt(globalParams.env.rain.min, globalParams.env.rain.max);
+        this.rain = globalParams.env.rain;
         this.creature = null;
     }
 
