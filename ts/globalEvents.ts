@@ -1,6 +1,7 @@
 import { randomInt } from "./utils/random.js";
 import { World } from "./world.js";
 import { globalParams } from "./worldParams.js";
+import {randomBool} from "./utils/random.js";
 
 export class GlobalEvents {
     world: World;
@@ -33,31 +34,46 @@ export class GlobalEvents {
         this.nextEventTime = this.world.currentCycle + randomInt(100, 200);
     }
     private _runRandomEvent(): string {
-        const randomIndex = randomInt(1, 5);
+        const randomIndex = randomInt(1, 4);
         switch (randomIndex) {
             case 1:
-                if (this.world.rainDelta > -2) {
-                    this.world.rainDelta--;
-                    return 'Less rain (' + (this.world.rainDelta + globalParams.env.rain) + ')';
+                if (randomBool()) {
+                    if (this.world.rainDelta > -2) {
+                        this.world.rainDelta--;
+                        return 'Less rain (' + (this.world.rainDelta + globalParams.env.rain) + ')';
+                    }
+                    return null;
+                } else {
+                    this.world.rainDelta++;
+                    return 'More rain (' + (this.world.rainDelta + globalParams.env.rain) + ')';
                 }
-                return null;
             case 2:
-                this.world.rainDelta++;
-                return 'More rain (' + (this.world.rainDelta + globalParams.env.rain) + ')';
-            case 3:
                 for (var i=0;i<5;i++) {
                     this.world.addCreatures();
                 }
                 return 'Adding creatures';
-            case 4:
-                if (globalParams.penalties.moving.base > 0) {
-                    globalParams.penalties.moving.base--;
-                    return 'Easier to move (penalty=' + globalParams.penalties.moving.describe() + ')';
+            case 3:
+                if (randomBool()) {
+                    if (globalParams.penalties.moving.base > 0) {
+                        globalParams.penalties.moving.base--;
+                        return 'Easier to move (penalty=' + globalParams.penalties.moving.describe() + ')';
+                    } else {
+                        globalParams.penalties.moving.base++;
+                        return 'Harder to move (penalty=' + globalParams.penalties.moving.describe() + ')';
+                    }
                 }
-                break;
-            case 5:
-                globalParams.penalties.moving.base++;
-                return 'Harder to move (penalty=' + globalParams.penalties.moving.describe() + ')';
+                return null;
+            case 4:
+                const amount = randomInt(1,5);
+                if (randomBool()) {
+                    globalParams.env.maxVeg += amount;
+                    return 'More veg per cell (' + globalParams.env.maxVeg + ')';
+                } else if (globalParams.env.maxVeg > amount + 1) {
+                    globalParams.env.maxVeg -= amount;
+                    this.world.ensureNoVegBeyondMaxVeg();
+                    return 'Less veg per cell (' + globalParams.env.maxVeg + ')';
+                }
+                return null;
         }
         return null;
     }

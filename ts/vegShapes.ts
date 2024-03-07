@@ -13,7 +13,9 @@ export class VegShapes {
     }
 
     addShape(rainDeltaFrom: number, rainDeltaTo: number): void {
-        let ctx = this.canvas.getContext('2d');
+        let ctx = this.canvas.getContext('2d', {
+            willReadFrequently: true
+        });
         const width = this.canvas.width;
         const height = this.canvas.height;
         ctx.lineJoin = 'round'

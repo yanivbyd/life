@@ -110,6 +110,16 @@ export class World {
         }
         return result;
     }
+
+    ensureNoVegBeyondMaxVeg() {
+        for (let i = 0; i < this.width; i++) {
+            for (let j = 0; j < this.height; j++) {
+                const cell = this.matrix[i][j];
+                cell.veg = Math.min(cell.veg, globalParams.env.maxVeg);
+            }
+        }
+    }
+
 }
 window['World'] = World;
 

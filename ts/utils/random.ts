@@ -4,6 +4,10 @@ export function randomInt(min: number, max: number): number {
     return min + Math.floor(Math.random() * (max - min + 1));
 }
 
+export function randomBool(): boolean {
+    return Math.random() > 0.5;
+}
+
 export function getRandomArrItem(array: any[]): any | null {
     if (array.length === 0) {
         return null;
