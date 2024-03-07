@@ -120,13 +120,18 @@ export class TableRenderer {
         const tbody = $('<tbody/>').appendTo(this.rulesTable);
         $('<tr/>')
             .append($('<td/>').text('Rain'))
-            .append($('<td/>').text(globalParams.env.rain))
+            .append($('<td/>').text(globalParams.env.rain + this.world.rainDelta))
             .append($('<td/>').text('The basic rain value of each cell (not including formations that have more rain)'))
             .appendTo(tbody);
         $('<tr/>')
-            .append($('<td/>').text('...'))
-            .append($('<td/>').text(globalParams.env.rain))
-            .append($('<td/>').text('TBD - more params to come'))
+            .append($('<td/>').text('Max Veg per cell'))
+            .append($('<td/>').text(globalParams.env.maxVeg))
+            .append($('<td/>').text('The max vegetation value per cell'))
+            .appendTo(tbody);
+        $('<tr/>')
+            .append($('<td/>').text('Move penalty'))
+            .append($('<td/>').text(globalParams.penalties.moving.describe()))
+            .append($('<td/>').text('The cost in helath to move'))
             .appendTo(tbody);
             
     }

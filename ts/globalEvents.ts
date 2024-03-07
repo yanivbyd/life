@@ -38,12 +38,12 @@ export class GlobalEvents {
             case 1:
                 if (this.world.rainDelta > -2) {
                     this.world.rainDelta--;
-                    return 'Less rain (delta=' + this.world.rainDelta + ')';
+                    return 'Less rain (' + (this.world.rainDelta + globalParams.env.rain) + ')';
                 }
                 return null;
             case 2:
                 this.world.rainDelta++;
-                return 'More rain (delta=' + this.world.rainDelta + ')';
+                return 'More rain (' + (this.world.rainDelta + globalParams.env.rain) + ')';
             case 3:
                 for (var i=0;i<5;i++) {
                     this.world.addCreatures();
