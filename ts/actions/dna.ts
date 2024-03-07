@@ -44,7 +44,7 @@ export class CreatureDNA {
         };
         var newSize = this.size;
         
-        const randomGene = randomInt(1, 8);
+        const randomGene = randomInt(1, 10);
         switch (randomGene) {
             case 1:
             case 2:
@@ -63,7 +63,8 @@ export class CreatureDNA {
                 breedDef.minHealth = this._mutateGene(this.breedDef.minHealth, randomGene == 7)
                 break;
             case 9:
-                newSize = (randomBool() ? this.size + 1 : Math.max(1, this.size - 1));
+            case 10:
+                newSize = (randomGene == 9 ? this.size + 1 : Math.max(1, this.size - 1));
         }
 
         const newDNA = new CreatureDNA(newSize, moveDef, breedDef);

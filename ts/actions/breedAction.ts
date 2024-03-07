@@ -26,9 +26,9 @@ export class BreedAction implements CreatureAction {
         if (checkChance(this.def.chance)) {
             const healthFromMe = Math.floor(ctx.creature.health / 2);
             const healthFromMate = Math.floor(mate.health / 2);
-            const babyHealth = healthFromMe + healthFromMate;
             const hasMutation = checkChance(ctx.rules.mutationChance)
-            const babyDNA = hasMutation ? ctx.creature.dna.mutate() : ctx.creature.dna; 
+            const babyDNA = hasMutation ? ctx.creature.dna.mutate() : ctx.creature.dna;
+            const babyHealth = Math.min(healthFromMe + healthFromMate, ctx.rules.creatureMaxHealth.calc(babyDNA.size));
             ctx.createBaby(babyPos, babyHealth, ctx.creature, babyDNA);
             
             ctx.creature.reduceHealth(healthFromMe + ctx.penalties.birth.calc(ctx.creature.dna.size), ctx);

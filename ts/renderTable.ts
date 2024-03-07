@@ -3,6 +3,7 @@ import { CountColumn } from "./stats/countColumn.js";
 import { CycleStatColumn } from "./stats/cycleStatColumn.js";
 import { MoveGeneColumn } from "./stats/moveGeneColumn.js";
 import { NameColumn } from "./stats/nameColumn.js";
+import { SizeColumn } from "./stats/sizeColumn.js";
 import { StatColumn } from "./stats/statColumn.js";
 import { StatsRow } from "./stats/statsRow.js";
 import { World } from "./world.js";
@@ -26,6 +27,7 @@ export class TableRenderer {
         this.columns = [
             new NameColumn(),
             this.countColumn,
+            new SizeColumn(),
             new MoveGeneColumn(),
             new BreedGeneColumn(),
             new CycleStatColumn('new mutations','mutation'),
