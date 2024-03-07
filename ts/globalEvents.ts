@@ -21,6 +21,9 @@ export class GlobalEvents {
                 setTimeout(function () {
                     $('#toast').removeClass('toast-show');
                 }, 4000);
+                if (window['global_table_render']) {
+                    window['global_table_render'].renderRulesTable();
+                }
             }
 
             this._updateNextEventTime();

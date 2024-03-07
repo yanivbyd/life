@@ -29,6 +29,11 @@
         <table id="stats_table" class="table table-success"></table>
     </div>
 
+    <div id="rules">
+        <div id="rules_title">Rules / Parameters</div>
+        <table id="rules_table" class="table table-success"></table>
+    </div>
+
     <div id="toast" class="toast">
         <div class="toast-title"></div>
         <div class="toast-body"></div>
@@ -69,11 +74,12 @@
         window.global_playing = false;
         window.global_world = new World(Math.floor($('#canvas').width()), Math.floor($('#canvas').height()));
         window.global_render = new CanvasRenderer($('#canvas')[0], global_world);
-        window.global_table_render = new TableRenderer($('#stats_table')[0], global_world);
+        window.global_table_render = new TableRenderer($('#stats_table')[0], $('#rules_table')[0], global_world);
+
         setTimeout(function () {
+            window.global_table_render.renderRulesTable();
             for(var i=0;i<50;i++) { global_world.cycle(); }
             render();
-            // $('#play_stop').click();
         }, 5);
     </script>
 </body>

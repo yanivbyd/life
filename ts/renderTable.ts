@@ -16,8 +16,11 @@ export class TableRenderer {
     columns: StatColumn[];
     countColumn: CountColumn;
     rows: StatsRow[];
+    
+    rulesTable: JQuery;
 
-    constructor(table: HTMLTableElement, world: World) {
+    constructor(statsTable: HTMLTableElement, rulesTable: HTMLTableElement, world: World) {
+        this.rulesTable = $(rulesTable);
         this.world = world;
         this.countColumn = new CountColumn();
         this.columns = [
@@ -31,12 +34,12 @@ export class TableRenderer {
             new CycleStatColumn('deaths','death')
         ];
 
-        this.thead = $('<thead/>').appendTo($(table));
+        this.thead = $('<thead/>').appendTo($(statsTable));
         const theadTR = $('<tr/>').appendTo(this.thead);
         for (let i=0;i<this.columns.length;i++) {
             $('<td/>').text(this.columns[i].getTitle()).appendTo(theadTR);
         }
-        this.tbody = $('<tbody/>').appendTo($(table));
+        this.tbody = $('<tbody/>').appendTo($(statsTable));
         this.rows = [];
 
         for (let type=0;type<globalParams.creatures.length;type++) {
@@ -104,6 +107,28 @@ export class TableRenderer {
         }
 
         return lowestType;
+    }
+    
+    renderRulesTable() {
+        this.rulesTable.empty();
+        const theadTR = $('<tr/>').appendTo($('<thead/>').appendTo(this.rulesTable));
+        theadTR
+            .append($('<td/>').text('Parameter'))
+            .append($('<td/>').text('Value'))
+            .append($('<td/>').text('Description'));
+        
+        const tbody = $('<tbody/>').appendTo(this.rulesTable);
+        $('<tr/>')
+            .append($('<td/>').text('Rain'))
+            .append($('<td/>').text(globalParams.env.rain))
+            .append($('<td/>').text('The basic rain value of each cell (not including formations that have more rain)'))
+            .appendTo(tbody);
+        $('<tr/>')
+            .append($('<td/>').text('...'))
+            .append($('<td/>').text(globalParams.env.rain))
+            .append($('<td/>').text('TBD - more params to come'))
+            .appendTo(tbody);
+            
     }
 }
 window['TableRenderer'] = TableRenderer;
