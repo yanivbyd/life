@@ -6,6 +6,7 @@ import { NameColumn } from "./stats/nameColumn.js";
 import { SizeColumn } from "./stats/sizeColumn.js";
 import { StatColumn } from "./stats/statColumn.js";
 import { StatsRow } from "./stats/statsRow.js";
+import { VegCountColumn } from "./stats/vegColumn.js";
 import { World } from "./world.js";
 import { globalParams } from "./worldParams.js";
 
@@ -28,6 +29,7 @@ export class TableRenderer {
             new NameColumn(),
             this.countColumn,
             new SizeColumn(),
+            new VegCountColumn(),
             new MoveGeneColumn(),
             new BreedGeneColumn(),
             new CycleStatColumn('new mutations','mutation'),
