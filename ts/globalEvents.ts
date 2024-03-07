@@ -1,5 +1,6 @@
 import { randomInt } from "./utils/random.js";
 import { World } from "./world.js";
+import { globalParams } from "./worldParams.js";
 
 export class GlobalEvents {
     world: World;
@@ -29,7 +30,7 @@ export class GlobalEvents {
         this.nextEventTime = this.world.currentCycle + randomInt(100, 200);
     }
     private _runRandomEvent(): string {
-        const randomIndex = randomInt(1, 3);
+        const randomIndex = randomInt(1, 5);
         switch (randomIndex) {
             case 1:
                 if (this.world.rainDelta > -2) {
@@ -45,6 +46,15 @@ export class GlobalEvents {
                     this.world.addCreatures();
                 }
                 return 'Adding creatures';
+            case 4:
+                if (globalParams.penalties.moving.base > 0) {
+                    globalParams.penalties.moving.base--;
+                    return 'Easier to move (penalty=' + globalParams.penalties.moving.base + ')';
+                }
+                break;
+            case 5:
+                globalParams.penalties.moving.base++;
+                return 'Harder to move (penalty=' + globalParams.penalties.moving.base + ')';
         }
         return null;
     }
