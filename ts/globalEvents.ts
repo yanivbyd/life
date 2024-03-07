@@ -38,7 +38,7 @@ export class GlobalEvents {
     }
 
     private _runRandomEvent(): string {
-        const randomIndex = randomInt(1, 4);
+        const randomIndex = randomInt(1, 5);
         switch (randomIndex) {
             case 1:
                 if (randomBool()) {
@@ -62,6 +62,11 @@ export class GlobalEvents {
                     'Easier to move (penalty=', ')'
                 );
             case 4:
+                return this._updateFormula(globalParams.rules.creatureMaxHealth,
+                    'Higher max health (', ')',
+                    'Lower max health (', ')'
+                );
+            case 5:
                 const amount = randomInt(1, 5);
                 if (randomBool()) {
                     globalParams.env.maxVeg += amount;

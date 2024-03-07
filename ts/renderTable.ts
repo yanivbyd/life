@@ -1,6 +1,7 @@
 import { BreedGeneColumn } from "./stats/breedGeneColumn.js";
 import { CountColumn } from "./stats/countColumn.js";
 import { CycleStatColumn } from "./stats/cycleStatColumn.js";
+import { HealthColumn } from "./stats/healthColumn.js";
 import { MoveGeneColumn } from "./stats/moveGeneColumn.js";
 import { NameColumn } from "./stats/nameColumn.js";
 import { SizeColumn } from "./stats/sizeColumn.js";
@@ -30,6 +31,7 @@ export class TableRenderer {
             this.countColumn,
             new SizeColumn(),
             new VegCountColumn(),
+            new HealthColumn(),
             new MoveGeneColumn(),
             new BreedGeneColumn(),
             new CycleStatColumn('new mutations','mutation'),
@@ -133,11 +135,22 @@ export class TableRenderer {
             .append($('<td/>').text('The max vegetation value per cell'))
             .appendTo(tbody);
         $('<tr/>')
+            .append($('<td/>').text('Max creature health'))
+            .append($('<td/>').text(globalParams.rules.creatureMaxHealth.describe()))
+            .append($('<td/>').text('The max health a creature can have'))
+            .appendTo(tbody);
+        $('<tr/>')
             .append($('<td/>').text('Move penalty'))
             .append($('<td/>').text(globalParams.penalties.moving.describe()))
             .append($('<td/>').text('The cost in helath to move'))
             .appendTo(tbody);
-            
+
+
+        // creatureMaxHealth: Formula;
+        // maxVegToEat: Formula;
+        // deathChance: Formula;
+        // mutationChance: number;
+
     }
 }
 window['TableRenderer'] = TableRenderer;
