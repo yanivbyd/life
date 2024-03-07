@@ -45,7 +45,6 @@ export class CycleContext {
         const baby = new Creature(
             parent.type,
             babyHealth,
-            parent.size,
             babyDNA
         );
         baby.playedCycle = this.world.currentCycle;

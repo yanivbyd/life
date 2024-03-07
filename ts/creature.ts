@@ -8,14 +8,12 @@ import { CreatureDefs } from './worldParamsDefs.js';
 export class Creature {
     health: number;
     type: number;
-    size: number;
     playedCycle: number;
     dna: CreatureDNA;
 
-    constructor(type: number, health: number, size: number, dna: CreatureDNA) {
+    constructor(type: number, health: number, dna: CreatureDNA) {
         this.type = type;
         this.health = health;
-        this.size = size;
         this.dna = dna;
         this.playedCycle = 0;
     }
@@ -26,7 +24,7 @@ export class Creature {
             return;
         }
         this.playedCycle = ctx.world.currentCycle;
-        this.reduceHealth(ctx.penalties.breathing.calc(this.size), ctx);
+        this.reduceHealth(ctx.penalties.breathing.calc(this.dna.size), ctx);
 
         for (let i=0;i<this.dna.actions.length;i++) {
             if (!this.isDead()) {
@@ -34,7 +32,7 @@ export class Creature {
             }
         }
         if (!this.isDead()) {
-            const deathChance = Math.max(1, ctx.rules.deathChance.calc(this.size));
+            const deathChance = Math.max(1, ctx.rules.deathChance.calc(this.dna.size));
             if (checkChance(deathChance)) {
                 ctx.creatureDied();
                 ctx.statsCounter.tick("death", this.type);

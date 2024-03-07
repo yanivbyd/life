@@ -31,8 +31,8 @@ export class BreedAction implements CreatureAction {
             const babyDNA = hasMutation ? ctx.creature.dna.mutate() : ctx.creature.dna; 
             ctx.createBaby(babyPos, babyHealth, ctx.creature, babyDNA);
             
-            ctx.creature.reduceHealth(healthFromMe + ctx.penalties.birth.calc(ctx.creature.size), ctx);
-            mate.reduceHealth(healthFromMate + ctx.penalties.birth.calc(mate.size), ctx);
+            ctx.creature.reduceHealth(healthFromMe + ctx.penalties.birth.calc(ctx.creature.dna.size), ctx);
+            mate.reduceHealth(healthFromMate + ctx.penalties.birth.calc(mate.dna.size), ctx);
             ctx.statsCounter.tick('birth', ctx.creature.type);
             if (hasMutation) {
                 ctx.statsCounter.tick('mutation', ctx.creature.type);

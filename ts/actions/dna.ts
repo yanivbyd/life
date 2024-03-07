@@ -1,16 +1,18 @@
 import { CreatureAction } from "../creatureAction.js";
-import { randomInt } from "../utils/random.js";
+import {randomBool, randomInt } from "../utils/random.js";
 import {BreedAction, BreedDef } from "./breedAction.js";
 import { EatVegAction } from "./eatVeg.js";
 import {MoveAction, MoveDef} from "./moveAction.js";
 
 export class CreatureDNA {
+    size: number;
     moveDef: MoveDef;
     breedDef: BreedDef;
 
     actions: CreatureAction[];
 
-    constructor(moveDef: MoveDef, breedDef: BreedDef) {
+    constructor(size: number, moveDef: MoveDef, breedDef: BreedDef) {
+        this.size = size;
         this.moveDef = moveDef;
         this.breedDef = breedDef;
         this.actions = [
@@ -22,6 +24,7 @@ export class CreatureDNA {
 
     toCacheKey(): string {
         const keyParts: number[] = [];
+        keyParts.push(this.size);
         keyParts.push(this.moveDef.chance);
         keyParts.push(this.moveDef.minVegAmount);
         keyParts.push(this.breedDef.chance);
@@ -39,6 +42,7 @@ export class CreatureDNA {
             chance: this.breedDef.chance,
             minHealth: this.breedDef.minHealth
         };
+        var newSize = this.size;
         
         const randomGene = randomInt(1, 8);
         switch (randomGene) {
@@ -58,9 +62,11 @@ export class CreatureDNA {
             case 8:
                 breedDef.minHealth = this._mutateGene(this.breedDef.minHealth, randomGene == 7)
                 break;
+            case 9:
+                newSize = (randomBool() ? this.size + 1 : Math.max(1, this.size - 1));
         }
 
-        const newDNA = new CreatureDNA(moveDef, breedDef);
+        const newDNA = new CreatureDNA(newSize, moveDef, breedDef);
         const dnaFromCache = fromDNACache(newDNA.toCacheKey());
         if (dnaFromCache) {
             return dnaFromCache;

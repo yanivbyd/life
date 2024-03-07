@@ -19,8 +19,8 @@ export class MoveAction implements CreatureAction {
     cycle(ctx: CycleContext): void {
         if (ctx.cell.veg >= this.def.minVegAmount) return;
         const nextPos: Pos = this._findNeighbourWithMaxVeg(ctx);
-        const movePenalty: number = ctx.penalties.moving.calc(ctx.creature.size);
-        const breathPenalty: number = ctx.penalties.breathing.calc(ctx.creature.size);
+        const movePenalty: number = ctx.penalties.moving.calc(ctx.creature.dna.size);
+        const breathPenalty: number = ctx.penalties.breathing.calc(ctx.creature.dna.size);
         if (nextPos && ctx.creature.health > movePenalty + breathPenalty) {
             if (checkChance(this.def.chance)) {
                 ctx.moveCreatureTo(nextPos.x, nextPos.y);

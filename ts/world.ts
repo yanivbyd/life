@@ -45,7 +45,7 @@ export class World {
         var initialDNA: CreatureDNA[] = [];
         for (let type=0;type<globalParams.creatures.length;type++) {
             const creatureDef: CreatureDefs = globalParams.creatures[type];
-            initialDNA.push(new CreatureDNA(creatureDef.move, creatureDef.breed));
+            initialDNA.push(new CreatureDNA(creatureDef.size, creatureDef.move, creatureDef.breed));
         }
 
         for (let i=0; i<300; i++) {
@@ -61,13 +61,11 @@ export class World {
                 this.matrix[x][y].creature = new Creature(
                     type,
                     globalParams.rules.creatureMaxHealth.calc(creatureDef.size),
-                    creatureDef.size,
                     initialDNA[type]
                 );
                 this.matrix[x2][y].creature = new Creature(
                     type,
                     globalParams.rules.creatureMaxHealth.calc(creatureDef.size),
-                    creatureDef.size,
                     initialDNA[type]
                 );
             }
