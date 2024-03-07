@@ -15,7 +15,7 @@ export class GlobalEvents {
         if (this.world.currentCycle >= this.nextEventTime) {
             const eventDescription = this._runRandomEvent();
             if (eventDescription) {
-                $('.toast-title').text('Global Event');
+                $('.toast-title').text('Global Event (cycle ' + this.world.currentCycle + ')');
                 $('.toast-body').text(eventDescription);
                 $('#toast').addClass('toast-show');
                 setTimeout(function () {

@@ -6,15 +6,15 @@
 
 .toast {
     position: fixed;
-    top: -150px;
-    left: 50%;
+    top: -160px;
+    right: 10px;
     background-color: rgba(65, 91, 183) !important;
     color: #fff !important;
     padding: 10px 20px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 9999;
-    transition: transform 1s;
+    transition: transform 0.8s;
     display: block !important;
 }
 
@@ -46,8 +46,7 @@
     position: absolute;
     top: 0px;
     left: 600px;
-    min-width: 80px;
-    font-size: 16px;
+    font-size: 20px;
 }
 #change {
     position: absolute;
