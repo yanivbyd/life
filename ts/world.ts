@@ -10,6 +10,7 @@ import { CreatureDNA } from './actions/dna.js';
 import { globalParams } from "./worldParams.js";
 import { CreatureDefs } from "./worldParamsDefs.js";
 import { GlobalEvents } from "./globalEvents.js";
+import {checkChance} from "./utils/random.js";
 
 export class World {
     width: number;
@@ -117,6 +118,51 @@ export class World {
             }
         }
     }
+
+    findTopCreature(): number {
+        var counts = [];
+        for (let type=0;type<globalParams.creatures.length;type++) {
+            counts[type] = 0;
+        }
+
+        for (let i = 0; i < this.width; i++) {
+            for (let j = 0; j < this.height; j++) {
+                const cell = this.matrix[i][j];
+                if (cell.creature) {
+                    counts[cell.creature.type]++;
+                }
+            }
+        }
+        var maxItem = -1;
+        var maxType = null;
+        for (let type=0;type<globalParams.creatures.length;type++) {
+            if (counts[type] > maxItem) {
+                maxItem = counts[type];
+                maxType = type;
+            }
+        }
+
+        return maxType;
+    }
+    topCreaturePlague(deathChance: number): number {
+        const type = this.findTopCreature();
+        if (type == null) return null;
+
+        for (let i = 0; i < this.width; i++) {
+            for (let j = 0; j < this.height; j++) {
+                const cell = this.matrix[i][j];
+                if (cell.creature && cell.creature.type == type) {
+                    if (checkChance(deathChance)) {
+                        cell.creature = null;
+                    } else {
+                        cell.creature.health = Math.floor(cell.creature.health / 2);
+                    }
+                }
+            }
+        }
+        return type;
+    }
+
 
 }
 window['World'] = World;

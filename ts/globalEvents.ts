@@ -38,7 +38,7 @@ export class GlobalEvents {
     }
 
     private _runRandomEvent(): string {
-        const randomIndex = randomInt(1, 5);
+        const randomIndex = true ? 7 : randomInt(1, 7);
         switch (randomIndex) {
             case 1:
                 if (randomBool()) {
@@ -57,16 +57,21 @@ export class GlobalEvents {
                 }
                 return 'Adding creatures';
             case 3:
-                return this._updateFormula(globalParams.penalties.moving,
+                return this._updateFormula(globalParams.penalties.moving, 0,
                     'Harder to move (penalty=', ')',
                     'Easier to move (penalty=', ')'
                 );
             case 4:
-                return this._updateFormula(globalParams.rules.creatureMaxHealth,
+                return this._updateFormula(globalParams.rules.creatureMaxHealth, 3,
                     'Higher max health (', ')',
                     'Lower max health (', ')'
                 );
             case 5:
+                return this._updateFormula(globalParams.rules.maxVegToEat, 2,
+                    'Higher max veg to eat (', ')',
+                    'Lower max veg to eat (', ')'
+                );
+            case 6:
                 const amount = randomInt(1, 5);
                 if (randomBool()) {
                     globalParams.env.maxVeg += amount;
@@ -77,11 +82,16 @@ export class GlobalEvents {
                     return 'Less veg per cell (' + globalParams.env.maxVeg + ')';
                 }
                 return null;
+            case 7:
+                const deathChance = randomInt(90,95);
+                const creatureType = this.world.topCreaturePlague(deathChance);
+                if (!creatureType) return null;
+                return "Plague, killing " + deathChance + "% of " + globalParams.creatures[creatureType].name;
         }
         return null;
     }
 
-    private _updateFormula(formula: Formula,
+    private _updateFormula(formula: Formula, minValue: number,
                            incPrefix: string, incSuffix: string,
                            decPrefix: string, decSuffix: string): string {
         switch (randomInt(1, 4)) {
@@ -92,7 +102,7 @@ export class GlobalEvents {
                 formula.sizeCoef = ((formula.sizeCoef*10) + 2)/10;
                 return incPrefix + formula.describe() + incSuffix;
             case 3:
-                if (formula.base <= 0) return null;
+                if (formula.base-1 < minValue) return null;
                 formula.base--;
                 return decPrefix + formula.describe() + decSuffix;
             case 4:

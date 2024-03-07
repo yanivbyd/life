@@ -9,10 +9,10 @@ export var globalParams: WorldParams = {
         rain: 1,
     },
     rules: {
-        creatureMaxHealth: new Formula(18, 4),
-        maxVegToEat: new Formula(1, 1),
+        creatureMaxHealth: new Formula(14, 4),
+        maxVegToEat: new Formula(2, 1),
         deathChance: new Formula(3, -0.2),
-        mutationChance: 10
+        mutationChance: 1
     },
     penalties: {
         breathing: new Formula(0.1, 0.7),

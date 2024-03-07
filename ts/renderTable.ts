@@ -140,17 +140,41 @@ export class TableRenderer {
             .append($('<td/>').text('The max health a creature can have'))
             .appendTo(tbody);
         $('<tr/>')
+            .append($('<td/>').text('Max veg to eat'))
+            .append($('<td/>').text(globalParams.rules.maxVegToEat.describe()))
+            .append($('<td/>').text('The max vegetable a creature can eat in a turn'))
+            .appendTo(tbody);
+        $('<tr/>')
+            .append($('<td/>').text('Chance to die'))
+            .append($('<td/>').text(globalParams.rules.deathChance.describe()))
+            .append($('<td/>').text('A chance of a creature [0-100] each turn to die'))
+            .appendTo(tbody);
+        $('<tr/>')
+            .append($('<td/>').text('Mutation chance'))
+            .append($('<td/>').text(globalParams.rules.mutationChance))
+            .append($('<td/>').text('A chance [0-100] for a birth to mutate parent DNA'))
+            .appendTo(tbody);
+        $('<tr/>')
+            .append($('<td/>').text('Breathing penalty'))
+            .append($('<td/>').text(globalParams.penalties.breathing.describe()))
+            .append($('<td/>').text('The cost in health just to breathe'))
+            .appendTo(tbody);
+        $('<tr/>')
             .append($('<td/>').text('Move penalty'))
             .append($('<td/>').text(globalParams.penalties.moving.describe()))
-            .append($('<td/>').text('The cost in helath to move'))
+            .append($('<td/>').text('The cost in health to move'))
             .appendTo(tbody);
-
-
-        // creatureMaxHealth: Formula;
-        // maxVegToEat: Formula;
-        // deathChance: Formula;
-        // mutationChance: number;
-
+        $('<tr/>')
+            .append($('<td/>').text('Eating penalty'))
+            .append($('<td/>').text(globalParams.penalties.eating.describe()))
+            .append($('<td/>').text('The cost in health to eat'))
+            .appendTo(tbody);
+        $('<tr/>')
+            .append($('<td/>').text('Birth penalty'))
+            .append($('<td/>').text(globalParams.penalties.birth.describe()))
+            .append($('<td/>').text('The cost in health to give birth'))
+            .appendTo(tbody);
     }
 }
 window['TableRenderer'] = TableRenderer;
+
