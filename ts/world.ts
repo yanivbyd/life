@@ -39,17 +39,17 @@ export class World {
         var vegShapes: VegShapes = new VegShapes(this);
         vegShapes.addShape(1, 3);
 
-        this.addCreatures();
+        this.addCreatures(300);
     }
 
-    addCreatures(): void {
+    addCreatures(amount: number): void {
         var initialDNA: CreatureDNA[] = [];
         for (let type=0;type<globalParams.creatures.length;type++) {
             const creatureDef: CreatureDefs = globalParams.creatures[type];
             initialDNA.push(new CreatureDNA(creatureDef.size, creatureDef.move, creatureDef.breed));
         }
 
-        for (let i=0; i<300; i++) {
+        for (let i=0; i<amount; i++) {
             for (let type=0;type<globalParams.creatures.length;type++) {
                 const creatureDef: CreatureDefs = globalParams.creatures[type];
 

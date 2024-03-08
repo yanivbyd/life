@@ -52,10 +52,9 @@ export class GlobalEvents {
                     return 'More rain (' + (this.world.rainDelta + globalParams.env.rain) + ')';
                 }
             case 2:
-                for (var i = 0; i < 5; i++) {
-                    this.world.addCreatures();
-                }
-                return 'Adding creatures';
+                const cAmount = randomInt(1500, 5000);
+                this.world.addCreatures(cAmount);
+                return 'Adding ' + cAmount + ' creatures';
             case 3:
                 return this._updateFormula(globalParams.penalties.moving, 0,
                     'Harder to move (penalty=', ')',
