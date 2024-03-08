@@ -38,7 +38,7 @@ export class GlobalEvents {
     }
 
     private _runRandomEvent(): string {
-        const randomIndex = true ? 7 : randomInt(1, 7);
+        const randomIndex = randomInt(1, 8);
         switch (randomIndex) {
             case 1:
                 if (randomBool()) {
@@ -83,6 +83,11 @@ export class GlobalEvents {
                 }
                 return null;
             case 7:
+                return this._updateFormula(globalParams.penalties.birth, 0,
+                    'Harder to breed (penalty=', ')',
+                    'Easier to breed (penalty=', ')'
+                );
+            case 8:
                 const deathChance = randomInt(90,95);
                 const creatureType = this.world.topCreaturePlague(deathChance);
                 if (!creatureType) return null;

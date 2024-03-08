@@ -112,5 +112,31 @@ export var globalParams: WorldParams = {
                 minHealth: 20
             }
         },
+        {
+            name: 'hotpink',
+            color: new RGB(139, 0, 139),
+            size: randomInt(2, 5),
+            move: {
+                chance: 80,
+                minVegAmount: 4
+            },
+            breed: {
+                chance: 50,
+                minHealth: 20
+            }
+        },
+        {
+            name: 'plum',
+            color: new RGB(221, 160, 221),
+            size: randomInt(2, 5),
+            move: {
+                chance: 80,
+                minVegAmount: 4
+            },
+            breed: {
+                chance: 50,
+                minHealth: 20
+            }
+        },
     ]
 };
