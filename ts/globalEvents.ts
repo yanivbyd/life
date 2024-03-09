@@ -72,6 +72,12 @@ export class GlobalEvents {
         return prefix + obj[field] + suffix;
     }
 
+    private _decVal(obj: Object, field: string, amount: number,
+                    prefix: string, suffix: string): string {
+        obj[field] -= amount;
+        return prefix + obj[field] + suffix;
+    }
+
     private _updateFormulaInc(formula: Formula,
                               prefix: string, suffix: string): string {
         switch (randomInt(1, 2)) {
@@ -128,7 +134,10 @@ export class GlobalEvents {
         $('<div/>').appendTo(div);
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
             .text("Extra Rain")
-            .click(function() { that.showMessageAndReder(that._lessRain()); });
+            .click(function() {
+                that.showMessageAndReder(that._decVal(globalParams.env, 'extraRain', randomInt(1, 3),
+                    'Less rain (extra rain = ', ')'))
+            });
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
             .text("Rain (terrain)")
             .click(function() { that.showMessageAndReder(that._lessRainTerrain()); });
@@ -169,16 +178,6 @@ export class GlobalEvents {
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
             .text("Veg Per Cell")
             .click(function() { that.showMessageAndReder(that._lessVegPerCell()); });
-    }
-
-    private _moreRain(): string {
-        globalParams.env.extraRain += randomInt(1, 3);
-        return 'More rain (extra rain = ' + (globalParams.env.extraRain) + ')';
-    }
-
-    private _lessRain(): string {
-        globalParams.env.extraRain -= randomInt(1, 3);
-        return 'Less rain (extra rain = ' + (globalParams.env.extraRain) + ')';
     }
 
     private _moreRainTerrain(): string {
