@@ -119,13 +119,17 @@ export class VegShapes {
     }
 
     createTerrain(): void {
-        let matrix: number[][] = this._generateMatrix();
-        matrix = this._diamondSquare(matrix);
-        matrix = this._normalizeMatrix(matrix);
+        for (var v=0;v<5;v++) {
+            let matrix: number[][] = this._generateMatrix();
+            matrix = this._diamondSquare(matrix);
+            matrix = this._normalizeMatrix(matrix);
 
-        for (let i=0; i<this.world.width; i++) {
-            for (let j=0; j<this.world.height; j++) {
-                this.world.matrix[i][j].addRain(inRange(Math.round(matrix[i][j] * MAX_RAIN / 2), 0, 8));
+            for (let i = 0; i < this.world.width; i++) {
+                for (let j = 0; j < this.world.height; j++) {
+                    let amount = Math.round((matrix[i][j] * MAX_RAIN / 3) - 2);
+                    if ((v % 2) == 0) { amount = -amount; }
+                    this.world.matrix[i][j].addRain(inRange(amount, -8, 8));
+                }
             }
         }
     }

@@ -3,6 +3,7 @@ import { globalParams } from './worldParams.js';
 import { assertEquals } from './utils/assert.js';
 import { assertNotNull } from './utils/assert.js';
 import { RGB } from './rgb.js';
+import { inRange } from './utils/utils.js';
 
 const MAX_RAIN = 20;
 
@@ -109,11 +110,10 @@ export class CanvasRenderer {
         var imageData = ctx.createImageData(this.width, this.height);
         let dataIndex = 0;
 
-
         for (var j = 0; j < this.height; j++) {
             for (var i = 0; i < this.width; i++) {
                 var cell = this.world.matrix[i][j];
-                var color = this.rainRgbValues[Math.min(cell.rain + this.world.rainDelta, MAX_RAIN)];
+                var color = this.rainRgbValues[inRange(cell.rain + globalParams.env.extraRain, 0, MAX_RAIN)];
                 assertNotNull(color);
                 dataIndex = this._renderPixel(imageData.data, color, dataIndex);
             }

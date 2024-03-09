@@ -129,7 +129,7 @@ export class TableRenderer {
         const tbody = $('<tbody/>').appendTo(this.rulesTable);
         $('<tr/>')
             .append($('<td/>').text('Extra rain'))
-            .append($('<td/>').text(globalParams.env.rain + this.world.rainDelta))
+            .append($('<td/>').text(globalParams.env.extraRain))
             .append($('<td/>').text('Extra rain to all the world, in addition to the rain of the terrain'))
             .appendTo(tbody);
         $('<tr/>')

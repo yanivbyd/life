@@ -42,14 +42,14 @@ export class GlobalEvents {
         switch (randomIndex) {
             case 1:
                 if (randomBool()) {
-                    if (this.world.rainDelta > -2) {
-                        this.world.rainDelta--;
-                        return 'Less rain (' + (this.world.rainDelta + globalParams.env.rain) + ')';
+                    if (globalParams.env.extraRain > -5) {
+                        globalParams.env.extraRain -= randomInt(1, 3);
+                        return 'Less rain (extra rain = ' + (globalParams.env.extraRain) + ')';
                     }
                     return null;
                 } else {
-                    this.world.rainDelta++;
-                    return 'More rain (' + (this.world.rainDelta + globalParams.env.rain) + ')';
+                    globalParams.env.extraRain += randomInt(1, 3);
+                    return 'More rain (extra rain = ' + (globalParams.env.extraRain) + ')';
                 }
             case 2:
                 const cAmount = randomInt(1500, 5000);

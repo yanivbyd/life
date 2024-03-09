@@ -18,13 +18,11 @@ export class World {
     matrix: Cell[][];
     currentCycle: number;
     statsCounter: CycleStatsCounter;
-    rainDelta: number;
     globalEvents: GlobalEvents;
 
     constructor(width: number, height: number) {
         this.width = width;
         this.height = height;
-        this.rainDelta = 0;
         this.currentCycle = 0;
         this.globalEvents = new GlobalEvents(this);
         this.statsCounter = new CycleStatsCounter();
