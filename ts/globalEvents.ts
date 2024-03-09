@@ -131,27 +131,39 @@ export class GlobalEvents {
         const that = this;
         const div = $('#global_events');
 
-        $('<button/>').addClass("btn btn-success").appendTo(div)
+        $('<button/>').addClass("btn btn-outline-success").appendTo(div)
             .text("Add Creatures")
             .click(function() { that.showMessageAndReder(that._addCreatures()); });
-        $('<button/>').addClass("btn btn-success").appendTo(div)
+
+        $('<div/>').appendTo(div);
+        $('<button/>').addClass("btn btn-outline-success").appendTo(div)
             .text("More Extra Rain")
             .click(function() { that.showMessageAndReder(that._moreRain()); });
-        $('<button/>').addClass("btn btn-warning").appendTo(div)
+        $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
             .text("Less Extra Rain")
             .click(function() { that.showMessageAndReder(that._lessRain()); });
-        $('<button/>').addClass("btn btn-success").appendTo(div)
+        $('<button/>').addClass("btn btn-outline-success").appendTo(div)
             .text("More Rain (terrain)")
             .click(function() { that.showMessageAndReder(that._moreRainTerrain()); });
-        $('<button/>').addClass("btn btn-warning").appendTo(div)
+        $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
             .text("Less Rain (terrain)")
             .click(function() { that.showMessageAndReder(that._lessRainTerrain()); });
-        $('<button/>').addClass("btn btn-success").appendTo(div)
-            .text("Move (harder)")
+
+        $('<div/>').appendTo(div);
+        $('<button/>').addClass("btn btn-outline-success").appendTo(div)
+            .text("Move")
             .click(function() { that.showMessageAndReder(that._moveEasier()); });
-        $('<button/>').addClass("btn btn-warning").appendTo(div)
-            .text("Move (easier)")
+        $('<button/>').addClass("btn btn-outline-success").appendTo(div)
+            .text("Max health")
+            .click(function() { that.showMessageAndReder(that._maxHealthEasier()); });
+
+        $('<div/>').appendTo(div);
+        $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
+            .text("Move")
             .click(function() { that.showMessageAndReder(that._moveHarder()); });
+        $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
+            .text("Max health")
+            .click(function() { that.showMessageAndReder(that._maxHealthHarder()); });
     }
 
     private _moreRain(): string {
