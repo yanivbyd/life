@@ -4,6 +4,8 @@ import { assertEquals } from './utils/assert.js';
 import { assertNotNull } from './utils/assert.js';
 import { RGB } from './rgb.js';
 
+const MAX_RAIN = 20;
+
 export class CanvasRenderer {
     displayCreatures: boolean;
     canvas: Object;
@@ -53,7 +55,7 @@ export class CanvasRenderer {
     private _initRainColors() {
         const startColor: RGB = new RGB(255, 255, 255);
         const endColor: RGB = new RGB(38, 255, 0);
-        const maxRain: number = 10;
+        const maxRain: number = MAX_RAIN;
 
         this.rainRgbValues = [];
         for (let i=0;i<=maxRain;i++) {
@@ -111,7 +113,7 @@ export class CanvasRenderer {
         for (var j = 0; j < this.height; j++) {
             for (var i = 0; i < this.width; i++) {
                 var cell = this.world.matrix[i][j];
-                var color = this.rainRgbValues[Math.min(cell.rain + this.world.rainDelta, 10)];
+                var color = this.rainRgbValues[Math.min(cell.rain + this.world.rainDelta, MAX_RAIN)];
                 assertNotNull(color);
                 dataIndex = this._renderPixel(imageData.data, color, dataIndex);
             }

@@ -38,7 +38,7 @@ export class World {
         }
 
         var vegShapes: VegShapes = new VegShapes(this);
-        vegShapes.addShape(1, 3);
+        vegShapes.createTerrain();
 
         this.addCreatures(300);
     }
