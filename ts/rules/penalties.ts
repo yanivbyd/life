@@ -5,4 +5,5 @@ export class Penalties {
     eating: Formula;
     moving: Formula;
     birth: Formula;
+    attack: Formula;
 }

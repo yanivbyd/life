@@ -27,6 +27,7 @@ export class World {
         this.rainDelta = 0;
         this.currentCycle = 0;
         this.globalEvents = new GlobalEvents(this);
+        this.statsCounter = new CycleStatsCounter();
 
         this.matrix = [];
         for (let i = 0; i < width; i++) {
@@ -46,7 +47,7 @@ export class World {
         var initialDNA: CreatureDNA[] = [];
         for (let type=0;type<globalParams.creatures.length;type++) {
             const creatureDef: CreatureDefs = globalParams.creatures[type];
-            initialDNA.push(new CreatureDNA(creatureDef.size, creatureDef.move, creatureDef.breed));
+            initialDNA.push(new CreatureDNA(creatureDef.size, creatureDef.move, creatureDef.breed, creatureDef.attack));
         }
 
         for (let i=0; i<amount; i++) {

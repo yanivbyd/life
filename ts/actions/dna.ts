@@ -1,5 +1,6 @@
 import { CreatureAction } from "../creatureAction.js";
 import {randomBool, randomInt } from "../utils/random.js";
+import {AttackAction, AttackDef } from "./attackAction.js";
 import {BreedAction, BreedDef } from "./breedAction.js";
 import { EatVegAction } from "./eatVeg.js";
 import {MoveAction, MoveDef} from "./moveAction.js";
@@ -8,17 +9,20 @@ export class CreatureDNA {
     size: number;
     moveDef: MoveDef;
     breedDef: BreedDef;
+    attackDef: AttackDef;
 
     actions: CreatureAction[];
 
-    constructor(size: number, moveDef: MoveDef, breedDef: BreedDef) {
+    constructor(size: number, moveDef: MoveDef, breedDef: BreedDef, attackDef: AttackDef) {
         this.size = size;
         this.moveDef = moveDef;
         this.breedDef = breedDef;
+        this.attackDef = attackDef;
         this.actions = [
             new EatVegAction(),
             new MoveAction(this.moveDef),
-            new BreedAction(this.breedDef)
+            new BreedAction(this.breedDef),
+            new AttackAction(this.attackDef)
         ]
     }
 
@@ -29,6 +33,7 @@ export class CreatureDNA {
         keyParts.push(this.moveDef.minVegAmount);
         keyParts.push(this.breedDef.chance);
         keyParts.push(this.breedDef.minHealth);
+        keyParts.push(this.attackDef.chance);
 
         return keyParts.map(item => item.toString()).join(',');
     }
@@ -42,9 +47,12 @@ export class CreatureDNA {
             chance: this.breedDef.chance,
             minHealth: this.breedDef.minHealth
         };
+        var attackDef: AttackDef = {
+            chance: this.attackDef.chance
+        };
         var newSize = this.size;
         
-        const randomGene = randomInt(1, 10);
+        const randomGene = randomInt(1, 12);
         switch (randomGene) {
             case 1:
             case 2:
@@ -65,9 +73,13 @@ export class CreatureDNA {
             case 9:
             case 10:
                 newSize = (randomGene == 9 ? this.size + 1 : Math.max(1, this.size - 1));
+            case 11:
+            case 12:
+                attackDef.chance = this._mutateChanceGene(this.attackDef.chance, randomGene == 11);
+                break;
         }
 
-        const newDNA = new CreatureDNA(newSize, moveDef, breedDef);
+        const newDNA = new CreatureDNA(newSize, moveDef, breedDef, attackDef);
         const dnaFromCache = fromDNACache(newDNA.toCacheKey());
         if (dnaFromCache) {
             return dnaFromCache;
@@ -96,6 +108,3 @@ export function fromDNACache(key: string) {
     return DNACache[key];
 }
 
-function _mutateCacheGene(chance: number): number {
-    throw new Error("Function not implemented.");
-}

@@ -5,4 +5,6 @@ export class GameRules {
     maxVegToEat: Formula;
     deathChance: Formula;
     mutationChance: number;
+    attackSuccessChange: Formula;
+    attackHit: Formula;
 }

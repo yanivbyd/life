@@ -1,3 +1,4 @@
+import { AttackDef } from "./actions/attackAction.js";
 import { BreedDef } from "./actions/breedAction.js";
 import { MoveDef } from "./actions/moveAction.js";
 import { RGB } from "./rgb.js";
@@ -20,6 +21,7 @@ export class CreatureDefs {
 
     move: MoveDef;
     breed: BreedDef;
+    attack: AttackDef;
 }
 export class WorldParams {
     env: Environment;

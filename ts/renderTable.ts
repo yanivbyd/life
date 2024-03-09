@@ -35,6 +35,7 @@ export class TableRenderer {
             new MoveGeneColumn(),
             new BreedGeneColumn(),
             new CycleStatColumn('new mutations','mutation'),
+            new CycleStatColumn('kills','kill'),
             new CycleStatColumn('moves','move'),
             new CycleStatColumn('births','birth'),
             new CycleStatColumn('deaths','death')

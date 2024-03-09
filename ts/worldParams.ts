@@ -12,13 +12,16 @@ export var globalParams: WorldParams = {
         creatureMaxHealth: new Formula(14, 4),
         maxVegToEat: new Formula(2, 1),
         deathChance: new Formula(3, -0.2),
-        mutationChance: 1
+        mutationChance: 1,
+        attackHit: new Formula(2, 0.5),
+        attackSuccessChange: new Formula(70, 0.8)
     },
     penalties: {
         breathing: new Formula(0.1, 0.7),
         eating: new Formula(0.3, 0.3),
         moving: new Formula(2, 0.1),
-        birth: new Formula(3, 0.1)
+        birth: new Formula(3, 0.1),
+        attack: new Formula(3, 0.1)
     },
     creatures: [
         {
@@ -32,6 +35,9 @@ export var globalParams: WorldParams = {
             breed: {
                 chance: 50,
                 minHealth: 18
+            },
+            attack: {
+                chance: randomInt(20,70)
             }
         },
         {
@@ -45,6 +51,9 @@ export var globalParams: WorldParams = {
             breed: {
                 chance: 50,
                 minHealth: 20
+            },
+            attack: {
+                chance: randomInt(20,70)
             }
         },
         {
@@ -58,6 +67,9 @@ export var globalParams: WorldParams = {
             breed: {
                 chance: 50,
                 minHealth: 20
+            },
+            attack: {
+                chance: randomInt(20,70)
             }
         },
         {
@@ -71,6 +83,9 @@ export var globalParams: WorldParams = {
             breed: {
                 chance: 50,
                 minHealth: 20
+            },
+            attack: {
+                chance: randomInt(20,70)
             }
         },
         {
@@ -84,6 +99,9 @@ export var globalParams: WorldParams = {
             breed: {
                 chance: 50,
                 minHealth: 20
+            },
+            attack: {
+                chance: randomInt(20,70)
             }
         },
         {
@@ -97,6 +115,9 @@ export var globalParams: WorldParams = {
             breed: {
                 chance: 50,
                 minHealth: 20
+            },
+            attack: {
+                chance: randomInt(20,70)
             }
         },
         {
@@ -110,6 +131,9 @@ export var globalParams: WorldParams = {
             breed: {
                 chance: 50,
                 minHealth: 20
+            },
+            attack: {
+                chance: randomInt(20,70)
             }
         },
         {
@@ -123,6 +147,9 @@ export var globalParams: WorldParams = {
             breed: {
                 chance: 50,
                 minHealth: 20
+            },
+            attack: {
+                chance: randomInt(20,70)
             }
         },
         {
@@ -136,6 +163,9 @@ export var globalParams: WorldParams = {
             breed: {
                 chance: 50,
                 minHealth: 20
+            },
+            attack: {
+                chance: randomInt(20,70)
             }
         },
         {
@@ -149,6 +179,9 @@ export var globalParams: WorldParams = {
             breed: {
                 chance: 50,
                 minHealth: 20
+            },
+            attack: {
+                chance: randomInt(20,70)
             }
         }
     ]
