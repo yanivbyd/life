@@ -19,6 +19,7 @@
         <button id="add" onclick="addCreatures(); render()" class="btn btn-secondary">Add</button>
         <button id="play_stop" onclick="playOrStop();" class="btn btn-primary">Play</button>
         <button onclick="cycle(); render()" class="btn btn-secondary">Cycle</button>
+        <button id="render_display" onclick="toggleRenderDisplay();" class="btn btn-secondary">Rain map</button>
         <input type="checkbox" id="autoRender" checked="true" class="custom-checkbox">
         <label for="autoRender" class="checkbox-label">Auto Render</label>
     </div>
@@ -40,6 +41,9 @@
     </div>
 
     <script type="text/javascript">
+        function toggleRenderDisplay() {
+            $('#render_display').text(global_render.toggleDisplay() ? 'Rain map' : 'Default map');
+        }
         function cycle() {
             global_world.cycle();
         }
