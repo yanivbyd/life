@@ -22,7 +22,7 @@ export class GlobalEvents {
         });
     }
 
-    showMessageAndReder(messgae: string) {
+    showMessageAndRender(messgae: string) {
         if (messgae) {
             $('.toast-title').text('Global Event (cycle ' + this.world.currentCycle + ')');
             $('.toast-body').text(messgae);
@@ -52,12 +52,6 @@ export class GlobalEvents {
         const creatureType = this.world.topCreaturePlague(deathChance);
         if (!creatureType) return null;
         return "Plague, killing " + deathChance + "% of " + globalParams.creatures[creatureType].name;
-    }
-
-    private _breedEasier(): string {
-        return this._updateFormulaDec(globalParams.penalties.birth, 0,
-            'Easier to breed (penalty=', ')'
-        );
     }
 
     private _breedHarder(): string {
@@ -111,73 +105,77 @@ export class GlobalEvents {
         $('<button/>').addClass("btn btn-outline-info").appendTo(div)
             .text("Add Creatures")
             .click(function () {
-                that.showMessageAndReder(that._addCreatures());
+                that.showMessageAndRender(that._addCreatures());
             });
         $('<button/>').addClass("btn btn-outline-danger").appendTo(div)
             .text("Pillage")
             .click(function () {
-                that.showMessageAndReder(that._pillage());
+                that.showMessageAndRender(that._pillage());
             });
 
         $('<div/>').appendTo(div);
         $('<button/>').addClass("btn btn-outline-success").appendTo(div)
             .text("Extra Rain")
             .click(function () {
-                that.showMessageAndReder(that._incVal(globalParams.env, 'extraRain', randomInt(1, 3),
+                that.showMessageAndRender(that._incVal(globalParams.env, 'extraRain', randomInt(1, 3),
                         'More rain (extra rain = ', ')'));
             });
 
         $('<button/>').addClass("btn btn-outline-success").appendTo(div)
             .text("Rain (terrain)")
-            .click(function() { that.showMessageAndReder(that._moreRainTerrain()); });
+            .click(function() { that.showMessageAndRender(that._moreRainTerrain()); });
 
         $('<div/>').appendTo(div);
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
             .text("Extra Rain")
             .click(function() {
-                that.showMessageAndReder(that._decVal(globalParams.env, 'extraRain', randomInt(1, 3),
+                that.showMessageAndRender(that._decVal(globalParams.env, 'extraRain', randomInt(1, 3),
                     'Less rain (extra rain = ', ')'))
             });
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
             .text("Rain (terrain)")
-            .click(function() { that.showMessageAndReder(that._lessRainTerrain()); });
+            .click(function() { that.showMessageAndRender(that._lessRainTerrain()); });
 
         $('<div/>').appendTo(div);
         $('<button/>').addClass("btn btn-outline-success").appendTo(div)
             .text("Move")
             .click(function() {
-                that.showMessageAndReder(that._updateFormulaDec(
+                that.showMessageAndRender(that._updateFormulaDec(
                     globalParams.penalties.moving, 0, 'Easier to move (penalty=', ')'));
             });
         $('<button/>').addClass("btn btn-outline-success").appendTo(div)
             .text("Breed")
-            .click(function() { that.showMessageAndReder(that._breedEasier()); });
+            .click(function() { that.showMessageAndRender(that._updateFormulaDec(globalParams.penalties.birth, 0,
+                'Easier to breed (penalty=', ')'))
+            });
         $('<button/>').addClass("btn btn-outline-success").appendTo(div)
             .text("Max health")
-            .click(function() { that.showMessageAndReder(that._maxHealthEasier()); });
+            .click(function() { that.showMessageAndRender(that._maxHealthEasier()); });
         $('<button/>').addClass("btn btn-outline-success").appendTo(div)
             .text("Eat Veg")
-            .click(function() { that.showMessageAndReder(that._maxVegEasier()); });
+            .click(function() { that.showMessageAndRender(that._maxVegEasier()); });
         $('<button/>').addClass("btn btn-outline-success").appendTo(div)
             .text("Veg Per Cell")
-            .click(function() { that.showMessageAndReder(that._moreVegPerCell()); });
+            .click(function() { that.showMessageAndRender(that._moreVegPerCell()); });
 
         $('<div/>').appendTo(div);
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
             .text("Move")
-            .click(function() { that.showMessageAndReder(that._moveHarder()); });
+            .click(function() { that.showMessageAndRender(that._updateFormulaInc(
+                globalParams.penalties.moving, 'Harder to move (penalty=', ')'))
+            });
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
             .text("Breed")
-            .click(function() { that.showMessageAndReder(that._breedHarder()); });
+            .click(function() { that.showMessageAndRender(that._breedHarder()); });
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
             .text("Max health")
-            .click(function() { that.showMessageAndReder(that._maxHealthHarder()); });
+            .click(function() { that.showMessageAndRender(that._maxHealthHarder()); });
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
             .text("Eat Veg")
-            .click(function() { that.showMessageAndReder(that._maxVegHarder()); });
+            .click(function() { that.showMessageAndRender(that._maxVegHarder()); });
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
             .text("Veg Per Cell")
-            .click(function() { that.showMessageAndReder(that._lessVegPerCell()); });
+            .click(function() { that.showMessageAndRender(that._lessVegPerCell()); });
     }
 
     private _moreRainTerrain(): string {
@@ -198,12 +196,6 @@ export class GlobalEvents {
         const cAmount = randomInt(1500, 6000);
         this.world.addCreatures(cAmount);
         return 'Adding ' + cAmount + ' creatures';
-    }
-
-    private _moveHarder(): string {
-        return this._updateFormulaDec(globalParams.penalties.moving, 0,
-            'Harder to move (penalty=', ')'
-        );
     }
 
     private _maxHealthEasier(): string {
