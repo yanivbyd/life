@@ -138,5 +138,18 @@ export var globalParams: WorldParams = {
                 minHealth: 20
             }
         },
+        {
+            name: 'slateblue',
+            color: new RGB(106, 90, 205),
+            size: 3,
+            move: {
+                chance: 80,
+                minVegAmount: 4
+            },
+            breed: {
+                chance: 50,
+                minHealth: 20
+            }
+        }
     ]
 };
