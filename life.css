@@ -32,6 +32,14 @@
     padding-left: 0px !important;
 }
 
+#global_events div {
+    margin-bottom: 5px;
+}
+
+#toolbar {
+    margin-left: 5px;
+}
+
 #global_events button {
     margin-right: 10px;
     margin-left: 5px;

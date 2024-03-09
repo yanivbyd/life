@@ -5,6 +5,8 @@ import {randomBool} from "./utils/random.js";
 import { Formula } from "./rules/formula.js";
 import { Penalties } from "./rules/penalties.js";
 import { VegShapes } from "./vegShapes.js";
+import {getRandomArrItem} from "./utils/random.js";
+import { Environment } from "./worldParamsDefs.js";
 
 export class GlobalEvents {
     world: World;
@@ -15,7 +17,7 @@ export class GlobalEvents {
         this._updateNextEventTime();
         const that = this;
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             that._addEventButtons();
         });
     }
@@ -33,72 +35,41 @@ export class GlobalEvents {
             }
         }
     }
+
     cycle() {
         if (this.world.currentCycle >= this.nextEventTime) {
-            const eventDescription = this._runRandomEvent();
-            this.showMessageAndReder(eventDescription);
-
             this._updateNextEventTime();
+            $(getRandomArrItem($('#global_events button').toArray())).click();
         }
     }
 
     private _updateNextEventTime() {
-        this.nextEventTime = this.world.currentCycle + randomInt(100, 200);
+        this.nextEventTime = this.world.currentCycle + randomInt(80, 120);
     }
 
-    private _runRandomEvent(): string {
-        const randomIndex = randomInt(1, 15);
-        switch (randomIndex) {
-            case 1:
-                return this._lessRain();
-            case 2:
-                return this._moreRain();
-            case 3:
-                return this._addCreatures();
-            case 4:
-                return this._moreRainTerrain();
-            case 5:
-                return this._lessRainTerrain();
-            case 6:
-                return this._moveEasier();
-            case 7:
-                return this._moveHarder();
-            case 8:
-                return this._maxHealthEasier();
-            case 9:
-                return this._maxHealthHarder();
-            case 10:
-                return this._updateFormulaInc(globalParams.rules.maxVegToEat,
-                    'Higher max veg to eat (', ')');
-            case 11:
-                return this._updateFormulaDec(globalParams.rules.maxVegToEat, 2,
-                    'Lower max veg to eat (', ')');
-            case 12:
-                const amount = randomInt(1, 5);
-                if (randomBool()) {
-                    globalParams.env.maxVeg += amount;
-                    return 'More veg per cell (' + globalParams.env.maxVeg + ')';
-                } else if (globalParams.env.maxVeg > amount + 1) {
-                    globalParams.env.maxVeg -= amount;
-                    this.world.ensureNoVegBeyondMaxVeg();
-                    return 'Less veg per cell (' + globalParams.env.maxVeg + ')';
-                }
-                return null;
-            case 13:
-                return this._updateFormulaDec(globalParams.penalties.birth, 0,
-                    'Easier to breed (penalty=', ')'
-                );
-            case 14:
-                return this._updateFormulaInc(globalParams.penalties.birth,
-                    'Harder to breed (penalty=', ')'
-                );
-            case 15:
-                const deathChance = randomInt(90,95);
-                const creatureType = this.world.topCreaturePlague(deathChance);
-                if (!creatureType) return null;
-                return "Plague, killing " + deathChance + "% of " + globalParams.creatures[creatureType].name;
-        }
-        return null;
+    private _pillage(): string {
+        const deathChance = randomInt(90, 95);
+        const creatureType = this.world.topCreaturePlague(deathChance);
+        if (!creatureType) return null;
+        return "Plague, killing " + deathChance + "% of " + globalParams.creatures[creatureType].name;
+    }
+
+    private _breedEasier(): string {
+        return this._updateFormulaDec(globalParams.penalties.birth, 0,
+            'Easier to breed (penalty=', ')'
+        );
+    }
+
+    private _breedHarder(): string {
+        return this._updateFormulaInc(globalParams.penalties.birth,
+            'Harder to breed (penalty=', ')'
+        );
+    }
+
+    private _incVal(obj: Object, field: string, amount: number,
+                    prefix: string, suffix: string): string {
+        obj[field] += amount;
+        return prefix + obj[field] + suffix;
     }
 
     private _updateFormulaInc(formula: Formula,
@@ -131,39 +102,73 @@ export class GlobalEvents {
         const that = this;
         const div = $('#global_events');
 
-        $('<button/>').addClass("btn btn-outline-success").appendTo(div)
+        $('<button/>').addClass("btn btn-outline-info").appendTo(div)
             .text("Add Creatures")
-            .click(function() { that.showMessageAndReder(that._addCreatures()); });
+            .click(function () {
+                that.showMessageAndReder(that._addCreatures());
+            });
+        $('<button/>').addClass("btn btn-outline-danger").appendTo(div)
+            .text("Pillage")
+            .click(function () {
+                that.showMessageAndReder(that._pillage());
+            });
 
         $('<div/>').appendTo(div);
         $('<button/>').addClass("btn btn-outline-success").appendTo(div)
-            .text("More Extra Rain")
-            .click(function() { that.showMessageAndReder(that._moreRain()); });
-        $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
-            .text("Less Extra Rain")
-            .click(function() { that.showMessageAndReder(that._lessRain()); });
+            .text("Extra Rain")
+            .click(function () {
+                that.showMessageAndReder(that._incVal(globalParams.env, 'extraRain', randomInt(1, 3),
+                        'More rain (extra rain = ', ')'));
+            });
+
         $('<button/>').addClass("btn btn-outline-success").appendTo(div)
-            .text("More Rain (terrain)")
+            .text("Rain (terrain)")
             .click(function() { that.showMessageAndReder(that._moreRainTerrain()); });
+
+        $('<div/>').appendTo(div);
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
-            .text("Less Rain (terrain)")
+            .text("Extra Rain")
+            .click(function() { that.showMessageAndReder(that._lessRain()); });
+        $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
+            .text("Rain (terrain)")
             .click(function() { that.showMessageAndReder(that._lessRainTerrain()); });
 
         $('<div/>').appendTo(div);
         $('<button/>').addClass("btn btn-outline-success").appendTo(div)
             .text("Move")
-            .click(function() { that.showMessageAndReder(that._moveEasier()); });
+            .click(function() {
+                that.showMessageAndReder(that._updateFormulaDec(
+                    globalParams.penalties.moving, 0, 'Easier to move (penalty=', ')'));
+            });
+        $('<button/>').addClass("btn btn-outline-success").appendTo(div)
+            .text("Breed")
+            .click(function() { that.showMessageAndReder(that._breedEasier()); });
         $('<button/>').addClass("btn btn-outline-success").appendTo(div)
             .text("Max health")
             .click(function() { that.showMessageAndReder(that._maxHealthEasier()); });
+        $('<button/>').addClass("btn btn-outline-success").appendTo(div)
+            .text("Eat Veg")
+            .click(function() { that.showMessageAndReder(that._maxVegEasier()); });
+        $('<button/>').addClass("btn btn-outline-success").appendTo(div)
+            .text("Veg Per Cell")
+            .click(function() { that.showMessageAndReder(that._moreVegPerCell()); });
 
         $('<div/>').appendTo(div);
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
             .text("Move")
             .click(function() { that.showMessageAndReder(that._moveHarder()); });
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
+            .text("Breed")
+            .click(function() { that.showMessageAndReder(that._breedHarder()); });
+        $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
             .text("Max health")
             .click(function() { that.showMessageAndReder(that._maxHealthHarder()); });
+        $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
+            .text("Eat Veg")
+            .click(function() { that.showMessageAndReder(that._maxVegHarder()); });
+        $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
+            .text("Veg Per Cell")
+            .click(function() { that.showMessageAndReder(that._lessVegPerCell()); });
     }
 
     private _moreRain(): string {
@@ -196,12 +201,6 @@ export class GlobalEvents {
         return 'Adding ' + cAmount + ' creatures';
     }
 
-    private _moveEasier(): string {
-        return this._updateFormulaDec(globalParams.penalties.moving, 0,
-            'Easier to move (penalty=', ')'
-        );
-    }
-
     private _moveHarder(): string {
         return this._updateFormulaDec(globalParams.penalties.moving, 0,
             'Harder to move (penalty=', ')'
@@ -218,6 +217,32 @@ export class GlobalEvents {
         return this._updateFormulaDec(globalParams.rules.creatureMaxHealth, 3,
             'Lower health (max health=', ')'
         );
+    }
+
+    private _maxVegEasier(): string {
+        return this._updateFormulaInc(globalParams.rules.maxVegToEat,
+            'Higher max veg to eat (', ')');
+    }
+
+    private _maxVegHarder(): string {
+        return this._updateFormulaDec(globalParams.rules.maxVegToEat, 2,
+            'Lower max veg to eat (', ')');
+    }
+
+    private _moreVegPerCell(): string {
+        const amount = randomInt(1, 5);
+        globalParams.env.maxVeg += amount;
+        return 'More veg per cell (' + globalParams.env.maxVeg + ')';
+    }
+
+    private _lessVegPerCell(): string {
+        const amount = randomInt(1, 5);
+        if (globalParams.env.maxVeg > amount + 1) {
+            globalParams.env.maxVeg -= amount;
+            this.world.ensureNoVegBeyondMaxVeg();
+            return 'Less veg per cell (' + globalParams.env.maxVeg + ')';
+        }
+        return null;
     }
 
 }
