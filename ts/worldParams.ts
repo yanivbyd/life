@@ -107,7 +107,7 @@ export var globalParams: WorldParams = {
         },
         {
             name: 'pink',
-            color: new RGB(255, 192, 203),
+            color: new RGB(139, 0, 139),
             size: randomInt(5, 8),
             move: {
                 chance: 70,
@@ -139,7 +139,7 @@ export var globalParams: WorldParams = {
         },
         {
             name: 'hotpink',
-            color: new RGB(139, 0, 139),
+            color: new RGB(255, 105, 180),
             size: randomInt(2, 5),
             move: {
                 chance: 80,
