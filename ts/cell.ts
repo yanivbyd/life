@@ -21,6 +21,6 @@ export class Cell {
     }
 
     addRain(rainDelta: number) {
-        this.rain = inRange(this.rain + rainDelta, -2, 20);
+        this.rain = inRange(this.rain + rainDelta, -3, 20);
     }
 }

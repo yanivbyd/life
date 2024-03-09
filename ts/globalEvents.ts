@@ -58,7 +58,9 @@ export class GlobalEvents {
                 return 'Adding ' + cAmount + ' creatures';
             case 3:
             case 4:
-                new VegShapes(this.world).updateTerrain(randomIndex == 3);
+                const vegShapes = new VegShapes(this.world);
+                vegShapes.updateTerrain(randomIndex == 3);
+                vegShapes.ensureMinNoRainCells(0.05, 0.25);
                 return (randomIndex == 3 ? 'More rain terrain' : 'Less rain terrain');
                 break;
             case 5:

@@ -1,9 +1,10 @@
 import { World } from './world.js';
 import {randomBool, randomInt } from './utils/random.js';
 import { inRange } from './utils/utils.js';
+import { assertHigher } from './utils/assert.js';
 
-const INITIAL_RAIN_MIN = 5;
-const INITIAL_RAIN_MAX = 24;
+const INITIAL_RAIN_MIN = 3;
+const INITIAL_RAIN_MAX = 20;
 const MAX_RAIN = 20;
 
 function f(x: number) {
@@ -126,6 +127,38 @@ export class VegShapes {
 
             this.updateTerrain((v % 2) == 0);
         }
+
+        this.ensureMinNoRainCells(0.1, 0.25);
+    }
+
+    ensureMinNoRainCells(minPercentage: number, maxPercentage: number) {
+        var prevAmount = 0;
+        for (var v=0;v<10;v++) {
+            const noRainCellsPercent = this._calcNoRainCells() / (this.world.width * this.world.height)
+            if (noRainCellsPercent >= minPercentage && noRainCellsPercent <= maxPercentage) return;
+            const amount = noRainCellsPercent < minPercentage ? -1 : 1;
+            if (prevAmount != 0 && amount != prevAmount) return;
+            prevAmount = amount;
+            console.log(amount < 0 ? 'reducing rain for all' : 'adding rain for all');
+
+            for (let i = 0; i < this.world.width; i++) {
+                for (let j = 0; j < this.world.height; j++) {
+                    this.world.matrix[i][j].addRain(amount);
+                }
+            }
+        }
+    }
+    _calcNoRainCells(): number {
+        var result = 0;
+        for (let i = 0; i < this.world.width; i++) {
+            for (let j = 0; j < this.world.height; j++) {
+                const rain = this.world.matrix[i][j].rain;
+                assertHigher(rain, -4);
+                if (rain <= 0) result++;
+            }
+        }
+        console.log('cells with no rain=' + result + ' . percentage = ' + (result / (this.world.width * this.world.height)));
+        return result;
     }
 
     updateTerrain(isExtraRain: boolean): void {
@@ -135,15 +168,13 @@ export class VegShapes {
 
         for (let i = 0; i < this.world.width; i++) {
             for (let j = 0; j < this.world.height; j++) {
-                let amount = Math.round((matrix[i][j] * MAX_RAIN / 3) - 2);
-                if (!isExtraRain) { amount = -amount; }
-                this.world.matrix[i][j].addRain(inRange(amount, -8, 8));
+                let amount = Math.round(matrix[i][j] * 5);
+                if (!isExtraRain) {
+                    amount = -amount;
+                }
+                this.world.matrix[i][j].addRain(amount);
             }
         }
-    }
-
-    private _hasColor(canvasCtx: CanvasRenderingContext2D , x: number, y: number) {
-        return canvasCtx.getImageData(x, y, 1, 1).data[3] == 255;
     }
 
 }

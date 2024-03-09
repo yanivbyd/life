@@ -30,6 +30,14 @@ export function assertNotHigher(a: number, b: number) {
     }
 }
 
+export function assertHigher(a: number, b: number) {
+    if (a <= b) {
+        console.error("not higher " + a + " : " + b);
+        debugger;
+        alert("not higher " + a + " : " + b);
+    }
+}
+
 export function assertNull(a: Object) {
     if (!(a == null || a === undefined)) {
         console.error("not null", a);

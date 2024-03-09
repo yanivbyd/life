@@ -15,7 +15,7 @@ export var globalParams: WorldParams = {
         mutationChance: 1,
         attackHit: new Formula(15, 2),
         attackSuccessChange: new Formula(70, 0.8),
-        attackSuccessChangeForSmallerCreature: 10
+        attackSuccessChangeForSmallerCreature: 30
     },
     penalties: {
         breathing: new Formula(0.1, 0.7),
