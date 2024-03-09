@@ -154,7 +154,7 @@ export class World {
                     if (checkChance(deathChance)) {
                         cell.creature = null;
                     } else {
-                        cell.creature.health = Math.floor(cell.creature.health / 2);
+                        cell.creature.health = Math.floor(cell.creature.health / 3);
                     }
                 }
             }

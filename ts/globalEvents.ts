@@ -4,6 +4,7 @@ import { globalParams } from "./worldParams.js";
 import {randomBool} from "./utils/random.js";
 import { Formula } from "./rules/formula.js";
 import { Penalties } from "./rules/penalties.js";
+import { VegShapes } from "./vegShapes.js";
 
 export class GlobalEvents {
     world: World;
@@ -38,7 +39,7 @@ export class GlobalEvents {
     }
 
     private _runRandomEvent(): string {
-        const randomIndex = randomInt(1, 8);
+        const randomIndex = randomInt(1, 10);
         switch (randomIndex) {
             case 1:
                 if (randomBool()) {
@@ -56,21 +57,26 @@ export class GlobalEvents {
                 this.world.addCreatures(cAmount);
                 return 'Adding ' + cAmount + ' creatures';
             case 3:
+            case 4:
+                new VegShapes(this.world).updateTerrain(randomIndex == 3);
+                return (randomIndex == 3 ? 'More rain terrain' : 'Less rain terrain');
+                break;
+            case 5:
                 return this._updateFormula(globalParams.penalties.moving, 0,
                     'Harder to move (penalty=', ')',
                     'Easier to move (penalty=', ')'
                 );
-            case 4:
+            case 6:
                 return this._updateFormula(globalParams.rules.creatureMaxHealth, 3,
                     'Higher max health (', ')',
                     'Lower max health (', ')'
                 );
-            case 5:
+            case 7:
                 return this._updateFormula(globalParams.rules.maxVegToEat, 2,
                     'Higher max veg to eat (', ')',
                     'Lower max veg to eat (', ')'
                 );
-            case 6:
+            case 8:
                 const amount = randomInt(1, 5);
                 if (randomBool()) {
                     globalParams.env.maxVeg += amount;
@@ -81,12 +87,12 @@ export class GlobalEvents {
                     return 'Less veg per cell (' + globalParams.env.maxVeg + ')';
                 }
                 return null;
-            case 7:
+            case 9:
                 return this._updateFormula(globalParams.penalties.birth, 0,
                     'Harder to breed (penalty=', ')',
                     'Easier to breed (penalty=', ')'
                 );
-            case 8:
+            case 10:
                 const deathChance = randomInt(90,95);
                 const creatureType = this.world.topCreaturePlague(deathChance);
                 if (!creatureType) return null;

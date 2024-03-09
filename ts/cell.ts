@@ -16,11 +16,11 @@ export class Cell {
     }
 
     cycle(world: World): void {
-        this.veg += (this.rain+globalParams.env.extraRain);
-        this.veg = Math.max(0, Math.min(this.veg, globalParams.env.maxVeg));
+        this.veg += Math.max(0, this.rain + globalParams.env.extraRain);
+        this.veg = inRange(this.veg, 0, globalParams.env.maxVeg);
     }
 
     addRain(rainDelta: number) {
-        this.rain = inRange(this.rain + rainDelta, 0, 20);
+        this.rain = inRange(this.rain + rainDelta, -2, 20);
     }
 }
