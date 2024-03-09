@@ -1,3 +1,4 @@
+import { AttackGeneColumn } from "./stats/attackGeneColumn.js";
 import { BreedGeneColumn } from "./stats/breedGeneColumn.js";
 import { CountColumn } from "./stats/countColumn.js";
 import { CycleStatColumn } from "./stats/cycleStatColumn.js";
@@ -34,6 +35,7 @@ export class TableRenderer {
             new HealthColumn(),
             new MoveGeneColumn(),
             new BreedGeneColumn(),
+            new AttackGeneColumn(),
             new CycleStatColumn('new mutations','mutation'),
             new CycleStatColumn('kills','kill'),
             new CycleStatColumn('moves','move'),
@@ -156,6 +158,21 @@ export class TableRenderer {
             .append($('<td/>').text('A chance [0-100] for a birth to mutate parent DNA'))
             .appendTo(tbody);
         $('<tr/>')
+            .append($('<td/>').text('Attack success rate'))
+            .append($('<td/>').text(globalParams.rules.attackSuccessChange.describe()))
+            .append($('<td/>').text('A chance [0-100] to win an attack, size in the formula is the size difference between attacker and defender'))
+            .appendTo(tbody);
+        $('<tr/>')
+            .append($('<td/>').text('Attack success rate for smaller creatures'))
+            .append($('<td/>').text(globalParams.rules.attackSuccessChangeForSmallerCreature))
+            .append($('<td/>').text('A chance [0-100] to win an attack for smaller creatures'))
+            .appendTo(tbody);
+        $('<tr/>')
+            .append($('<td/>').text('Attack hit count'))
+            .append($('<td/>').text(globalParams.rules.attackHit.describe()))
+            .append($('<td/>').text('Attack hit count, size in the formula is the size difference between attacker and defender'))
+            .appendTo(tbody);
+        $('<tr/>')
             .append($('<td/>').text('Breathing penalty'))
             .append($('<td/>').text(globalParams.penalties.breathing.describe()))
             .append($('<td/>').text('The cost in health just to breathe'))
@@ -174,6 +191,11 @@ export class TableRenderer {
             .append($('<td/>').text('Birth penalty'))
             .append($('<td/>').text(globalParams.penalties.birth.describe()))
             .append($('<td/>').text('The cost in health to give birth'))
+            .appendTo(tbody);
+        $('<tr/>')
+            .append($('<td/>').text('Attack penalty'))
+            .append($('<td/>').text(globalParams.penalties.attack.describe()))
+            .append($('<td/>').text('Penalty for attacking'))
             .appendTo(tbody);
     }
 }

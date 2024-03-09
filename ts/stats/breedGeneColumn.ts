@@ -9,7 +9,7 @@ export class BreedGeneColumn {
     counts: number[];
 
     getTitle(): string {
-        return 'breed genes (min health, chance)';
+        return 'breed (min health, chance)';
     }
     getValue(world: World, type: number, def: CreatureDefs): string {
         if (this.counts[type]==0) {

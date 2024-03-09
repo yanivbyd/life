@@ -28,12 +28,19 @@ export class AttackAction implements CreatureAction {
         const sizeDiff = ctx.creature.dna.size - opp.dna.size;
         const attackSuccessChance = globalParams.rules.attackSuccessChange.calc(sizeDiff);
 
+        const hitAmount = Math.min(opp.health, ctx.creature.dna.size + globalParams.rules.attackHit.calc(sizeDiff));
+        if (hitAmount < opp.health && hitAmount <= attackPenalty) {
+            // No use for attacking
+            return;
+        }
+        if (ctx.creature.dna.size < opp.dna.size && !checkChance(globalParams.rules.attackSuccessChangeForSmallerCreature)) {
+            return;
+        }
         if (!checkChance(this.def.chance)) {
             return;
         }
 
         if (checkChance(attackSuccessChance)) {
-            const hitAmount = Math.min(opp.health, ctx.creature.dna.size + globalParams.rules.attackHit.calc(sizeDiff));
             opp.reduceHealth(hitAmount, ctx);
 
             if (opp.health == 0) {

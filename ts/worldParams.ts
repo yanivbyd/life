@@ -13,8 +13,9 @@ export var globalParams: WorldParams = {
         maxVegToEat: new Formula(2, 1),
         deathChance: new Formula(3, -0.2),
         mutationChance: 1,
-        attackHit: new Formula(2, 0.5),
-        attackSuccessChange: new Formula(70, 0.8)
+        attackHit: new Formula(15, 2),
+        attackSuccessChange: new Formula(70, 0.8),
+        attackSuccessChangeForSmallerCreature: 10
     },
     penalties: {
         breathing: new Formula(0.1, 0.7),

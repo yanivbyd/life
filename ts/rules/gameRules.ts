@@ -6,5 +6,6 @@ export class GameRules {
     deathChance: Formula;
     mutationChance: number;
     attackSuccessChange: Formula;
+    attackSuccessChangeForSmallerCreature: number;
     attackHit: Formula;
 }
