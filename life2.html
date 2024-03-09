@@ -16,7 +16,6 @@
 <body>
     <canvas id="canvas" width="550" height="450"></canvas>
     <div id="toolbar">
-        <button id="add" onclick="addCreatures(); render()" class="btn btn-secondary">Add</button>
         <button id="play_stop" onclick="playOrStop();" class="btn btn-primary">Play</button>
         <button onclick="cycle(); render()" class="btn btn-secondary">Cycle</button>
         <button id="render_display" onclick="toggleRenderDisplay();" class="btn btn-secondary">Rain map</button>
@@ -33,6 +32,10 @@
     <div id="rules">
         <div id="rules_title">Rules / Parameters</div>
         <table id="rules_table" class="table table-striped"></table>
+    </div>
+
+    <div id="global_events">
+        <div id ="global_events_title">Events</div>
     </div>
 
     <div id="toast" class="toast">

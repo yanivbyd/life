@@ -168,7 +168,7 @@ export class VegShapes {
 
         for (let i = 0; i < this.world.width; i++) {
             for (let j = 0; j < this.world.height; j++) {
-                let amount = Math.round(matrix[i][j] * 5);
+                let amount = Math.round(matrix[i][j] * 10);
                 if (!isExtraRain) {
                     amount = -amount;
                 }
