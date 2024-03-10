@@ -26,7 +26,7 @@ export var globalParams: WorldParams = {
     },
     creatures: [
         {
-            name: 'red',
+            name: 'yaniv',
             color: new RGB(255, 0, 0),
             size: randomInt(6, 8),
             move: {
@@ -42,7 +42,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'blue',
+            name: 'idan',
             color: new RGB(0, 0, 255),
             size: randomInt(5, 8),
             move: {
@@ -58,7 +58,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'purple',
+            name: 'itai',
             color: new RGB(128, 0, 128),
             size: randomInt(5, 8),
             move: {
@@ -74,7 +74,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'yellow',
+            name: 'hila',
             color: new RGB(255, 255, 0),
             size: randomInt(5, 8),
             move: {
@@ -90,7 +90,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'brown',
+            name: 'tali',
             color: new RGB(165, 42, 42),
             size: randomInt(5, 8),
             move: {
@@ -106,7 +106,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'pink',
+            name: 'lui',
             color: new RGB(255, 192, 203),
             size: randomInt(5, 8),
             move: {
@@ -122,7 +122,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'orange',
+            name: 'george',
             color: new RGB(255, 165, 0),
             size: randomInt(2, 5),
             move: {
@@ -138,7 +138,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'hotpink',
+            name: 'kramer',
             color: new RGB(255, 105, 180),
             size: randomInt(2, 5),
             move: {
@@ -154,7 +154,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'plum',
+            name: 'larry',
             color: new RGB(221, 160, 221),
             size: randomInt(2, 5),
             move: {
@@ -170,7 +170,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'slateblue',
+            name: 'elaine',
             color: new RGB(106, 90, 205),
             size: 3,
             move: {

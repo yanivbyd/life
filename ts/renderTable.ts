@@ -52,16 +52,21 @@ export class TableRenderer {
         this.rows = [];
 
         for (let type=0;type<globalParams.creatures.length;type++) {
-            const tr = $('<tr/>').appendTo(this.tbody).attr('id', "creature_" + globalParams.creatures[type].name);
+            const creatureDef = globalParams.creatures[type];
+            const tr = $('<tr/>').appendTo(this.tbody).attr('id', "creature_" + creatureDef.name);
             var tds: JQuery[] = [];
             for (let i=0;i<this.columns.length;i++) {
-                tds.push($('<td/>').appendTo(tr));
+                tds.push($('<td/>')
+                    .appendTo(tr)
+                    .css('background-color', 'rgba(' + creatureDef.color.red + ','
+                        + creatureDef.color.green + ',' + creatureDef.color.blue + ',255)')
+                );
             }
             this.rows.push({
                 tr: tr,
                 tds: tds,
                 type: type,
-                def: globalParams.creatures[type]
+                def: creatureDef
             });
         }
     }
