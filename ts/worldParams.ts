@@ -45,15 +45,15 @@ export var globalParams: WorldParams = {
         },
         {
             name: 'fish',
-            color: new RGB(12, 25, 220),
+            color: new RGB(88, 150, 220),
             size: randomInt(5, 8),
             eat: { vegIsPoison: true },
             move: {
-                chance: 70,
-                minVegAmount: 25
+                chance: 20,
+                minVegAmount: 5
             },
             breed: {
-                chance: 50,
+                chance: 20,
                 minHealth: 20
             },
             attack: {
@@ -78,7 +78,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'hila',
+            name: 'tali',
             color: new RGB(255, 255, 0),
             size: randomInt(5, 8),
             eat: { vegIsPoison: false },
@@ -95,7 +95,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'tali',
+            name: 'hila',
             color: new RGB(165, 42, 42),
             size: randomInt(5, 8),
             eat: { vegIsPoison: false },
@@ -113,12 +113,12 @@ export var globalParams: WorldParams = {
         },
         {
             name: 'idan',
-            color: new RGB(255, 192, 203),
-            size: randomInt(5, 8),
+            color: new RGB(255, 165, 0),
+            size: 3,
             eat: { vegIsPoison: false },
             move: {
-                chance: 70,
-                minVegAmount: 25
+                chance: 80,
+                minVegAmount: 24
             },
             breed: {
                 chance: 50,
@@ -130,7 +130,7 @@ export var globalParams: WorldParams = {
         },
         {
             name: 'george',
-            color: new RGB(255, 165, 0),
+            color: new RGB(255, 192, 203),
             size: randomInt(2, 5),
             eat: { vegIsPoison: false },
             move: {
@@ -163,7 +163,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'larry',
+            name: 'jerry',
             color: new RGB(221, 160, 221),
             size: randomInt(2, 5),
             eat: { vegIsPoison: false },
