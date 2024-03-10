@@ -31,7 +31,7 @@ export var globalParams: WorldParams = {
             size: randomInt(6, 8),
             move: {
                 chance: 50,
-                minVegAmount: 5
+                minVegAmount: 25
             },
             breed: {
                 chance: 50,
@@ -47,7 +47,7 @@ export var globalParams: WorldParams = {
             size: randomInt(5, 8),
             move: {
                 chance: 70,
-                minVegAmount: 5
+                minVegAmount: 25
             },
             breed: {
                 chance: 50,
@@ -63,7 +63,7 @@ export var globalParams: WorldParams = {
             size: randomInt(5, 8),
             move: {
                 chance: 70,
-                minVegAmount: 5
+                minVegAmount: 25
             },
             breed: {
                 chance: 50,
@@ -79,7 +79,7 @@ export var globalParams: WorldParams = {
             size: randomInt(5, 8),
             move: {
                 chance: 70,
-                minVegAmount: 5
+                minVegAmount: 25
             },
             breed: {
                 chance: 50,
@@ -95,7 +95,7 @@ export var globalParams: WorldParams = {
             size: randomInt(5, 8),
             move: {
                 chance: 70,
-                minVegAmount: 5
+                minVegAmount: 25
             },
             breed: {
                 chance: 50,
@@ -111,7 +111,7 @@ export var globalParams: WorldParams = {
             size: randomInt(5, 8),
             move: {
                 chance: 70,
-                minVegAmount: 5
+                minVegAmount: 25
             },
             breed: {
                 chance: 50,
@@ -127,7 +127,7 @@ export var globalParams: WorldParams = {
             size: randomInt(2, 5),
             move: {
                 chance: 80,
-                minVegAmount: 4
+                minVegAmount: 24
             },
             breed: {
                 chance: 50,
@@ -143,7 +143,7 @@ export var globalParams: WorldParams = {
             size: randomInt(2, 5),
             move: {
                 chance: 80,
-                minVegAmount: 4
+                minVegAmount: 24
             },
             breed: {
                 chance: 50,
@@ -159,7 +159,7 @@ export var globalParams: WorldParams = {
             size: randomInt(2, 5),
             move: {
                 chance: 80,
-                minVegAmount: 4
+                minVegAmount: 24
             },
             breed: {
                 chance: 50,
@@ -175,7 +175,7 @@ export var globalParams: WorldParams = {
             size: 3,
             move: {
                 chance: 80,
-                minVegAmount: 4
+                minVegAmount: 24
             },
             breed: {
                 chance: 50,
