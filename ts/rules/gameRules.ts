@@ -8,4 +8,5 @@ export class GameRules {
     attackSuccessChange: Formula;
     attackSuccessChangeForSmallerCreature: number;
     attackHit: Formula;
+    reverseVegInCell: number;
 }

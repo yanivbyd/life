@@ -4,22 +4,25 @@ import {AttackAction, AttackDef } from "./attackAction.js";
 import {BreedAction, BreedDef } from "./breedAction.js";
 import { EatVegAction } from "./eatVeg.js";
 import {MoveAction, MoveDef} from "./moveAction.js";
+import {EatDef} from "./eatVeg";
 
 export class CreatureDNA {
     size: number;
+    eatDef: EatDef;
     moveDef: MoveDef;
     breedDef: BreedDef;
     attackDef: AttackDef;
 
     actions: CreatureAction[];
 
-    constructor(size: number, moveDef: MoveDef, breedDef: BreedDef, attackDef: AttackDef) {
+    constructor(size: number, eatDef: EatDef, moveDef: MoveDef, breedDef: BreedDef, attackDef: AttackDef) {
         this.size = size;
+        this.eatDef = eatDef;
         this.moveDef = moveDef;
         this.breedDef = breedDef;
         this.attackDef = attackDef;
         this.actions = [
-            new EatVegAction(),
+            new EatVegAction(this.eatDef),
             new MoveAction(this.moveDef),
             new BreedAction(this.breedDef),
             new AttackAction(this.attackDef)
@@ -39,6 +42,9 @@ export class CreatureDNA {
     }
 
     mutate(): CreatureDNA {
+        var eatDef: EatDef = {
+            vegIsPoison: this.eatDef.vegIsPoison
+        };
         var moveDef: MoveDef = {
             chance: this.moveDef.chance,
             minVegAmount: this.moveDef.minVegAmount
@@ -52,7 +58,7 @@ export class CreatureDNA {
         };
         var newSize = this.size;
         
-        const randomGene = randomInt(1, 12);
+        const randomGene = randomInt(1, 13);
         switch (randomGene) {
             case 1:
             case 2:
@@ -77,9 +83,12 @@ export class CreatureDNA {
             case 12:
                 attackDef.chance = this._mutateChanceGene(this.attackDef.chance, randomGene == 11);
                 break;
+            case 13:
+                eatDef.vegIsPoison = eatDef.vegIsPoison;
+                break;
         }
 
-        const newDNA = new CreatureDNA(newSize, moveDef, breedDef, attackDef);
+        const newDNA = new CreatureDNA(newSize, eatDef, moveDef, breedDef, attackDef);
         const dnaFromCache = fromDNACache(newDNA.toCacheKey());
         if (dnaFromCache) {
             return dnaFromCache;

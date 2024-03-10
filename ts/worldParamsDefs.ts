@@ -1,5 +1,6 @@
 import { AttackDef } from "./actions/attackAction.js";
 import { BreedDef } from "./actions/breedAction.js";
+import { EatDef } from "./actions/eatVeg.js";
 import { MoveDef } from "./actions/moveAction.js";
 import { RGB } from "./rgb.js";
 import { Formula } from "./rules/formula.js";
@@ -19,6 +20,7 @@ export class CreatureDefs {
     color: RGB;
     size: number;
 
+    eat: EatDef;
     move: MoveDef;
     breed: BreedDef;
     attack: AttackDef;

@@ -15,7 +15,8 @@ export var globalParams: WorldParams = {
         mutationChance: 1,
         attackHit: new Formula(15, 2),
         attackSuccessChange: new Formula(70, 0.8),
-        attackSuccessChangeForSmallerCreature: 30
+        attackSuccessChangeForSmallerCreature: 30,
+        reverseVegInCell: 15
     },
     penalties: {
         breathing: new Formula(0.1, 0.7),
@@ -29,6 +30,7 @@ export var globalParams: WorldParams = {
             name: 'yaniv',
             color: new RGB(255, 0, 0),
             size: randomInt(6, 8),
+            eat: { vegIsPoison: false },
             move: {
                 chance: 50,
                 minVegAmount: 25
@@ -42,9 +44,10 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'idan',
-            color: new RGB(0, 0, 255),
+            name: 'fish',
+            color: new RGB(12, 25, 220),
             size: randomInt(5, 8),
+            eat: { vegIsPoison: true },
             move: {
                 chance: 70,
                 minVegAmount: 25
@@ -61,6 +64,7 @@ export var globalParams: WorldParams = {
             name: 'itai',
             color: new RGB(128, 0, 128),
             size: randomInt(5, 8),
+            eat: { vegIsPoison: false },
             move: {
                 chance: 70,
                 minVegAmount: 25
@@ -77,6 +81,7 @@ export var globalParams: WorldParams = {
             name: 'hila',
             color: new RGB(255, 255, 0),
             size: randomInt(5, 8),
+            eat: { vegIsPoison: false },
             move: {
                 chance: 70,
                 minVegAmount: 25
@@ -93,6 +98,7 @@ export var globalParams: WorldParams = {
             name: 'tali',
             color: new RGB(165, 42, 42),
             size: randomInt(5, 8),
+            eat: { vegIsPoison: false },
             move: {
                 chance: 70,
                 minVegAmount: 25
@@ -106,9 +112,10 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'lui',
+            name: 'idan',
             color: new RGB(255, 192, 203),
             size: randomInt(5, 8),
+            eat: { vegIsPoison: false },
             move: {
                 chance: 70,
                 minVegAmount: 25
@@ -125,6 +132,7 @@ export var globalParams: WorldParams = {
             name: 'george',
             color: new RGB(255, 165, 0),
             size: randomInt(2, 5),
+            eat: { vegIsPoison: false },
             move: {
                 chance: 80,
                 minVegAmount: 24
@@ -141,6 +149,7 @@ export var globalParams: WorldParams = {
             name: 'kramer',
             color: new RGB(255, 105, 180),
             size: randomInt(2, 5),
+            eat: { vegIsPoison: false },
             move: {
                 chance: 80,
                 minVegAmount: 24
@@ -157,6 +166,7 @@ export var globalParams: WorldParams = {
             name: 'larry',
             color: new RGB(221, 160, 221),
             size: randomInt(2, 5),
+            eat: { vegIsPoison: false },
             move: {
                 chance: 80,
                 minVegAmount: 24
@@ -173,6 +183,7 @@ export var globalParams: WorldParams = {
             name: 'elaine',
             color: new RGB(106, 90, 205),
             size: 3,
+            eat: { vegIsPoison: false },
             move: {
                 chance: 80,
                 minVegAmount: 24
