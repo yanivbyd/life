@@ -47,7 +47,7 @@ export class GlobalEvents {
         this.nextEventTime = this.world.currentCycle + randomInt(80, 120);
     }
 
-    private _pillage(): string {
+    private _plague(): string {
         const deathChance = randomInt(90, 95);
         const creatureType = this.world.topCreaturePlague(deathChance);
         if (!creatureType) return null;
@@ -108,9 +108,9 @@ export class GlobalEvents {
                 that.showMessageAndRender(that._addCreatures());
             });
         $('<button/>').addClass("btn btn-outline-danger").appendTo(div)
-            .text("Pillage")
+            .text("Plague (top creature)")
             .click(function () {
-                that.showMessageAndRender(that._pillage());
+                that.showMessageAndRender(that._plague());
             });
 
         $('<div/>').appendTo(div);
@@ -120,10 +120,13 @@ export class GlobalEvents {
                 that.showMessageAndRender(that._incVal(globalParams.env, 'extraRain', randomInt(1, 3),
                         'More rain (extra rain = ', ')'));
             });
-
         $('<button/>').addClass("btn btn-outline-success").appendTo(div)
             .text("Rain (terrain)")
             .click(function() { that.showMessageAndRender(that._moreRainTerrain()); });
+        $('<button/>').addClass("btn btn-outline-success").appendTo(div)
+            .text("Veg Per Cell")
+            .click(function() { that.showMessageAndRender(that._moreVegPerCell()); });
+
 
         $('<div/>').appendTo(div);
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
@@ -135,6 +138,9 @@ export class GlobalEvents {
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
             .text("Rain (terrain)")
             .click(function() { that.showMessageAndRender(that._lessRainTerrain()); });
+        $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
+            .text("Veg Per Cell")
+            .click(function() { that.showMessageAndRender(that._lessVegPerCell()); });
 
         $('<div/>').appendTo(div);
         $('<button/>').addClass("btn btn-outline-success").appendTo(div)
@@ -154,9 +160,6 @@ export class GlobalEvents {
         $('<button/>').addClass("btn btn-outline-success").appendTo(div)
             .text("Eat Veg")
             .click(function() { that.showMessageAndRender(that._maxVegEasier()); });
-        $('<button/>').addClass("btn btn-outline-success").appendTo(div)
-            .text("Veg Per Cell")
-            .click(function() { that.showMessageAndRender(that._moreVegPerCell()); });
 
         $('<div/>').appendTo(div);
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
@@ -173,9 +176,6 @@ export class GlobalEvents {
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
             .text("Eat Veg")
             .click(function() { that.showMessageAndRender(that._maxVegHarder()); });
-        $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
-            .text("Veg Per Cell")
-            .click(function() { that.showMessageAndRender(that._lessVegPerCell()); });
     }
 
     private _moreRainTerrain(): string {

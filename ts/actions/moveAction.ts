@@ -18,10 +18,10 @@ export class MoveAction implements CreatureAction {
     }
     cycle(ctx: CycleContext): void {
         if (ctx.cell.veg >= this.def.minVegAmount) return;
-        const nextPos: Pos = this._findNeighbourWithMaxVeg(ctx);
+        const nextPos: Pos = this._findPosToMove(ctx);
         const movePenalty: number = ctx.penalties.moving.calc(ctx.creature.dna.size);
         const breathPenalty: number = ctx.penalties.breathing.calc(ctx.creature.dna.size);
-        if (nextPos && ctx.creature.health > movePenalty + breathPenalty) {
+        if (nextPos && ctx.creature.health > movePenalty) {
             if (checkChance(this.def.chance)) {
                 ctx.moveCreatureTo(nextPos.x, nextPos.y);
                 ctx.creature.reduceHealth(movePenalty, ctx);
@@ -30,21 +30,9 @@ export class MoveAction implements CreatureAction {
         }
     }
 
-    private _findNeighbourWithMaxVeg(ctx: CycleContext): Pos {
-        let options: Pos[] = [];
-        let neighbours: Pos[] = ctx.world.getNeighbouringPositions(ctx.x, ctx.y);
-        let maxVeg = -1;
-        for (var i=0;i<neighbours.length;i++) {
-            const cell: Cell = ctx.world.matrix[neighbours[i].x][neighbours[i].y];
-            if (!cell.creature) {
-                if (cell.veg == maxVeg) {
-                    options.push(neighbours[i]);
-                } else if (cell.veg > maxVeg) {
-                    options = [neighbours[i]];
-                    maxVeg = cell.veg;
-                }
-            }
-        }
+    private _findPosToMove(ctx: CycleContext): Pos {
+        let options: Pos[] = ctx.world.getNeighbouringPositions(ctx.x, ctx.y)
+            .filter(n => !ctx.world.matrix[n.x][n.y].creature);
         return getRandomArrItem(options);
     }
 
