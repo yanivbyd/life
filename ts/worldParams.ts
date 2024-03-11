@@ -27,7 +27,7 @@ export var globalParams: WorldParams = {
     },
     creatures: [
         {
-            name: 'yaniv',
+            name: 'יניב',
             color: new RGB(255, 0, 0),
             size: randomInt(6, 8),
             eat: { vegIsPoison: false },
@@ -44,7 +44,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'fish',
+            name: 'דגים',
             color: new RGB(88, 150, 220),
             size: randomInt(5, 8),
             eat: { vegIsPoison: true },
@@ -61,7 +61,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'itai',
+            name: 'נמלים',
             color: new RGB(128, 0, 128),
             size: randomInt(5, 8),
             eat: { vegIsPoison: false },
@@ -78,7 +78,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'tali',
+            name: 'טלי',
             color: new RGB(255, 255, 0),
             size: randomInt(5, 8),
             eat: { vegIsPoison: false },
@@ -95,7 +95,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'hila',
+            name: 'קופים',
             color: new RGB(165, 42, 42),
             size: randomInt(5, 8),
             eat: { vegIsPoison: false },
@@ -112,7 +112,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'idan',
+            name: 'עידן',
             color: new RGB(255, 165, 0),
             size: 3,
             eat: { vegIsPoison: false },
@@ -129,7 +129,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'george',
+            name: 'צפרדעים',
             color: new RGB(255, 192, 203),
             size: randomInt(2, 5),
             eat: { vegIsPoison: false },
@@ -146,7 +146,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'kramer',
+            name: 'עכברים',
             color: new RGB(255, 105, 180),
             size: randomInt(2, 5),
             eat: { vegIsPoison: false },
@@ -163,7 +163,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'jerry',
+            name: 'הילה',
             color: new RGB(221, 160, 221),
             size: randomInt(2, 5),
             eat: { vegIsPoison: false },
@@ -180,7 +180,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'elaine',
+            name: 'איתי',
             color: new RGB(106, 90, 205),
             size: 3,
             eat: { vegIsPoison: false },
