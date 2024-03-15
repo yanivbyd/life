@@ -61,7 +61,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'נמלים',
+            name: 'כלבים',
             color: new RGB(128, 0, 128),
             size: randomInt(5, 8),
             eat: { vegIsPoison: false },
@@ -129,7 +129,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'צפרדעים',
+            name: 'לאמות',
             color: new RGB(255, 192, 203),
             size: randomInt(2, 5),
             eat: { vegIsPoison: false },
@@ -146,7 +146,7 @@ export var globalParams: WorldParams = {
             }
         },
         {
-            name: 'עכברים',
+            name: 'ברווזים',
             color: new RGB(255, 105, 180),
             size: randomInt(2, 5),
             eat: { vegIsPoison: false },

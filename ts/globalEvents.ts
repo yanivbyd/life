@@ -115,7 +115,7 @@ export class GlobalEvents {
         $('<button/>').addClass("btn btn-outline-danger").appendTo(div)
             .text("Add killers")
             .click(function () {
-                const kAmount = randomInt(5, 30);
+                const kAmount = randomInt(3, 6);
                 that.world.addKillers(kAmount);
                 that.showMessageAndRender('Adding ' + kAmount + ' killers');
             });

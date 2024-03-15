@@ -77,7 +77,8 @@ export class World {
         for (let i=0; i<amount; i++) {
             const x = randomInt(0, this.width - 1);
             const y = randomInt(0, this.height - 1);
-            this.matrix[x][y].killer = new Killer(randomInt(200, 300), randomInt(5, 30), randomInt(-1,1), randomInt(-1, 1));
+            this.matrix[x][y].killer = new Killer(randomInt(5, 30),
+                new Pos(randomInt(0, this.width - 1), randomInt(0, this.height - 1)));
         }
     }
 
