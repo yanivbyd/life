@@ -11,6 +11,7 @@ import { globalParams } from "./worldParams.js";
 import { CreatureDefs } from "./worldParamsDefs.js";
 import { GlobalEvents } from "./globalEvents.js";
 import {checkChance} from "./utils/random.js";
+import { Killer } from "./killer.js";
 
 export class World {
     width: number;
@@ -71,6 +72,15 @@ export class World {
             }
         }
     }
+
+    addKillers(amount: number) {
+        for (let i=0; i<amount; i++) {
+            const x = randomInt(0, this.width - 1);
+            const y = randomInt(0, this.height - 1);
+            this.matrix[x][y].killer = new Killer(randomInt(200, 300), randomInt(5, 30), randomInt(-1,1), randomInt(-1, 1));
+        }
+    }
+
     cycle(): void {
         this.currentCycle++;
         this.statsCounter = new CycleStatsCounter();
@@ -83,10 +93,14 @@ export class World {
 
         for (let i = 0; i < this.width; i++) {
             for (let j = 0; j < this.height; j++) {
-                this.matrix[i][j].cycle(this);
-                if (this.matrix[i][j].creature) {
-                    cycleCtx.creature = this.matrix[i][j].creature;
-                    cycleCtx.cell = this.matrix[i][j];
+                const cell = this.matrix[i][j];
+                cell.cycle(this);
+                if (cell.killer) {
+                    cell.killer.cycle(this, i, j);
+                }
+                if (cell.creature) {
+                    cycleCtx.creature = cell.creature;
+                    cycleCtx.cell = cell;
                     cycleCtx.x = i;
                     cycleCtx.y = j;
 
@@ -160,6 +174,10 @@ export class World {
             }
         }
         return type;
+    }
+
+    isValid(x: number, y: number): boolean {
+        return x >= 0 && x < this.width && y >= 0 && y < this.height;
     }
 
 

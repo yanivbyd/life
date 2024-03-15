@@ -98,6 +98,9 @@ export class CanvasRenderer {
                 if (cell.creature) {
                     color = cell.creature.getTypeDef().color;
                 }
+                if (cell.killer) {
+                    color = new RGB(0, 0, 0);
+                }
                 assertNotNull(color);
                 dataIndex = this._renderPixel(imageData.data, color, dataIndex);
             }

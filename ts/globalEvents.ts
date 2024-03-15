@@ -112,6 +112,13 @@ export class GlobalEvents {
             .click(function () {
                 that.showMessageAndRender(that._plague());
             });
+        $('<button/>').addClass("btn btn-outline-danger").appendTo(div)
+            .text("Add killers")
+            .click(function () {
+                const kAmount = randomInt(5, 30);
+                that.world.addKillers(kAmount);
+                that.showMessageAndRender('Adding ' + kAmount + ' killers');
+            });
 
         $('<div/>').appendTo(div);
         $('<button/>').addClass("btn btn-outline-success").appendTo(div)
