@@ -7,7 +7,6 @@ import { getRandomArrItem } from "../utils/random.js";
 import { checkChance } from "../utils/random.js";
 
 export class BreedDef {
-    chance: number;
     minHealth: number;
 }
 
@@ -23,20 +22,18 @@ export class BreedAction implements CreatureAction {
         const babyPos: Pos = this._findEmptyNeighbourPos(ctx);
         if (!mate || !babyPos) { return; }
 
-        if (checkChance(this.def.chance)) {
-            const healthFromMe = Math.floor(ctx.creature.health / 2);
-            const healthFromMate = Math.floor(mate.health / 2);
-            const hasMutation = checkChance(ctx.rules.mutationChance)
-            const babyDNA = hasMutation ? ctx.creature.dna.mutate() : ctx.creature.dna;
-            const babyHealth = Math.min(healthFromMe + healthFromMate, ctx.rules.creatureMaxHealth.calc(babyDNA.size));
-            ctx.createBaby(babyPos, babyHealth, ctx.creature, babyDNA);
-            
-            ctx.creature.reduceHealth(healthFromMe + ctx.penalties.birth.calc(ctx.creature.dna.size), ctx);
-            mate.reduceHealth(healthFromMate + ctx.penalties.birth.calc(mate.dna.size), ctx);
-            ctx.statsCounter.tick('birth', ctx.creature.type);
-            if (hasMutation) {
-                ctx.statsCounter.tick('mutation', ctx.creature.type);
-            }
+        const healthFromMe = Math.floor(ctx.creature.health / 2);
+        const healthFromMate = Math.floor(mate.health / 2);
+        const hasMutation = checkChance(ctx.rules.mutationChance)
+        const babyDNA = hasMutation ? ctx.creature.dna.mutate() : ctx.creature.dna;
+        const babyHealth = Math.min(healthFromMe + healthFromMate, ctx.rules.creatureMaxHealth.calc(babyDNA.size));
+        ctx.createBaby(babyPos, babyHealth, ctx.creature, babyDNA);
+
+        ctx.creature.reduceHealth(healthFromMe + ctx.penalties.birth.calc(ctx.creature.dna.size), ctx);
+        mate.reduceHealth(healthFromMate + ctx.penalties.birth.calc(mate.dna.size), ctx);
+        ctx.statsCounter.tick('birth', ctx.creature.type);
+        if (hasMutation) {
+            ctx.statsCounter.tick('mutation', ctx.creature.type);
         }
     }
 

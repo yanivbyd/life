@@ -3,7 +3,6 @@ import { BreedGeneColumn } from "./stats/breedGeneColumn.js";
 import { CountColumn } from "./stats/countColumn.js";
 import { CycleStatColumn } from "./stats/cycleStatColumn.js";
 import { HealthColumn } from "./stats/healthColumn.js";
-import { MoveGeneColumn } from "./stats/moveGeneColumn.js";
 import { NameColumn } from "./stats/nameColumn.js";
 import { SizeColumn } from "./stats/sizeColumn.js";
 import { StatColumn } from "./stats/statColumn.js";
@@ -33,12 +32,10 @@ export class TableRenderer {
             new SizeColumn(),
             new VegCountColumn(),
             new HealthColumn(),
-            new MoveGeneColumn(),
             new BreedGeneColumn(),
             new AttackGeneColumn(),
             new CycleStatColumn('new mutations','mutation'),
             new CycleStatColumn('kills','kill'),
-            new CycleStatColumn('moves','move'),
             new CycleStatColumn('births','birth'),
             new CycleStatColumn('deaths','death')
         ];
@@ -171,11 +168,6 @@ export class TableRenderer {
             .append($('<td/>').text('Breathing penalty'))
             .append($('<td/>').text(globalParams.penalties.breathing.describe()))
             .append($('<td/>').text('The cost in health just to breathe'))
-            .appendTo(tbody);
-        $('<tr/>')
-            .append($('<td/>').text('Move penalty'))
-            .append($('<td/>').text(globalParams.penalties.moving.describe()))
-            .append($('<td/>').text('The cost in health to move'))
             .appendTo(tbody);
         $('<tr/>')
             .append($('<td/>').text('Eating penalty'))

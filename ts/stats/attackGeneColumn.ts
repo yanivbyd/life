@@ -31,7 +31,7 @@ export class AttackGeneColumn {
     onCell(cell: Cell) {
         if (cell.creature) {
             this.counts[cell.creature.type]++;
-            this.chanceTotals[cell.creature.type] += cell.creature.dna.moveDef.chance;
+            this.chanceTotals[cell.creature.type] += cell.creature.dna.attackDef.chance;
         }
     }
 }

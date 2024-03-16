@@ -1,7 +1,6 @@
 import { CreatureAction } from "../creatureAction.js";
 import { CycleContext } from "../cycle/cycleContext.js";
 import {assertNotHigher, assertNotNegative } from "../utils/assert.js";
-import {MoveDef} from "./moveAction";
 
 export class EatDef {
     isWaterCreature: boolean

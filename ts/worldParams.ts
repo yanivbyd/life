@@ -17,7 +17,6 @@ export var globalParams: WorldParams = {
     penalties: {
         breathing: new Formula(0.1, 0.7),
         eating: new Formula(0.3, 0.3),
-        moving: new Formula(2, 0.1),
         birth: new Formula(3, 0.1),
         attack: new Formula(3, 0.1)
     },
@@ -27,12 +26,7 @@ export var globalParams: WorldParams = {
             color: new RGB(255, 0, 0),
             size: randomInt(6, 8),
             eat: { isWaterCreature: false },
-            move: {
-                chance: 50,
-                minVegAmount: 25
-            },
             breed: {
-                chance: 50,
                 minHealth: 18
             },
             attack: {
@@ -44,12 +38,7 @@ export var globalParams: WorldParams = {
             color: new RGB(88, 150, 220),
             size: randomInt(2, 6),
             eat: { isWaterCreature: true },
-            move: {
-                chance: 20,
-                minVegAmount: 5
-            },
             breed: {
-                chance: 20,
                 minHealth: 20
             },
             attack: {
@@ -61,12 +50,7 @@ export var globalParams: WorldParams = {
             color: new RGB(128, 0, 128),
             size: randomInt(5, 8),
             eat: { isWaterCreature: false },
-            move: {
-                chance: 70,
-                minVegAmount: 25
-            },
             breed: {
-                chance: 50,
                 minHealth: 20
             },
             attack: {
@@ -78,12 +62,7 @@ export var globalParams: WorldParams = {
             color: new RGB(255, 255, 0),
             size: randomInt(5, 8),
             eat: { isWaterCreature: false },
-            move: {
-                chance: 70,
-                minVegAmount: 25
-            },
             breed: {
-                chance: 50,
                 minHealth: 20
             },
             attack: {
@@ -95,12 +74,7 @@ export var globalParams: WorldParams = {
             color: new RGB(165, 42, 42),
             size: randomInt(5, 8),
             eat: { isWaterCreature: false },
-            move: {
-                chance: 70,
-                minVegAmount: 25
-            },
             breed: {
-                chance: 50,
                 minHealth: 20
             },
             attack: {
@@ -112,12 +86,7 @@ export var globalParams: WorldParams = {
             color: new RGB(255, 165, 0),
             size: 3,
             eat: { isWaterCreature: false },
-            move: {
-                chance: 80,
-                minVegAmount: 24
-            },
             breed: {
-                chance: 50,
                 minHealth: 20
             },
             attack: {
@@ -129,12 +98,7 @@ export var globalParams: WorldParams = {
             color: new RGB(255, 192, 203),
             size: randomInt(2, 5),
             eat: { isWaterCreature: false },
-            move: {
-                chance: 80,
-                minVegAmount: 24
-            },
             breed: {
-                chance: 50,
                 minHealth: 20
             },
             attack: {
@@ -146,12 +110,7 @@ export var globalParams: WorldParams = {
             color: new RGB(46, 167, 161),
             size: randomInt(2, 6),
             eat: { isWaterCreature: true },
-            move: {
-                chance: 80,
-                minVegAmount: 24
-            },
             breed: {
-                chance: 50,
                 minHealth: 20
             },
             attack: {
@@ -163,12 +122,7 @@ export var globalParams: WorldParams = {
             color: new RGB(221, 160, 221),
             size: randomInt(2, 5),
             eat: { isWaterCreature: false },
-            move: {
-                chance: 80,
-                minVegAmount: 24
-            },
             breed: {
-                chance: 50,
                 minHealth: 20
             },
             attack: {
@@ -180,12 +134,7 @@ export var globalParams: WorldParams = {
             color: new RGB(106, 90, 205),
             size: 3,
             eat: { isWaterCreature: false },
-            move: {
-                chance: 80,
-                minVegAmount: 24
-            },
             breed: {
-                chance: 50,
                 minHealth: 20
             },
             attack: {

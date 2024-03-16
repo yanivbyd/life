@@ -51,7 +51,7 @@ export class World {
         var initialDNA: CreatureDNA[] = [];
         for (let type=0;type<globalParams.creatures.length;type++) {
             const creatureDef: CreatureDefs = globalParams.creatures[type];
-            initialDNA.push(new CreatureDNA(creatureDef.size, creatureDef.eat, creatureDef.move, creatureDef.breed, creatureDef.attack));
+            initialDNA.push(new CreatureDNA(creatureDef.size, creatureDef.eat, creatureDef.breed, creatureDef.attack));
         }
 
         for (let i=0; i<amount; i++) {

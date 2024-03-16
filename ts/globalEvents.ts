@@ -161,12 +161,6 @@ export class GlobalEvents {
 
         $('<div/>').appendTo(div);
         $('<button/>').addClass("btn btn-outline-success").appendTo(div)
-            .text("Move")
-            .click(function() {
-                that.showMessageAndRender(that._updateFormulaDec(
-                    globalParams.penalties.moving, 0, 'Easier to move (penalty=', ')'));
-            });
-        $('<button/>').addClass("btn btn-outline-success").appendTo(div)
             .text("Breed")
             .click(function() { that.showMessageAndRender(that._updateFormulaDec(globalParams.penalties.birth, 0,
                 'Easier to breed (penalty=', ')'))
@@ -179,11 +173,6 @@ export class GlobalEvents {
             .click(function() { that.showMessageAndRender(that._maxVegEasier()); });
 
         $('<div/>').appendTo(div);
-        $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
-            .text("Move")
-            .click(function() { that.showMessageAndRender(that._updateFormulaInc(
-                globalParams.penalties.moving, 'Harder to move (penalty=', ')'))
-            });
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
             .text("Breed")
             .click(function() { that.showMessageAndRender(that._breedHarder()); });
