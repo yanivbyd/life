@@ -4,6 +4,7 @@ import { CreatureDNA } from './actions/dna.js';
 import {checkChance} from "./utils/random.js";
 import { globalParams } from './worldParams.js';
 import { CreatureDefs } from './worldParamsDefs.js';
+import { inRange } from './utils/utils.js';
 
 export class Creature {
     health: number;
@@ -46,6 +47,10 @@ export class Creature {
             ctx.creatureDied();
             ctx.statsCounter.tick("death", this.type);
         }
+    }
+
+    incHealth(amount: number) {
+        this.health = inRange(this.health + amount, 0, globalParams.rules.creatureMaxHealth.calc(this.dna.size));
     }
     isDead(): boolean {
         return this.health <= 0;

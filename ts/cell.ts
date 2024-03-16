@@ -4,6 +4,7 @@ import { randomInt } from './utils/random.js';
 import { inRange } from './utils/utils.js';
 import { World } from './world.js';
 import { globalParams } from './worldParams.js';
+import {checkChance} from "./utils/random.js";
 
 export class Cell {
     veg: number;
@@ -22,8 +23,11 @@ export class Cell {
     cycle(world: World): void {
         if (this.playedCycle >= world.currentCycle) return;
         this.playedCycle = world.currentCycle;
-
-        this.veg += Math.max(0, this.rain + globalParams.env.extraRain);
+        const rain = this.rain + globalParams.env.extraRain;
+        this.veg += Math.max(0, rain);
+        if (rain == 0 && checkChance(1)) {
+            this.veg--;
+        }
         this.veg = inRange(this.veg, 0, globalParams.env.maxVeg);
     }
 

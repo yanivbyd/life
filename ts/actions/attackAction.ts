@@ -19,21 +19,29 @@ export class AttackAction implements CreatureAction {
         this.def = def;
     }
     cycle(ctx: CycleContext): void {
+        if (ctx.creature.dna.eatDef.vegIsPoison) return; // fish can't attack
+
         const attackPenalty: number = ctx.penalties.attack.calc(ctx.creature.dna.size);
         const oppPos: Pos = this._findAttackOpponent(ctx);
         if (!oppPos) return;
         const opp: Creature = ctx.world.matrix[oppPos.x][oppPos.y].creature;
         assertNotNull(opp);
+        const isOppFish: boolean = opp.dna.eatDef.vegIsPoison;
 
         const sizeDiff = ctx.creature.dna.size - opp.dna.size;
         const attackSuccessChance = globalParams.rules.attackSuccessChange.calc(sizeDiff);
 
-        const hitAmount = Math.min(opp.health, ctx.creature.dna.size + globalParams.rules.attackHit.calc(sizeDiff));
-        if (hitAmount < opp.health && hitAmount <= attackPenalty) {
+        const hitAmount = Math.min(opp.health,
+            (ctx.creature.dna.size + globalParams.rules.attackHit.calc(sizeDiff))
+            * (isOppFish ? 5 : 1)
+        );
+        if (hitAmount < opp.health && hitAmount <= attackPenalty && !isOppFish) {
             // No use for attacking
             return;
         }
-        if (ctx.creature.dna.size < opp.dna.size && !checkChance(globalParams.rules.attackSuccessChangeForSmallerCreature)) {
+        if (!isOppFish && ctx.creature.dna.size < opp.dna.size
+            && !checkChance(globalParams.rules.attackSuccessChangeForSmallerCreature))
+        {
             return;
         }
         if (!checkChance(this.def.chance)) {
@@ -41,6 +49,10 @@ export class AttackAction implements CreatureAction {
         }
 
         if (checkChance(attackSuccessChance)) {
+            if (isOppFish) {
+                // eating fish...
+                ctx.creature.incHealth(Math.floor(hitAmount / 2));
+            }
             opp.reduceHealth(hitAmount, ctx);
 
             if (opp.health == 0) {
