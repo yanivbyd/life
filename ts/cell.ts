@@ -10,6 +10,7 @@ export class Cell {
     veg: number;
     maxVeg: number;
     vegIncPerCycle: number;
+    isWater: boolean;
 
     creature: Creature;
     killer: Killer;
@@ -21,6 +22,7 @@ export class Cell {
         this.vegIncPerCycle = 0;
         this.creature = null;
         this.playedCycle = -1;
+        this.isWater = false;
     }
 
     cycle(world: World): void {

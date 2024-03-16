@@ -121,15 +121,22 @@ export class VegShapes {
     }
 
     createTerrain(): void {
-        for (var v=0;v<4;v++) {
-            let matrix: number[][] = this._generateMatrix();
-            matrix = this._diamondSquare(matrix);
-            matrix = this._normalizeMatrix(matrix);
+        for (var v=0;v<2;v++) {
+            this.updateTerrain(true);
+        }
+        this.ensureMinNoRainCells(0, 0.1);
 
-            this.updateTerrain((v % 2) == 0);
+        let matrix: number[][] = this._generateMatrix();
+        matrix = this._diamondSquare(matrix);
+        matrix = this._normalizeMatrix(matrix);
+        for (let i = 0; i < this.world.width; i++) {
+            for (let j = 0; j < this.world.height; j++) {
+                const cell = this.world.matrix[i][j];
+                cell.isWater = (matrix[i][j] < 0.25);
+                if (cell.isWater && cell.vegIncPerCycle < 3) cell.vegIncPerCycle = 3; // more veg in water
+            }
         }
 
-        this.ensureMinNoRainCells(0.1, 0.25);
     }
 
     ensureMinNoRainCells(minPercentage: number, maxPercentage: number) {

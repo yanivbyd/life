@@ -43,7 +43,7 @@ export class CreatureDNA {
 
     mutate(): CreatureDNA {
         var eatDef: EatDef = {
-            vegIsPoison: this.eatDef.vegIsPoison
+            isWaterCreature: this.eatDef.isWaterCreature
         };
         var moveDef: MoveDef = {
             chance: this.moveDef.chance,
@@ -58,7 +58,7 @@ export class CreatureDNA {
         };
         var newSize = this.size;
         
-        const randomGene = randomInt(1, 13);
+        const randomGene = randomInt(1, 12);
         switch (randomGene) {
             case 1:
             case 2:
@@ -82,9 +82,6 @@ export class CreatureDNA {
             case 11:
             case 12:
                 attackDef.chance = this._mutateChanceGene(this.attackDef.chance, randomGene == 11);
-                break;
-            case 13:
-                eatDef.vegIsPoison = eatDef.vegIsPoison;
                 break;
         }
 

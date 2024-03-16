@@ -19,20 +19,22 @@ export class AttackAction implements CreatureAction {
         this.def = def;
     }
     cycle(ctx: CycleContext): void {
-        if (ctx.creature.dna.eatDef.vegIsPoison) return; // fish can't attack
-
         const attackPenalty: number = ctx.penalties.attack.calc(ctx.creature.dna.size);
         const oppPos: Pos = this._findAttackOpponent(ctx);
         if (!oppPos) return;
         const opp: Creature = ctx.world.matrix[oppPos.x][oppPos.y].creature;
         assertNotNull(opp);
 
-        if (opp.dna.eatDef.vegIsPoison) {
-            ctx.creature.incHealth(Math.floor(opp.health / 2));
+        if (!ctx.creature.dna.eatDef.isWaterCreature && opp.dna.eatDef.isWaterCreature) {
+            ctx.creature.incHealth(opp.health );
             opp.reduceHealth(opp.health, ctx);
             ctx.world.matrix[oppPos.x][oppPos.y].creature = null;
             ctx.moveCreatureTo(oppPos.x, oppPos.y);
             ctx.statsCounter.tick('eatFish', ctx.creature.type);
+            return;
+        }
+        if (ctx.creature.dna.eatDef.isWaterCreature && !opp.dna.eatDef.isWaterCreature) {
+            // fish can't attack land creatures
             return;
         }
 

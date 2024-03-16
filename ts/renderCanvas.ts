@@ -15,6 +15,7 @@ export class CanvasRenderer {
     height: number;
     world: World;
     vegRgbValues: RGB[];
+    waterRgbValues: RGB[];
     rainRgbValues: RGB[];
     maxVegForRgbValue: number;
 
@@ -37,19 +38,28 @@ export class CanvasRenderer {
         this.render();
         return this.displayCreatures;
     }
+
     private _initVegColors() {
         const startColor: RGB = new RGB(255, 255, 255);
         const endColor: RGB = new RGB(38, 255, 0);
+        const waterStartColor: RGB = new RGB(213, 255, 255);
+        const waterEndColor: RGB = new RGB(0, 0, 255);
         const maxVeg: number = MAX_VEG;
         if (this.maxVegForRgbValue == maxVeg) return;
         this.maxVegForRgbValue = maxVeg;
 
         this.vegRgbValues = [];
+        this.waterRgbValues = [];
         for (let i=0;i<=maxVeg;i++) {
             this.vegRgbValues.push({
                 red: this._relativeVal(startColor.red, endColor.red, maxVeg, i),
                 green: this._relativeVal(startColor.green, endColor.green, maxVeg, i),
                 blue: this._relativeVal(startColor.blue, endColor.blue, maxVeg, i)
+            });
+            this.waterRgbValues.push({
+                red: this._relativeVal(waterStartColor.red, waterEndColor.red, maxVeg, i),
+                green: this._relativeVal(waterStartColor.green, waterEndColor.green, maxVeg, i),
+                blue: this._relativeVal(waterStartColor.blue, waterEndColor.blue, maxVeg, i)
             });
         }
     }
@@ -95,7 +105,7 @@ export class CanvasRenderer {
         for (var j = 0; j < this.height; j++) {
             for (var i = 0; i < this.width; i++) {
                 var cell = this.world.matrix[i][j];
-                var color = this.vegRgbValues[cell.veg];
+                var color = cell.isWater ? this.waterRgbValues[cell.veg] : this.vegRgbValues[cell.veg];
                 if (cell.creature) {
                     color = cell.creature.getTypeDef().color;
                 }

@@ -26,7 +26,7 @@ export var globalParams: WorldParams = {
             name: 'יניב',
             color: new RGB(255, 0, 0),
             size: randomInt(6, 8),
-            eat: { vegIsPoison: false },
+            eat: { isWaterCreature: false },
             move: {
                 chance: 50,
                 minVegAmount: 25
@@ -42,8 +42,8 @@ export var globalParams: WorldParams = {
         {
             name: 'דגים',
             color: new RGB(88, 150, 220),
-            size: randomInt(5, 8),
-            eat: { vegIsPoison: true },
+            size: randomInt(2, 6),
+            eat: { isWaterCreature: true },
             move: {
                 chance: 20,
                 minVegAmount: 5
@@ -60,7 +60,7 @@ export var globalParams: WorldParams = {
             name: 'כלבים',
             color: new RGB(128, 0, 128),
             size: randomInt(5, 8),
-            eat: { vegIsPoison: false },
+            eat: { isWaterCreature: false },
             move: {
                 chance: 70,
                 minVegAmount: 25
@@ -77,7 +77,7 @@ export var globalParams: WorldParams = {
             name: 'טלי',
             color: new RGB(255, 255, 0),
             size: randomInt(5, 8),
-            eat: { vegIsPoison: false },
+            eat: { isWaterCreature: false },
             move: {
                 chance: 70,
                 minVegAmount: 25
@@ -94,7 +94,7 @@ export var globalParams: WorldParams = {
             name: 'קופים',
             color: new RGB(165, 42, 42),
             size: randomInt(5, 8),
-            eat: { vegIsPoison: false },
+            eat: { isWaterCreature: false },
             move: {
                 chance: 70,
                 minVegAmount: 25
@@ -111,7 +111,7 @@ export var globalParams: WorldParams = {
             name: 'עידן',
             color: new RGB(255, 165, 0),
             size: 3,
-            eat: { vegIsPoison: false },
+            eat: { isWaterCreature: false },
             move: {
                 chance: 80,
                 minVegAmount: 24
@@ -128,7 +128,7 @@ export var globalParams: WorldParams = {
             name: 'לאמות',
             color: new RGB(255, 192, 203),
             size: randomInt(2, 5),
-            eat: { vegIsPoison: false },
+            eat: { isWaterCreature: false },
             move: {
                 chance: 80,
                 minVegAmount: 24
@@ -143,9 +143,9 @@ export var globalParams: WorldParams = {
         },
         {
             name: 'ברווזים',
-            color: new RGB(255, 105, 180),
-            size: randomInt(2, 5),
-            eat: { vegIsPoison: false },
+            color: new RGB(46, 167, 161),
+            size: randomInt(2, 6),
+            eat: { isWaterCreature: true },
             move: {
                 chance: 80,
                 minVegAmount: 24
@@ -162,7 +162,7 @@ export var globalParams: WorldParams = {
             name: 'הילה',
             color: new RGB(221, 160, 221),
             size: randomInt(2, 5),
-            eat: { vegIsPoison: false },
+            eat: { isWaterCreature: false },
             move: {
                 chance: 80,
                 minVegAmount: 24
@@ -179,7 +179,7 @@ export var globalParams: WorldParams = {
             name: 'איתי',
             color: new RGB(106, 90, 205),
             size: 3,
-            eat: { vegIsPoison: false },
+            eat: { isWaterCreature: false },
             move: {
                 chance: 80,
                 minVegAmount: 24

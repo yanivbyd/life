@@ -47,7 +47,7 @@ export class World {
         this.addCreatures(amount, true);
     }
 
-    addCreatures(amount: number, onlyFish: boolean): void {
+    addCreatures(amount: number, onlyWaterCreatures: boolean): void {
         var initialDNA: CreatureDNA[] = [];
         for (let type=0;type<globalParams.creatures.length;type++) {
             const creatureDef: CreatureDefs = globalParams.creatures[type];
@@ -57,7 +57,7 @@ export class World {
         for (let i=0; i<amount; i++) {
             for (let type=0;type<globalParams.creatures.length;type++) {
                 const creatureDef: CreatureDefs = globalParams.creatures[type];
-                if (!creatureDef.eat.vegIsPoison && onlyFish) continue;
+                if (!creatureDef.eat.isWaterCreature && onlyWaterCreatures) continue;
 
                 const x = randomInt(0, this.width-1);
                 const y = randomInt(0, this.height-1);
