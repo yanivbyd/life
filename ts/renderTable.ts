@@ -133,16 +133,6 @@ export class TableRenderer {
         
         const tbody = $('<tbody/>').appendTo(this.rulesTable);
         $('<tr/>')
-            .append($('<td/>').text('Extra rain'))
-            .append($('<td/>').text(globalParams.env.extraRain))
-            .append($('<td/>').text('Extra rain to all the world, in addition to the rain of the terrain'))
-            .appendTo(tbody);
-        $('<tr/>')
-            .append($('<td/>').text('Max Veg per cell'))
-            .append($('<td/>').text(globalParams.env.maxVeg))
-            .append($('<td/>').text('The max vegetation value per cell'))
-            .appendTo(tbody);
-        $('<tr/>')
             .append($('<td/>').text('Max creature health'))
             .append($('<td/>').text(globalParams.rules.creatureMaxHealth.describe()))
             .append($('<td/>').text('The max health a creature can have'))

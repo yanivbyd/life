@@ -10,10 +10,6 @@ export class RandomMinMax {
     min: number;
     max: number;
 }
-export class Environment {
-    maxVeg: number;
-    extraRain: number;
-}
 
 export class CreatureDefs {
     name: string;
@@ -26,7 +22,6 @@ export class CreatureDefs {
     attack: AttackDef;
 }
 export class WorldParams {
-    env: Environment;
     rules: GameRules;
     penalties: Penalties;
     creatures: CreatureDefs[];

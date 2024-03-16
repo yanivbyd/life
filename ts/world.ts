@@ -12,6 +12,7 @@ import { CreatureDefs } from "./worldParamsDefs.js";
 import { GlobalEvents } from "./globalEvents.js";
 import {checkChance} from "./utils/random.js";
 import { Killer } from "./killer.js";
+import { inRange } from "./utils/utils.js";
 
 export class World {
     width: number;
@@ -39,10 +40,14 @@ export class World {
         var vegShapes: VegShapes = new VegShapes(this);
         vegShapes.createTerrain();
 
-        this.addCreatures(300);
+        this.addCreatures(300, false);
     }
 
-    addCreatures(amount: number): void {
+    addFish(amount: number): void {
+        this.addCreatures(amount, true);
+    }
+
+    addCreatures(amount: number, onlyFish: boolean): void {
         var initialDNA: CreatureDNA[] = [];
         for (let type=0;type<globalParams.creatures.length;type++) {
             const creatureDef: CreatureDefs = globalParams.creatures[type];
@@ -52,6 +57,7 @@ export class World {
         for (let i=0; i<amount; i++) {
             for (let type=0;type<globalParams.creatures.length;type++) {
                 const creatureDef: CreatureDefs = globalParams.creatures[type];
+                if (!creatureDef.eat.vegIsPoison && onlyFish) continue;
 
                 const x = randomInt(0, this.width-1);
                 const y = randomInt(0, this.height-1);
@@ -110,6 +116,9 @@ export class World {
             }
         }
         this.globalEvents.cycle();
+        if (checkChance(1)) {
+            this.addCreatures(200, true);
+        }
     }
 
     getNeighbouringPositions(x: number, y: number): Pos[] {
@@ -128,7 +137,7 @@ export class World {
         for (let i = 0; i < this.width; i++) {
             for (let j = 0; j < this.height; j++) {
                 const cell = this.matrix[i][j];
-                cell.veg = Math.min(cell.veg, globalParams.env.maxVeg);
+                cell.veg = inRange(cell.veg, 0, cell.maxVeg);
             }
         }
     }
@@ -179,6 +188,14 @@ export class World {
 
     isValid(x: number, y: number): boolean {
         return x >= 0 && x < this.width && y >= 0 && y < this.height;
+    }
+
+    addVeg(amount: number) {
+        for (let i = 0; i < this.width; i++) {
+            for (let j = 0; j < this.height; j++) {
+                this.matrix[i][j].updateVegInc(amount);
+            }
+        }
     }
 
 

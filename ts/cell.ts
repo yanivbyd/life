@@ -8,14 +8,17 @@ import {checkChance} from "./utils/random.js";
 
 export class Cell {
     veg: number;
-    rain: number;
+    maxVeg: number;
+    vegIncPerCycle: number;
+
     creature: Creature;
     killer: Killer;
     playedCycle: number;
 
     constructor() {
         this.veg = 0;
-        this.rain = 0;
+        this.maxVeg = 0;
+        this.vegIncPerCycle = 0;
         this.creature = null;
         this.playedCycle = -1;
     }
@@ -23,15 +26,12 @@ export class Cell {
     cycle(world: World): void {
         if (this.playedCycle >= world.currentCycle) return;
         this.playedCycle = world.currentCycle;
-        const rain = this.rain + globalParams.env.extraRain;
-        this.veg += Math.max(0, rain);
-        if (rain == 0 && checkChance(1)) {
-            this.veg--;
-        }
-        this.veg = inRange(this.veg, 0, globalParams.env.maxVeg);
+        this.veg = inRange(this.veg + Math.max(0, this.vegIncPerCycle), 0, this.maxVeg);
     }
 
-    addRain(rainDelta: number) {
-        this.rain = inRange(this.rain + rainDelta, -3, 20);
+    updateVegInc(amount: number) {
+        this.vegIncPerCycle = inRange(this.vegIncPerCycle + amount, -5, 20);
+        this.maxVeg = inRange(this.vegIncPerCycle * 3, 0, 30);
+        this.veg = inRange(this.veg, 0, this.maxVeg);
     }
 }

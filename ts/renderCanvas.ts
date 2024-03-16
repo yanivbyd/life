@@ -5,7 +5,8 @@ import { assertNotNull } from './utils/assert.js';
 import { RGB } from './rgb.js';
 import { inRange } from './utils/utils.js';
 
-const MAX_RAIN = 20;
+const MAX_RAIN = 30;
+const MAX_VEG = 30;
 
 export class CanvasRenderer {
     displayCreatures: boolean;
@@ -39,7 +40,7 @@ export class CanvasRenderer {
     private _initVegColors() {
         const startColor: RGB = new RGB(255, 255, 255);
         const endColor: RGB = new RGB(38, 255, 0);
-        const maxVeg: number = globalParams.env.maxVeg;
+        const maxVeg: number = MAX_VEG;
         if (this.maxVegForRgbValue == maxVeg) return;
         this.maxVegForRgbValue = maxVeg;
 
@@ -116,7 +117,7 @@ export class CanvasRenderer {
         for (var j = 0; j < this.height; j++) {
             for (var i = 0; i < this.width; i++) {
                 var cell = this.world.matrix[i][j];
-                var color = this.rainRgbValues[inRange(cell.rain + globalParams.env.extraRain, 0, MAX_RAIN)];
+                var color = this.rainRgbValues[inRange(cell.maxVeg, 0, MAX_RAIN)];
                 assertNotNull(color);
                 dataIndex = this._renderPixel(imageData.data, color, dataIndex);
             }

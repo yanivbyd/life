@@ -28,13 +28,11 @@ export class AttackAction implements CreatureAction {
         assertNotNull(opp);
 
         if (opp.dna.eatDef.vegIsPoison) {
-            if (checkChance(this.def.chance)) {
-                ctx.creature.incHealth(Math.floor(opp.health / 2));
-                opp.reduceHealth(opp.health, ctx);
-                ctx.world.matrix[oppPos.x][oppPos.y].creature = null;
-                ctx.moveCreatureTo(oppPos.x, oppPos.y);
-                ctx.statsCounter.tick('eatFish', ctx.creature.type);
-            }
+            ctx.creature.incHealth(Math.floor(opp.health / 2));
+            opp.reduceHealth(opp.health, ctx);
+            ctx.world.matrix[oppPos.x][oppPos.y].creature = null;
+            ctx.moveCreatureTo(oppPos.x, oppPos.y);
+            ctx.statsCounter.tick('eatFish', ctx.creature.type);
             return;
         }
 

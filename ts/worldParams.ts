@@ -4,10 +4,6 @@ import { randomInt } from "./utils/random.js";
 import { WorldParams } from "./worldParamsDefs.js";
 
 export var globalParams: WorldParams = {
-    env: {
-        maxVeg: randomInt(30,35),
-        extraRain: 0
-    },
     rules: {
         creatureMaxHealth: new Formula(14, 4),
         maxVegToEat: new Formula(2, 1),

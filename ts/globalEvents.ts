@@ -6,7 +6,6 @@ import { Formula } from "./rules/formula.js";
 import { Penalties } from "./rules/penalties.js";
 import { VegShapes } from "./vegShapes.js";
 import {getRandomArrItem} from "./utils/random.js";
-import { Environment } from "./worldParamsDefs.js";
 
 export class GlobalEvents {
     world: World;
@@ -102,7 +101,7 @@ export class GlobalEvents {
         const that = this;
         const div = $('#global_events');
 
-        $('<button/>').addClass("btn btn-outline-info").appendTo(div)
+        $('<button/>').addClass("btn btn-outline-success").appendTo(div)
             .text("Add Creatures")
             .click(function () {
                 that.showMessageAndRender(that._addCreatures());
@@ -122,32 +121,27 @@ export class GlobalEvents {
 
         $('<div/>').appendTo(div);
         $('<button/>').addClass("btn btn-outline-success").appendTo(div)
-            .text("Extra Rain")
+            .text("More Veg")
+            .css('width', '100px')
             .click(function () {
-                that.showMessageAndRender(that._incVal(globalParams.env, 'extraRain', randomInt(1, 3),
-                        'More rain (extra rain = ', ')'));
+                that.world.addVeg(randomInt(1, 3));
+                that.showMessageAndRender('Move vegetation');
             });
         $('<button/>').addClass("btn btn-outline-success").appendTo(div)
             .text("Rain (terrain)")
             .click(function() { that.showMessageAndRender(that._moreRainTerrain()); });
-        $('<button/>').addClass("btn btn-outline-success").appendTo(div)
-            .text("Veg Per Cell")
-            .click(function() { that.showMessageAndRender(that._moreVegPerCell()); });
-
 
         $('<div/>').appendTo(div);
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
-            .text("Extra Rain")
+            .text("Less Veg")
+            .css('width', '100px')
             .click(function() {
-                that.showMessageAndRender(that._decVal(globalParams.env, 'extraRain', randomInt(1, 3),
-                    'Less rain (extra rain = ', ')'))
+                that.world.addVeg(-randomInt(1, 3));
+                that.showMessageAndRender('Less vegetation');
             });
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
             .text("Rain (terrain)")
             .click(function() { that.showMessageAndRender(that._lessRainTerrain()); });
-        $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
-            .text("Veg Per Cell")
-            .click(function() { that.showMessageAndRender(that._lessVegPerCell()); });
 
         $('<div/>').appendTo(div);
         $('<button/>').addClass("btn btn-outline-success").appendTo(div)
@@ -201,7 +195,7 @@ export class GlobalEvents {
 
     private _addCreatures(): string {
         const cAmount = randomInt(1500, 6000);
-        this.world.addCreatures(cAmount);
+        this.world.addCreatures(cAmount, false);
         return 'Adding ' + cAmount + ' creatures';
     }
 
@@ -227,20 +221,5 @@ export class GlobalEvents {
             'Lower max veg to eat (', ')');
     }
 
-    private _moreVegPerCell(): string {
-        const amount = randomInt(1, 5);
-        globalParams.env.maxVeg += amount;
-        return 'More veg per cell (' + globalParams.env.maxVeg + ')';
-    }
-
-    private _lessVegPerCell(): string {
-        const amount = randomInt(1, 5);
-        if (globalParams.env.maxVeg > amount + 1) {
-            globalParams.env.maxVeg -= amount;
-            this.world.ensureNoVegBeyondMaxVeg();
-            return 'Less veg per cell (' + globalParams.env.maxVeg + ')';
-        }
-        return null;
-    }
 
 }

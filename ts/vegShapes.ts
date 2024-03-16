@@ -2,6 +2,7 @@ import { World } from './world.js';
 import {randomBool, randomInt } from './utils/random.js';
 import { inRange } from './utils/utils.js';
 import { assertHigher } from './utils/assert.js';
+import { Cell } from './cell.js';
 
 const INITIAL_RAIN_MIN = 3;
 const INITIAL_RAIN_MAX = 20;
@@ -143,7 +144,7 @@ export class VegShapes {
 
             for (let i = 0; i < this.world.width; i++) {
                 for (let j = 0; j < this.world.height; j++) {
-                    this.world.matrix[i][j].addRain(amount);
+                    this.world.matrix[i][j].updateVegInc(amount);
                 }
             }
         }
@@ -152,9 +153,8 @@ export class VegShapes {
         var result = 0;
         for (let i = 0; i < this.world.width; i++) {
             for (let j = 0; j < this.world.height; j++) {
-                const rain = this.world.matrix[i][j].rain;
-                assertHigher(rain, -4);
-                if (rain <= 0) result++;
+                const vegInc = this.world.matrix[i][j].vegIncPerCycle;
+                if (vegInc <= 0) result++;
             }
         }
         console.log('cells with no rain=' + result + ' . percentage = ' + (result / (this.world.width * this.world.height)));
@@ -169,10 +169,7 @@ export class VegShapes {
         for (let i = 0; i < this.world.width; i++) {
             for (let j = 0; j < this.world.height; j++) {
                 let amount = Math.round(matrix[i][j] * 10);
-                if (!isExtraRain) {
-                    amount = -amount;
-                }
-                this.world.matrix[i][j].addRain(amount);
+                this.world.matrix[i][j].updateVegInc(isExtraRain ? amount : -amount);
             }
         }
     }
