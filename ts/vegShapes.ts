@@ -122,7 +122,6 @@ export class VegShapes {
 
     createTerrain(): void {
         this.updateTerrain(true);
-        this.ensureMinNoRainCells(0, 0.1);
 
         let matrix: number[][] = this._generateMatrix();
         matrix = this._diamondSquare(matrix);
@@ -135,24 +134,6 @@ export class VegShapes {
             }
         }
 
-    }
-
-    ensureMinNoRainCells(minPercentage: number, maxPercentage: number) {
-        var prevAmount = 0;
-        for (var v=0;v<10;v++) {
-            const noRainCellsPercent = this._calcNoRainCells() / (this.world.width * this.world.height)
-            if (noRainCellsPercent >= minPercentage && noRainCellsPercent <= maxPercentage) return;
-            const amount = noRainCellsPercent < minPercentage ? -1 : 1;
-            if (prevAmount != 0 && amount != prevAmount) return;
-            prevAmount = amount;
-            console.log(amount < 0 ? 'reducing rain for all' : 'adding rain for all');
-
-            for (let i = 0; i < this.world.width; i++) {
-                for (let j = 0; j < this.world.height; j++) {
-                    this.world.matrix[i][j].updateVegInc(amount);
-                }
-            }
-        }
     }
     _calcNoRainCells(): number {
         var result = 0;

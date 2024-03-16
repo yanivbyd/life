@@ -32,7 +32,7 @@ export class Cell {
     }
 
     updateVegInc(amount: number) {
-        this.vegIncPerCycle = inRange(this.vegIncPerCycle + amount, -5, 20);
+        this.vegIncPerCycle = inRange(this.vegIncPerCycle + amount, 3, 20);
         this.maxVeg = inRange(this.vegIncPerCycle * 3, 0, 30);
         this.veg = inRange(this.veg, 0, this.maxVeg);
     }

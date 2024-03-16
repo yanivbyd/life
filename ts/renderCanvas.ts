@@ -101,7 +101,8 @@ export class CanvasRenderer {
         for (var j = 0; j < this.height; j++) {
             for (var i = 0; i < this.width; i++) {
                 var cell = this.world.matrix[i][j];
-                var color = cell.isWater ? this.waterRgbValues[cell.veg] : this.vegRgbValues[cell.veg];
+                const val = this.displayCreatures ? cell.veg : cell.maxVeg;
+                var color = cell.isWater ? this.waterRgbValues[val] : this.vegRgbValues[val];
                 if (cell.creature && this.displayCreatures) {
                     color = cell.creature.getTypeDef().color;
                 }

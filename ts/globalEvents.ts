@@ -198,14 +198,12 @@ export class GlobalEvents {
     private _moreRainTerrain(): string {
         const vegShapes = new VegShapes(this.world);
         vegShapes.updateTerrain(true);
-        vegShapes.ensureMinNoRainCells(0, 0.1);
         return 'More rain (terrain)';
     }
 
     private _lessRainTerrain(): string {
         const vegShapes = new VegShapes(this.world);
         vegShapes.updateTerrain(false);
-        vegShapes.ensureMinNoRainCells(0, 0.15);
         return 'Less rain (terrain)';
     }
 
