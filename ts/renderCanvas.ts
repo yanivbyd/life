@@ -92,10 +92,6 @@ export class CanvasRenderer {
     }
 
     render(): void {
-        if (!this.displayCreatures) {
-            this.renderRainMap();
-            return;
-        }
         var ctx = ($(this.canvas)[0] as HTMLCanvasElement).getContext('2d');
         var imageData = ctx.createImageData(this.width, this.height);
         let dataIndex = 0;
@@ -106,28 +102,12 @@ export class CanvasRenderer {
             for (var i = 0; i < this.width; i++) {
                 var cell = this.world.matrix[i][j];
                 var color = cell.isWater ? this.waterRgbValues[cell.veg] : this.vegRgbValues[cell.veg];
-                if (cell.creature) {
+                if (cell.creature && this.displayCreatures) {
                     color = cell.creature.getTypeDef().color;
                 }
-                if (cell.killer) {
+                if (cell.killer && this.displayCreatures) {
                     color = new RGB(0, 0, 0);
                 }
-                assertNotNull(color);
-                dataIndex = this._renderPixel(imageData.data, color, dataIndex);
-            }
-        }
-        ctx.putImageData(imageData, 0, 0);
-    }
-
-    renderRainMap() {
-        var ctx = ($(this.canvas)[0] as HTMLCanvasElement).getContext('2d');
-        var imageData = ctx.createImageData(this.width, this.height);
-        let dataIndex = 0;
-
-        for (var j = 0; j < this.height; j++) {
-            for (var i = 0; i < this.width; i++) {
-                var cell = this.world.matrix[i][j];
-                var color = this.rainRgbValues[inRange(cell.maxVeg, 0, MAX_RAIN)];
                 assertNotNull(color);
                 dataIndex = this._renderPixel(imageData.data, color, dataIndex);
             }
