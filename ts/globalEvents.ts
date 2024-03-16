@@ -1,4 +1,4 @@
-import { randomInt } from "./utils/random.js";
+import { randomInt, runRandomTimes } from "./utils/random.js";
 import { World } from "./world.js";
 import { globalParams } from "./worldParams.js";
 import {randomBool} from "./utils/random.js";
@@ -130,6 +130,14 @@ export class GlobalEvents {
         $('<button/>').addClass("btn btn-outline-success").appendTo(div)
             .text("Rain (terrain)")
             .click(function() { that.showMessageAndRender(that._moreRainTerrain()); });
+        $('<button/>').addClass("btn btn-outline-success").appendTo(div)
+            .text("Water")
+            .click(function() {
+                runRandomTimes(1, 5, function() {
+                    new VegShapes(that.world).moreWater();
+                });
+                that.showMessageAndRender("More Water");
+            });
 
         $('<div/>').appendTo(div);
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
@@ -142,6 +150,14 @@ export class GlobalEvents {
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
             .text("Rain (terrain)")
             .click(function() { that.showMessageAndRender(that._lessRainTerrain()); });
+        $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
+            .text("Water")
+            .click(function() {
+                runRandomTimes(1, 5, function() {
+                    new VegShapes(that.world).lessWater();
+                });
+                that.showMessageAndRender("Less water");
+            });
 
         $('<div/>').appendTo(div);
         $('<button/>').addClass("btn btn-outline-success").appendTo(div)
@@ -194,7 +210,7 @@ export class GlobalEvents {
     }
 
     private _addCreatures(): string {
-        const cAmount = randomInt(1500, 6000);
+        const cAmount = randomInt(2500, 8000);
         this.world.addCreatures(cAmount, false);
         return 'Adding ' + cAmount + ' creatures';
     }

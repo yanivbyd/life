@@ -179,4 +179,61 @@ export class VegShapes {
         }
     }
 
+    lessWater(): void {
+        let toNoWater: boolean[][] = [];
+        for (let i = 0; i < this.world.width; i++) toNoWater[i] = [];
+
+        for (let i = 0; i < this.world.width; i++) {
+            for (let j = 0; j < this.world.height; j++) {
+                toNoWater[i][j] = this.world.matrix[i][j].isWater && this._hasNonWaterNeighbour(i, j);
+            }
+        }
+        for (let i = 0; i < this.world.width; i++) {
+            for (let j = 0; j < this.world.height; j++) {
+                if (toNoWater[i][j] && randomBool()) {
+                    this.world.matrix[i][j].isWater = false;
+                }
+            }
+        }
+    }
+
+    moreWater(): void {
+        let toWater: boolean[][] = [];
+        for (let i = 0; i < this.world.width; i++) toWater[i] = [];
+
+        for (let i = 0; i < this.world.width; i++) {
+            for (let j = 0; j < this.world.height; j++) {
+                toWater[i][j] = !this.world.matrix[i][j].isWater && this._hasWaterNeighbour(i, j);
+            }
+        }
+        for (let i = 0; i < this.world.width; i++) {
+            for (let j = 0; j < this.world.height; j++) {
+                if (toWater[i][j] && randomBool()) {
+                    this.world.matrix[i][j].isWater = true;
+                }
+            }
+        }
+    }
+
+    _hasNonWaterNeighbour(x: number, y: number): boolean {
+        for (var x1=x-1;x1<=x+1;x1++) {
+            for (var y1=y-1;y1<=y+1;y1++) {
+                if (this.world.isValid(x1, y1) && !this.world.matrix[x1][y1].isWater) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    _hasWaterNeighbour(x: number, y: number): boolean {
+        for (var x1=x-1;x1<=x+1;x1++) {
+            for (var y1=y-1;y1<=y+1;y1++) {
+                if (this.world.isValid(x1, y1) && this.world.matrix[x1][y1].isWater) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

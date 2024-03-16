@@ -19,3 +19,11 @@ export function checkChance(chance: number): boolean {
     const val = randomInt(0, 100);
     return val <= chance;
 }
+
+export function runRandomTimes(min: number, max: number, func: ()=>void): number {
+    const amount = randomInt(min, max);
+    for (var i=0;i<amount;i++) {
+        func();
+    }
+    return amount;
+}

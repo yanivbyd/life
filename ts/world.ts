@@ -62,9 +62,14 @@ export class World {
                 const x = randomInt(0, this.width-1);
                 const y = randomInt(0, this.height-1);
                 const x2 = (x > 0) ? x-1: x+1;
+                const cell = this.matrix[x][y];
+                const cell2 = this.matrix[x][y];
 
-                assertNotNull(this.matrix[x][y]);
-                assertNotNull(this.matrix[x2][y]);
+                assertNotNull(cell);
+                assertNotNull(cell2);
+                if (cell.isWater && !creatureDef.eat.isWaterCreature) continue;
+                if (!cell.isWater && creatureDef.eat.isWaterCreature) continue;
+
                 this.matrix[x][y].creature = new Creature(
                     type,
                     globalParams.rules.creatureMaxHealth.calc(creatureDef.size),
@@ -117,7 +122,7 @@ export class World {
         }
         this.globalEvents.cycle();
         if (checkChance(1)) {
-            this.addCreatures(200, true);
+            this.addCreatures(10, false);
         }
     }
 
