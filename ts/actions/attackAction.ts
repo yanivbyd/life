@@ -26,21 +26,27 @@ export class AttackAction implements CreatureAction {
         if (!oppPos) return;
         const opp: Creature = ctx.world.matrix[oppPos.x][oppPos.y].creature;
         assertNotNull(opp);
-        const isOppFish: boolean = opp.dna.eatDef.vegIsPoison;
+
+        if (opp.dna.eatDef.vegIsPoison) {
+            if (checkChance(this.def.chance)) {
+                ctx.creature.incHealth(Math.floor(opp.health / 2));
+                opp.reduceHealth(opp.health, ctx);
+                ctx.world.matrix[oppPos.x][oppPos.y].creature = null;
+                ctx.moveCreatureTo(oppPos.x, oppPos.y);
+                ctx.statsCounter.tick('eatFish', ctx.creature.type);
+            }
+            return;
+        }
 
         const sizeDiff = ctx.creature.dna.size - opp.dna.size;
         const attackSuccessChance = globalParams.rules.attackSuccessChange.calc(sizeDiff);
 
-        const hitAmount = Math.min(opp.health,
-            (ctx.creature.dna.size + globalParams.rules.attackHit.calc(sizeDiff))
-            * (isOppFish ? 5 : 1)
-        );
-        if (hitAmount < opp.health && hitAmount <= attackPenalty && !isOppFish) {
+        const hitAmount = Math.min(opp.health, ctx.creature.dna.size + globalParams.rules.attackHit.calc(sizeDiff));
+        if (hitAmount < opp.health && hitAmount <= attackPenalty) {
             // No use for attacking
             return;
         }
-        if (!isOppFish && ctx.creature.dna.size < opp.dna.size
-            && !checkChance(globalParams.rules.attackSuccessChangeForSmallerCreature))
+        if (ctx.creature.dna.size < opp.dna.size && !checkChance(globalParams.rules.attackSuccessChangeForSmallerCreature))
         {
             return;
         }
@@ -49,10 +55,6 @@ export class AttackAction implements CreatureAction {
         }
 
         if (checkChance(attackSuccessChance)) {
-            if (isOppFish) {
-                // eating fish...
-                ctx.creature.incHealth(Math.floor(hitAmount / 2));
-            }
             opp.reduceHealth(hitAmount, ctx);
 
             if (opp.health == 0) {
