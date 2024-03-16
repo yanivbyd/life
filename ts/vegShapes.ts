@@ -4,7 +4,7 @@ import { inRange } from './utils/utils.js';
 import { assertHigher } from './utils/assert.js';
 import { Cell } from './cell.js';
 
-const INITIAL_RAIN_MIN = 3;
+const INITIAL_RAIN_MIN = 5;
 const INITIAL_RAIN_MAX = 20;
 const MAX_RAIN = 20;
 
@@ -121,9 +121,7 @@ export class VegShapes {
     }
 
     createTerrain(): void {
-        for (var v=0;v<2;v++) {
-            this.updateTerrain(true);
-        }
+        this.updateTerrain(true);
         this.ensureMinNoRainCells(0, 0.1);
 
         let matrix: number[][] = this._generateMatrix();
@@ -175,8 +173,8 @@ export class VegShapes {
 
         for (let i = 0; i < this.world.width; i++) {
             for (let j = 0; j < this.world.height; j++) {
-                let amount = Math.round(matrix[i][j] * 10);
-                this.world.matrix[i][j].updateVegInc(isExtraRain ? amount : -amount);
+                let amount = Math.round(matrix[i][j] * 18);
+                this.world.matrix[i][j].updateVegInc(isExtraRain ? amount : Math.round(-amount * 0.5));
             }
         }
     }
