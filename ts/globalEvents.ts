@@ -168,9 +168,6 @@ export class GlobalEvents {
         $('<button/>').addClass("btn btn-outline-success").appendTo(div)
             .text("Max health")
             .click(function() { that.showMessageAndRender(that._maxHealthEasier()); });
-        $('<button/>').addClass("btn btn-outline-success").appendTo(div)
-            .text("Eat Veg")
-            .click(function() { that.showMessageAndRender(that._maxVegEasier()); });
 
         $('<div/>').appendTo(div);
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
@@ -179,9 +176,6 @@ export class GlobalEvents {
         $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
             .text("Max health")
             .click(function() { that.showMessageAndRender(that._maxHealthHarder()); });
-        $('<button/>').addClass("btn btn-outline-warning").appendTo(div)
-            .text("Eat Veg")
-            .click(function() { that.showMessageAndRender(that._maxVegHarder()); });
     }
 
     private _moreRainTerrain(): string {
@@ -213,16 +207,5 @@ export class GlobalEvents {
             'Lower health (max health=', ')'
         );
     }
-
-    private _maxVegEasier(): string {
-        return this._updateFormulaInc(globalParams.rules.maxVegToEat,
-            'Higher max veg to eat (', ')');
-    }
-
-    private _maxVegHarder(): string {
-        return this._updateFormulaDec(globalParams.rules.maxVegToEat, 2,
-            'Lower max veg to eat (', ')');
-    }
-
 
 }
